@@ -41,10 +41,10 @@ class ProfileListTileWidget extends StatelessWidget {
         ),
         ListTile(
           leading: const Icon(
-            Icons.card_membership,
+            Icons.lock_open_outlined,
             color: Colors.black,
           ),
-          title: const Text('Add Coupon'),
+          title: const Text('Change Password'),
           trailing: Icon(
             Icons.keyboard_arrow_right_outlined,
             color: CustomColors.lightGreyColor,

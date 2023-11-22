@@ -1,7 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotel_booking_user_app/blocs/review_bloc/review_bloc.dart';
 import 'package:hotel_booking_user_app/const/custom_colors.dart';
+import 'package:hotel_booking_user_app/data/shared_preferences/shared_pref_model.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/comman_text_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/location_text_widget.dart';
 import 'package:hotel_booking_user_app/view/screen_room_details.dart';
@@ -29,10 +31,17 @@ class HomeCardWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               final data = state.totalRoomList[index];
               return InkWell(
-                onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ScreenRoomDetails(
-                          data: data,
-                        ))),
+                onTap: () async {
+                  final token = await SharedPrefModel.instance.getData('token');
+                  context.read<ReviewBloc>().add(GetRoomReviews(
+                        roomId: data.id,
+                        token: token,
+                      ));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ScreenRoomDetails(
+                            data: data,
+                          )));
+                },
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [

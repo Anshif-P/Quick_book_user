@@ -1,12 +1,13 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hotel_booking_user_app/blocs/review_bloc/review_bloc.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/button_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/comman_text_widget.dart';
 import 'package:hotel_booking_user_app/view/screen_book_room.dart';
-import 'package:shimmer/shimmer.dart';
 import '../const/custom_colors.dart';
 import '../model/room_model.dart';
+import '../resource/components/comman/favorite_widget.dart';
 import '../resource/components/comman/location_text_widget.dart';
 import '../resource/components/hotel_details_widgets/amenties_widget.dart';
 import '../resource/components/hotel_details_widgets/details_images_widget.dart';
@@ -14,13 +15,15 @@ import '../resource/components/hotel_details_widgets/hotel_details_text_widget.d
 import '../resource/components/hotel_details_widgets/map_widget.dart';
 import '../resource/components/hotel_details_widgets/price_text_widget.dart';
 import '../resource/components/hotel_details_widgets/rating_review_widget.dart';
+import '../resource/loaders/review_shimmer_loading.dart';
+import '../resource/components/comman/image_preview_widget.dart';
 
 class ScreenRoomDetails extends StatelessWidget {
   ScreenRoomDetails({super.key, required this.data});
   final RoomsModel data;
+
   final ValueNotifier<int> selectedImageNotifier = ValueNotifier(0);
 
-  @override
   Widget build(BuildContext context) {
     double heightMedia = MediaQuery.sizeOf(context).height;
     double widthMedia = MediaQuery.sizeOf(context).width;
@@ -69,23 +72,26 @@ class ScreenRoomDetails extends StatelessWidget {
                     height: heightMedia * 0.37,
                     child: ValueListenableBuilder(
                       valueListenable: selectedImageNotifier,
-                      builder: (context, value, _) => CachedNetworkImage(
-                        fit: BoxFit.cover,
-                        imageUrl: data.img[selectedImageNotifier.value],
-                        placeholder: (context, url) => Shimmer.fromColors(
-                          baseColor: Colors.grey.shade300,
-                          highlightColor: Colors.grey.shade100,
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: Colors.yellow,
-                                image: DecorationImage(
-                                    image: NetworkImage(data.img[0]),
-                                    fit: BoxFit.cover)),
-                            alignment: Alignment.topLeft,
-                            padding: const EdgeInsets.only(top: 15),
-                          ),
-                        ),
-                      ),
+                      builder: (context, value, child) => ImagePreviewWidget(
+                          data: data,
+                          selectedImageNotifier: selectedImageNotifier),
+                      // builder: (context, value, _) => CachedNetworkImage(
+                      //   fit: BoxFit.cover,
+                      //   imageUrl: data.img[selectedImageNotifier.value],
+                      //   placeholder: (context, url) => Shimmer.fromColors(
+                      //     baseColor: Colors.grey.shade300,
+                      //     highlightColor: Colors.grey.shade100,
+                      //     child: Container(
+                      //       decoration: BoxDecoration(
+                      //           color: Colors.yellow,
+                      //           image: DecorationImage(
+                      //               image: NetworkImage(data.img[0]),
+                      //               fit: BoxFit.cover)),
+                      //       alignment: Alignment.topLeft,
+                      //       padding: const EdgeInsets.only(top: 15),
+                      //     ),
+                      //   ),
+                      // ),
                     ),
                   ),
                   Padding(
@@ -133,7 +139,49 @@ class ScreenRoomDetails extends StatelessWidget {
                             color: CustomColors.blackColor,
                             fontSize: 16,
                             fontWeight: FontWeight.w500),
-                        RatingAndReviewWidget(),
+                        BlocConsumer<ReviewBloc, ReviewState>(
+                          listenWhen: (previous, current) =>
+                              current is ReviewActionState,
+                          buildWhen: (previous, current) =>
+                              current is ReviewActionState,
+                          listener: (context, state) {},
+                          builder: (context, state) {
+                            if (state is ReviewFetchLoadingState) {
+                              return RatingReviewShimmerLoadingWidget();
+                            }
+                            if (state is ReviewFetchSuccessState) {
+                              print(
+                                  '${state.reviewObjList.length}--------------------length');
+                              if (state.reviewObjList.isNotEmpty) {
+                                return RatingAndReviewWidget(
+                                  reviewData: state.reviewObjList,
+                                );
+                              } else {
+                                return const Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    SizedBox(
+                                      height: 15,
+                                    ),
+                                    Center(child: Text('No Reviews')),
+                                  ],
+                                );
+                              }
+                            }
+                            if (state is ReviewFetchErrorState) {
+                              return Text(state.errorMessage);
+                            }
+                            return const Column(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                SizedBox(
+                                  height: 15,
+                                ),
+                                Center(child: Text('No Reviews')),
+                              ],
+                            );
+                          },
+                        ),
                         MapWidget(),
                       ],
                     ),
@@ -166,7 +214,7 @@ class ScreenRoomDetails extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  '${data.propertyType} ${data.vendorId.propertyName}',
+                                  data.vendorId.propertyName,
                                   style: GoogleFonts.inter(
                                       textStyle: const TextStyle(
                                     color: Colors.black,
@@ -180,13 +228,29 @@ class ScreenRoomDetails extends StatelessWidget {
                                       color: CustomColors.mainColor,
                                       size: 20,
                                     ),
-                                    Text(
-                                      '(4.0)',
-                                      style: GoogleFonts.inter(
-                                          textStyle: const TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 20,
-                                      )),
+                                    BlocBuilder<ReviewBloc, ReviewState>(
+                                      builder: (context, state) {
+                                        if (state is ReviewFetchSuccessState &&
+                                            state.reviewObjList.isNotEmpty) {
+                                          return Text(
+                                            '(${state.reviewObjList[0].stars})',
+                                            style: GoogleFonts.inter(
+                                                textStyle: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 20,
+                                            )),
+                                          );
+                                        } else {
+                                          return Text(
+                                            '(0)',
+                                            style: GoogleFonts.inter(
+                                                textStyle: const TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 20,
+                                            )),
+                                          );
+                                        }
+                                      },
                                     )
                                   ],
                                 ),
@@ -200,30 +264,32 @@ class ScreenRoomDetails extends StatelessWidget {
                           ]),
                     ),
                   ),
-                  //  height: heightMedia,
                 ),
               ),
               Positioned(
                 top: heightMedia * 0.03,
                 left: widthMedia * 0.04,
-                child: InkWell(
-                  child: Container(
-                    width: 40,
-                    height: 35,
-                    decoration: BoxDecoration(
-                        color: CustomColors.mainColor,
-                        borderRadius: BorderRadius.circular(14)),
-                    child: InkWell(
-                      onTap: () => Navigator.of(context).pop(),
-                      child: const Icon(
-                        Icons.arrow_back,
-                        color: Colors.white,
-                        size: 26,
-                      ),
+                child: Container(
+                  alignment: Alignment.center,
+                  width: 40,
+                  height: 35,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(7)),
+                  child: InkWell(
+                    onTap: () => Navigator.of(context).pop(),
+                    child: Icon(
+                      Icons.arrow_back_ios,
+                      color: CustomColors.blackColor,
+                      size: 16,
                     ),
                   ),
                 ),
               ),
+              Positioned(
+                  top: heightMedia * 0.03,
+                  right: widthMedia * 0.04,
+                  child: FavoriteWidget()),
             ],
           ),
         ),

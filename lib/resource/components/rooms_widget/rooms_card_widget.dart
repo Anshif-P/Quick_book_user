@@ -88,7 +88,7 @@ class RoomsCardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const RatingRoomWidget(text: '4.0'),
+                    SizedBox(),
                     RoomCardPriceWidget(
                       text: data.price,
                     ),

@@ -20,6 +20,7 @@ class CustomTextWidget extends StatelessWidget {
       style: GoogleFonts.inter(
           textStyle: TextStyle(
               color: color, fontSize: fontSize, fontWeight: fontWeight)),
+      overflow: TextOverflow.ellipsis,
     );
   }
 }

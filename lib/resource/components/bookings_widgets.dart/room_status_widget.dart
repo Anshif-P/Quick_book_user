@@ -17,7 +17,7 @@ class RoomStatusWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       alignment: Alignment.center,
-      width: widthMedia * 0.14,
+      width: 80,
       height: heightMedia * 0.02,
       decoration: BoxDecoration(
           color: CustomColors.greenColor,

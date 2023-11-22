@@ -25,6 +25,7 @@ class PriceTextWidget extends StatelessWidget {
               color: CustomColors.grey,
               fontSize: 14,
             )),
+            overflow: TextOverflow.ellipsis,
           ),
           SizedBox(
             height: 5,
@@ -38,6 +39,7 @@ class PriceTextWidget extends StatelessWidget {
                   color: Colors.black,
                   fontSize: 19,
                 )),
+                overflow: TextOverflow.ellipsis,
               ),
               SizedBox(
                 width: 5,
@@ -49,6 +51,7 @@ class PriceTextWidget extends StatelessWidget {
                   color: CustomColors.grey,
                   fontSize: 14,
                 )),
+                overflow: TextOverflow.ellipsis,
               ),
             ],
           )

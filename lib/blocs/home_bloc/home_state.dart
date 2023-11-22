@@ -4,11 +4,11 @@ abstract class HomeState {}
 
 final class HomeInitial extends HomeState {}
 
-abstract class HomeActionState extends HomeState {}
-
 class HomeFetchRoomsSuccessState extends HomeState {
   List<RoomsModel> totalRoomList = [];
-  HomeFetchRoomsSuccessState({required this.totalRoomList});
+  List<List<RoomsModel>> categoryRooms = [];
+  HomeFetchRoomsSuccessState(
+      {required this.totalRoomList, required this.categoryRooms});
 }
 
 class HomeFetchErrorState extends HomeState {

@@ -8,8 +8,10 @@ class ButtonWidget extends StatelessWidget {
   final bool borderCheck;
   final VoidCallback onpressFunction;
   final bool loadingCheck;
+  final bool reviewButtonCheck;
   const ButtonWidget(
       {super.key,
+      this.reviewButtonCheck = false,
       this.paymentButtonCheck = false,
       required this.onpressFunction,
       required this.text,
@@ -20,7 +22,7 @@ class ButtonWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-        height: 48,
+        height: reviewButtonCheck ? 35 : 48,
         child: ElevatedButton(
             style: ButtonStyle(
               minimumSize: MaterialStateProperty.all(
@@ -59,7 +61,7 @@ class ButtonWidget extends StatelessWidget {
                           fontWeight: paymentButtonCheck
                               ? FontWeight.normal
                               : FontWeight.bold,
-                          fontSize: 20),
+                          fontSize: reviewButtonCheck ? 14 : 20),
                     ),
                   )));
   }

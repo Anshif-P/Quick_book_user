@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/booking_bloc/bookings_bloc.dart';
+import 'package:hotel_booking_user_app/blocs/rooms_bloc/rooms_bloc.dart';
 import 'package:hotel_booking_user_app/const/custom_colors.dart';
+import 'package:hotel_booking_user_app/data/shared_preferences/shared_pref_model.dart';
 import 'package:hotel_booking_user_app/model/room_model.dart';
 import 'package:hotel_booking_user_app/resource/components/booking_page1_widget/price_details_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/booking_page1_widget/roomtype_and_apply.dart';
@@ -97,7 +99,7 @@ class ScreenBookRoom extends StatelessWidget {
                   text: 'Enter address',
                   hintText: 'enter your address',
                   controller: addressController,
-                  icon: Icons.phone,
+                  icon: Icons.menu_book_rounded,
                   validator: (value) => Validations.emtyValidation(value)),
               const SizedBox(
                 height: 20,
@@ -187,6 +189,10 @@ class ScreenBookRoom extends StatelessWidget {
                   bookingLoadingCheck = true;
                 }
                 if (state is BookingSuccessState) {
+                  final token = SharedPrefModel.instance.getData('token');
+                  context
+                      .read<RoomsBloc>()
+                      .add(FetchBookedRoomsEvent(token: token));
                   bookingLoadingCheck = false;
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                     content: const Text('Room Booked Successfully'),

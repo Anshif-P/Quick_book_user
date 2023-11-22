@@ -5,10 +5,25 @@ import 'package:hotel_booking_user_app/utils/type_def.dart';
 
 class RoomRepositories {
   final token = SharedPrefModel.instance.getData('token');
+
   EitherResponse getAllRoom() async =>
       await ApiService.getApi(Urls.getAllRoomUrl);
+
   EitherResponse getAllBookedRoomDates(String roomId) async =>
       await ApiService.getApi('${Urls.getRoomBookingDateUrl}$roomId');
-  EitherResponse conformBookRoom(Map map, token) async =>
+
+  EitherResponse conformBookRoom(Map map, String token) async =>
       await ApiService.postApi(Urls.conformRoomBook, map, token);
+
+  EitherResponse getBookedRooms(String token) async =>
+      await ApiService.getApi(Urls.getUserBookedRoom, token);
+
+  EitherResponse addRoomReview(Map map, String token) async =>
+      await ApiService.postApi(Urls.addRoomReview, map, token);
+
+  EitherResponse getReviewRating(String token, String roomId) async =>
+      await ApiService.getApi('${Urls.getReviewRating}$roomId', token);
+
+  EitherResponse cancelBooking(Map map) async =>
+      await ApiService.postApi(Urls.cancelBooking, map);
 }

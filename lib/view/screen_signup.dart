@@ -6,6 +6,7 @@ import 'package:hotel_booking_user_app/resource/components/comman/button_widget.
 import 'package:hotel_booking_user_app/utils/validation.dart';
 import 'package:hotel_booking_user_app/view/screen_home.dart';
 import 'package:hotel_booking_user_app/view/screen_login.dart';
+import 'package:hotel_booking_user_app/view/screen_parent_bottom_navigation.dart';
 import '../resource/components/comman/textfeild.dart';
 import '../resource/components/signup_login_widgets/divider_widget.dart';
 import '../resource/components/signup_login_widgets/mobileno_textfeild.dart';
@@ -116,7 +117,7 @@ class ScreenSignUp extends StatelessWidget {
                     listener: (context, state) {
                       if (state is SignupSuccessState) {
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
-                          builder: (context) => ScreenHome(),
+                          builder: (context) => ScreenParentNavigation(),
                         ));
                       }
                       if (state is SignupErrorState) {

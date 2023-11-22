@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotel_booking_user_app/const/custom_colors.dart';
+import 'package:hotel_booking_user_app/model/rating_review_model.dart';
 
 class ViewAllButton extends StatelessWidget {
   final VoidCallback onpressFunction;
   const ViewAllButton({
     super.key,
+    required this.reviewData,
     required this.onpressFunction,
   });
+  final List<ReviewModel> reviewData;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +35,7 @@ class ViewAllButton extends StatelessWidget {
             ),
             onPressed: onpressFunction,
             child: Text(
-              'View all 45 Reviews',
+              'View all ${reviewData.length} Reviews',
               style: GoogleFonts.inter(
                 textStyle: TextStyle(
                     color: CustomColors.blackColor,

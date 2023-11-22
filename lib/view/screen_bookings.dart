@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../resource/components/bookings_widgets.dart/cancelled_widget.dart';
-import '../resource/components/bookings_widgets.dart/upcoming_booking.dart';
+import '../resource/components/bookings_widgets.dart/upcoming_bookings_widget.dart';
+import '../resource/components/bookings_widgets.dart/checked_out_booking.dart';
 import '../resource/components/comman/heading_text_widget.dart';
 
 class ScreenBooking extends StatelessWidget {
@@ -43,20 +43,21 @@ class ScreenBooking extends StatelessWidget {
                   labelColor: Colors.black,
                   tabs: const [
                     Tab(
-                      text: 'Upcoming',
+                      text: 'Checked Out',
                     ),
                     Tab(
-                      text: 'History',
+                      text: 'Upcoming',
                     ),
                   ]),
             ),
             Expanded(
                 child: TabBarView(children: [
-              UpcomingBookingsWidget(
+              CheckedOutWidget(
+                homeContext: context,
                 heightMedia: heightMedia,
                 widthMedia: widthMedia,
               ),
-              HistoryBookingsWidget(
+              UpcomingBookingsWidget(
                 heightMedia: heightMedia,
                 widthMedia: widthMedia,
               )

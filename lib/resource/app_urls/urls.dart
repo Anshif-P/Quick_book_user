@@ -7,4 +7,8 @@ class Urls {
   static String getUserDetailsUrl = '$baseUrl/api/user_data';
   static String getRoomBookingDateUrl = '$baseUrl/api/getDates/';
   static String conformRoomBook = '$baseUrl/api/createbooking';
+  static String getUserBookedRoom = '$baseUrl/api/bookingData';
+  static String addRoomReview = '$baseUrl/api/review';
+  static String getReviewRating = '$baseUrl/api/getReiviews/';
+  static String cancelBooking = '$baseUrl/api/cancelbooking';
 }

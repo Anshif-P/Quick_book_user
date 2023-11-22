@@ -66,7 +66,7 @@ class ScreenHome extends StatelessWidget {
                     height: 15,
                   ),
                   CustomTextWidget(
-                      text: "Let's find the best hotels",
+                      text: "Let's find the best stay",
                       color: CustomColors.blackColor,
                       fontSize: 19,
                       fontWeight: FontWeight.w600),
@@ -137,9 +137,8 @@ class ScreenHome extends StatelessWidget {
               },
               child: Container(
                 alignment: Alignment.center,
-                height: 300,
                 color: CustomColors.textFeildIconColor,
-                child: const CategoryCardWidget(),
+                child: CategoryCardWidget(),
               ),
             ),
             const SizedBox(

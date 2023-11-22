@@ -3,10 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:hotel_booking_user_app/const/custom_colors.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/comman_text_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/location_text_widget.dart';
-import 'package:hotel_booking_user_app/resource/components/comman/room_rating_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/hotel_details_widgets/price_text_widget.dart';
 import 'package:shimmer/shimmer.dart';
-
 import '../../../model/room_model.dart';
 
 class TopRomInfoWidget extends StatelessWidget {
@@ -18,8 +16,8 @@ class TopRomInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: screenHeight * 0.13,
-      constraints: BoxConstraints(minHeight: 100),
+      height: 100,
+      constraints: const BoxConstraints(minHeight: 100),
       child: Row(
         children: [
           Expanded(
@@ -46,45 +44,34 @@ class TopRomInfoWidget extends StatelessWidget {
                 ),
               )),
           Expanded(
-              flex: 5,
-              child: Container(
-                //  color: Colors.yellow,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CustomTextWidget(
-                              text:
-                                  '${data.vendorId.propertyName} ${data.propertyType}',
-                              color: CustomColors.blackColor,
-                              fontSize: 19,
-                              fontWeight: FontWeight.w600),
-                          LocationTextWidget(
-                              text1: data.state, text2: data.city),
-                        ],
-                      ),
-                      Container(
-                          //        color: Colors.green,
-                          child: PriceTextWidget(
-                        text: data.price,
-                        paddingCheck: false,
-                      )),
-                    ],
-                  ),
+              flex: 6,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CustomTextWidget(
+                            text:
+                                '${data.vendorId.propertyName} ${data.propertyType}',
+                            color: CustomColors.blackColor,
+                            fontSize: 19,
+                            fontWeight: FontWeight.w600),
+                        LocationTextWidget(text1: data.state, text2: data.city),
+                      ],
+                    ),
+                    Container(
+                        //        color: Colors.green,
+                        child: PriceTextWidget(
+                      text: data.price,
+                      paddingCheck: false,
+                    )),
+                  ],
                 ),
               )),
-          Expanded(
-              flex: 2,
-              child: Container(
-                alignment: Alignment.bottomRight,
-                //   color: Colors.blue,
-                child: RatingRoomWidget(text: '4.0'),
-              ))
         ],
       ),
     );
