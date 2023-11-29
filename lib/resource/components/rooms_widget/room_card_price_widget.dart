@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotel_booking_user_app/const/custom_colors.dart';
+import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
 
 class RoomCardPriceWidget extends StatelessWidget {
   final String text;

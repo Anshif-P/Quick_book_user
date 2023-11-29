@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotel_booking_user_app/const/custom_colors.dart';
+import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/comman_text_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/search_textfeild_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/home_room_widget/home_card_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/rooms_widget/search_filter.dart';
 import 'package:hotel_booking_user_app/view/screen_drawer.dart';
+import 'package:hotel_booking_user_app/view/screen_rooms.dart';
+import 'package:hotel_booking_user_app/view/screen_search_rooms.dart';
 import '../blocs/home_bloc/home_bloc.dart';
 import '../blocs/user_bloc/user_bloc.dart';
 import '../resource/components/home_room_widget/top_category_card_widget.dart';
@@ -73,17 +75,33 @@ class ScreenHome extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  Row(
-                    children: [
-                      Expanded(
-                          flex: 5,
-                          child: SearchTextFeildWidget(
-                              controller: searchController)),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      const Expanded(flex: 1, child: FilterWidget())
-                    ],
+                  BlocBuilder<HomeBloc, HomeState>(
+                    builder: (context, state) {
+                      if (state is HomeFetchRoomsSuccessState) {
+                        return InkWell(
+                          onTap: () {
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ScreenSearchRooms(
+                                      totalRooms: state.totalRoomList,
+                                    )));
+                          },
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  flex: 5,
+                                  child: SearchTextFeildWidget(
+                                      notEditableCheck: true,
+                                      controller: searchController)),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              const Expanded(flex: 1, child: FilterWidget())
+                            ],
+                          ),
+                        );
+                      }
+                      return const SizedBox();
+                    },
                   ),
                   const SizedBox(
                     height: 20,

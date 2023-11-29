@@ -23,6 +23,7 @@ class LocationTextWidget extends StatelessWidget {
             color: Color(0xFFA19B9B),
             fontSize: 12,
           )),
+          overflow: TextOverflow.ellipsis,
         )
       ],
     );

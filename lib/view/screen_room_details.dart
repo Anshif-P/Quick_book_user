@@ -1,26 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hotel_booking_user_app/blocs/coupon_bloc/coupon_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/review_bloc/review_bloc.dart';
+import 'package:hotel_booking_user_app/blocs/wishlist_bloc/wishlist_bloc.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/button_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/comman_text_widget.dart';
-import 'package:hotel_booking_user_app/view/screen_book_room.dart';
-import '../const/custom_colors.dart';
+import 'package:hotel_booking_user_app/view/screen_payment.dart';
+import '../model/coupon_model.dart';
+import '../resource/const/custom_colors.dart';
 import '../model/room_model.dart';
 import '../resource/components/comman/favorite_widget.dart';
 import '../resource/components/comman/location_text_widget.dart';
 import '../resource/components/hotel_details_widgets/amenties_widget.dart';
+import '../resource/components/hotel_details_widgets/coupon_widget.dart';
 import '../resource/components/hotel_details_widgets/details_images_widget.dart';
 import '../resource/components/hotel_details_widgets/hotel_details_text_widget.dart';
 import '../resource/components/hotel_details_widgets/map_widget.dart';
 import '../resource/components/hotel_details_widgets/price_text_widget.dart';
 import '../resource/components/hotel_details_widgets/rating_review_widget.dart';
+import '../resource/loaders/coupon_shimmer_loading.dart';
 import '../resource/loaders/review_shimmer_loading.dart';
 import '../resource/components/comman/image_preview_widget.dart';
 
 class ScreenRoomDetails extends StatelessWidget {
   ScreenRoomDetails({super.key, required this.data});
   final RoomsModel data;
+  List<CouponModel> couponList = [];
 
   final ValueNotifier<int> selectedImageNotifier = ValueNotifier(0);
 
@@ -51,7 +57,8 @@ class ScreenRoomDetails extends StatelessWidget {
                       colorCheck: true,
                       onpressFunction: () {
                         Navigator.of(context).push(MaterialPageRoute(
-                            builder: (context) => ScreenBookRoom(
+                            builder: (context) => ScreenPayment(
+                                  coupon: couponList!,
                                   data: data,
                                 )));
                       },
@@ -94,69 +101,132 @@ class ScreenRoomDetails extends StatelessWidget {
                       // ),
                     ),
                   ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: heightMedia * 0.05,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: heightMedia * 0.05,
+                            ),
+                            const HotelDetailsTextWidget(
+                              text: 'Hotel Details',
+                              sizeCheck: true,
+                            ),
+                            SizedBox(
+                              height: heightMedia * 0.02,
+                            ),
+                            HotelDetailsTextWidget(
+                              text: '${data.description}',
+                              colorCheck: true,
+                            ),
+                            SizedBox(
+                              height: heightMedia * 0.03,
+                            ),
+                            RoomDetailsImagesWidget(
+                              imageList: data.img,
+                              selecteImageNotifier: selectedImageNotifier,
+                              heightMedia: heightMedia,
+                              widthMedia: widthMedia,
+                            ),
+                            SizedBox(
+                              height: heightMedia * 0.02,
+                            ),
+                            const HotelDetailsTextWidget(
+                              text: 'Amenties',
+                              sizeCheck: true,
+                            ),
+                            SizedBox(
+                              height: heightMedia * 0.02,
+                            ),
+                            AmentiesWidget(itemsName: data.amenities),
+                            SizedBox(height: heightMedia * 0.02),
+                            const CustomTextWidget(
+                                text: 'Coupons',
+                                color: CustomColors.blackColor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500)
+                          ],
                         ),
-                        const HotelDetailsTextWidget(
-                          text: 'Hotel Details',
-                          sizeCheck: true,
-                        ),
-                        SizedBox(
-                          height: heightMedia * 0.02,
-                        ),
-                        HotelDetailsTextWidget(
-                          text: '${data.description}',
-                          colorCheck: true,
-                        ),
-                        SizedBox(
-                          height: heightMedia * 0.03,
-                        ),
-                        RoomDetailsImagesWidget(
-                          imageList: data.img,
-                          selecteImageNotifier: selectedImageNotifier,
-                          heightMedia: heightMedia,
-                          widthMedia: widthMedia,
-                        ),
-                        SizedBox(
-                          height: heightMedia * 0.02,
-                        ),
-                        const HotelDetailsTextWidget(
-                          text: 'Amenties',
-                          sizeCheck: true,
-                        ),
-                        SizedBox(
-                          height: heightMedia * 0.02,
-                        ),
-                        AmentiesWidget(itemsName: data.amenities),
-                        CustomTextWidget(
-                            text: 'Rating & reviews',
-                            color: CustomColors.blackColor,
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500),
-                        BlocConsumer<ReviewBloc, ReviewState>(
-                          listenWhen: (previous, current) =>
-                              current is ReviewActionState,
-                          buildWhen: (previous, current) =>
-                              current is ReviewActionState,
-                          listener: (context, state) {},
+                      ),
+                      SizedBox(
+                        height: heightMedia * 0.02,
+                      ),
+                      Container(
+                        height: 90,
+                        padding: EdgeInsets.only(left: 20),
+                        child: BlocBuilder<CouponBloc, CouponState>(
                           builder: (context, state) {
-                            if (state is ReviewFetchLoadingState) {
-                              return RatingReviewShimmerLoadingWidget();
+                            if (state is CouponFetchLoadingState) {
+                              return CouponShimmerLoadingWidget();
                             }
-                            if (state is ReviewFetchSuccessState) {
-                              print(
-                                  '${state.reviewObjList.length}--------------------length');
-                              if (state.reviewObjList.isNotEmpty) {
-                                return RatingAndReviewWidget(
-                                  reviewData: state.reviewObjList,
-                                );
-                              } else {
+                            if (state is CouponFetchSuccessState) {
+                              couponList = state.couponObjList;
+                              return CouponWidget(
+                                roomModel: data,
+                                couponList: state.couponObjList,
+                              );
+                            }
+                            // if (couponList.isEmpty) {
+                            //   return const Center(
+                            //     child: Text('No Coupons Available'),
+                            //   );
+                            // }
+                            return const SizedBox();
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: heightMedia * 0.02,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 20),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            CustomTextWidget(
+                                text: 'Rating & reviews',
+                                color: CustomColors.blackColor,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w500),
+                            BlocConsumer<ReviewBloc, ReviewState>(
+                              listenWhen: (previous, current) =>
+                                  current is ReviewActionState,
+                              buildWhen: (previous, current) =>
+                                  current is ReviewActionState,
+                              listener: (context, state) {},
+                              builder: (context, state) {
+                                if (state is ReviewFetchLoadingState) {
+                                  return RatingReviewShimmerLoadingWidget();
+                                }
+                                if (state is ReviewFetchSuccessState) {
+                                  print(
+                                      '${state.reviewObjList.length}--------------------length');
+                                  if (state.reviewObjList.isNotEmpty) {
+                                    return RatingAndReviewWidget(
+                                      reviewData: state.reviewObjList,
+                                    );
+                                  } else {
+                                    return const Column(
+                                      mainAxisAlignment: MainAxisAlignment.end,
+                                      children: [
+                                        SizedBox(
+                                          height: 15,
+                                        ),
+                                        Center(child: Text('No Reviews')),
+                                      ],
+                                    );
+                                  }
+                                }
+                                if (state is ReviewFetchErrorState) {
+                                  return Text(state.errorMessage);
+                                }
                                 return const Column(
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
@@ -166,25 +236,16 @@ class ScreenRoomDetails extends StatelessWidget {
                                     Center(child: Text('No Reviews')),
                                   ],
                                 );
-                              }
-                            }
-                            if (state is ReviewFetchErrorState) {
-                              return Text(state.errorMessage);
-                            }
-                            return const Column(
-                              mainAxisAlignment: MainAxisAlignment.end,
-                              children: [
-                                SizedBox(
-                                  height: 15,
-                                ),
-                                Center(child: Text('No Reviews')),
-                              ],
-                            );
-                          },
+                              },
+                            ),
+                            MapWidget(
+                              latitude: data.latitude,
+                              longitude: double.parse(data.longitude),
+                            ),
+                          ],
                         ),
-                        MapWidget(),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -269,16 +330,16 @@ class ScreenRoomDetails extends StatelessWidget {
               Positioned(
                 top: heightMedia * 0.03,
                 left: widthMedia * 0.04,
-                child: Container(
-                  alignment: Alignment.center,
-                  width: 40,
-                  height: 35,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(7)),
-                  child: InkWell(
-                    onTap: () => Navigator.of(context).pop(),
-                    child: Icon(
+                child: InkWell(
+                  onTap: () => Navigator.of(context).pop(),
+                  child: Container(
+                    alignment: Alignment.center,
+                    width: 40,
+                    height: 35,
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(7)),
+                    child: const Icon(
                       Icons.arrow_back_ios,
                       color: CustomColors.blackColor,
                       size: 16,
@@ -289,7 +350,16 @@ class ScreenRoomDetails extends StatelessWidget {
               Positioned(
                   top: heightMedia * 0.03,
                   right: widthMedia * 0.04,
-                  child: FavoriteWidget()),
+                  child: BlocBuilder<WishlistBloc, WishlistState>(
+                      builder: (context, state) {
+                    if (state is FetchWishlistSuccessState) {
+                      return FavoriteWidget(
+                        wishlist: state.wishlist,
+                        data: data,
+                      );
+                    }
+                    return SizedBox();
+                  })),
             ],
           ),
         ),

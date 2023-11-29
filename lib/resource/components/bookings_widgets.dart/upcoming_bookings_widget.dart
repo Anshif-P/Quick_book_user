@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../blocs/rooms_bloc/rooms_bloc.dart';
-import '../../../const/custom_colors.dart';
+import '../../const/custom_colors.dart';
 import 'card_widget.dart';
 
 class UpcomingBookingsWidget extends StatelessWidget {

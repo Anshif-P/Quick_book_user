@@ -1,6 +1,6 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:hotel_booking_user_app/const/custom_colors.dart';
+import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/comman_text_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/location_text_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/hotel_details_widgets/price_text_widget.dart';

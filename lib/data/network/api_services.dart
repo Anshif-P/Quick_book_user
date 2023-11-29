@@ -58,6 +58,27 @@ class ApiService {
     }
   }
 
+  static EitherResponse deleteApi(String url, [String? token]) async {
+    final uri = Uri.parse(url);
+    if (token != null) {
+      _header!['usertoken'] = token;
+    }
+    try {
+      dynamic fetchedData;
+      final response = await http.delete(uri, headers: _header);
+      fetchedData = _getResponse(response);
+      print('-----------------------------------------new fetch');
+      print(fetchedData);
+      return Right(fetchedData);
+    } on SocketException {
+      return Left(InternetException());
+    } on http.ClientException {
+      return Left(RequestTimeOutException());
+    } catch (e) {
+      return Left(BadRequestException());
+    }
+  }
+
   static _getResponse(http.Response response) {
     switch (response.statusCode) {
       case 200:

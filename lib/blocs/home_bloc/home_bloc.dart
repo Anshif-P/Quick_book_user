@@ -9,10 +9,9 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   HomeBloc() : super(HomeInitial()) {
     on<GetAllRoomsEvent>(getAllRoomsEvent);
   }
-
+  List<RoomsModel> roomsObjList = [];
   FutureOr<void> getAllRoomsEvent(
       GetAllRoomsEvent event, Emitter<HomeState> emit) async {
-    List<RoomsModel> roomsObjList = [];
     final either = await RoomRepositories().getAllRoom();
     either
         .fold((error) => emit(HomeFetchErrorState(errorMessage: error.message)),

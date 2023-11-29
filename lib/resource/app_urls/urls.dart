@@ -11,4 +11,10 @@ class Urls {
   static String addRoomReview = '$baseUrl/api/review';
   static String getReviewRating = '$baseUrl/api/getReiviews/';
   static String cancelBooking = '$baseUrl/api/cancelbooking';
+  static String getWishlist = '$baseUrl/api/wishlist/';
+  static String addWishlist = '$baseUrl/api/wishlist/add';
+  static String removeFromWishlist = '$baseUrl/api//delete-wishlist/';
+  static String getRoomCoupons = '$baseUrl/api/getCoupon/';
+  static String applyCoupon = '$baseUrl/api/coupnapply';
+  static String roomBookingSuccess = '$baseUrl/api/successData/';
 }

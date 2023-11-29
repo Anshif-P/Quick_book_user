@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking_user_app/resource/components/rating_widgets/start_widget.dart';
 import '../../../blocs/review_bloc/review_bloc.dart';
-import '../../../const/custom_colors.dart';
+import '../../const/custom_colors.dart';
 import '../../../data/shared_preferences/shared_pref_model.dart';
 import '../../../model/booked_rooms_model.dart';
 import '../../../utils/validation.dart';

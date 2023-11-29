@@ -1,8 +1,9 @@
-part of 'bookings_bloc.dart';
+part of 'booking_bloc.dart';
 
-abstract class BookingsEvent {}
+@immutable
+abstract class BookingEvent {}
 
-class FetchBookingDates extends BookingsEvent {
+class BookRoomEvent extends BookingEvent {
   DateTimeRange dates;
   var mobNumber;
   var startDate;
@@ -12,14 +13,14 @@ class FetchBookingDates extends BookingsEvent {
   RoomsModel data;
   var guest;
   var rooms;
-  FetchBookingDates(
+  BookRoomEvent(
       {required this.mobNumber,
       required this.dates,
       required this.address,
       required this.data,
       required this.guest,
       required this.rooms,
-      required this.startDate,
+      required this.bookingsData,
       required this.endDate,
-      required this.bookingsData});
+      required this.startDate});
 }

@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotel_booking_user_app/blocs/home_bloc/home_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/rooms_bloc/rooms_bloc.dart';
+import 'package:hotel_booking_user_app/data/shared_preferences/shared_pref_model.dart';
 import 'package:hotel_booking_user_app/view/screen_login.dart';
 import 'package:hotel_booking_user_app/view/screen_parent_bottom_navigation.dart';
 import '../blocs/user_bloc/user_bloc.dart';
+import '../blocs/wishlist_bloc/wishlist_bloc.dart';
 
 class ScreenSplash extends StatefulWidget {
   const ScreenSplash({super.key});
@@ -93,7 +95,10 @@ class _ScreenSplashState extends State<ScreenSplash> {
       context.read<RoomsBloc>().add(FetchBookedRoomsEvent(token: state.token));
       context.read<UserBloc>().add(FetchUserData(token: state.token));
     } else if (state is UserDataFetchSuccessState) {
+      final token = await SharedPrefModel.instance.getData('token');
       context.read<HomeBloc>().add(GetAllRoomsEvent());
+      context.read<WishlistBloc>().add(
+          GetWishlistRoomsEvent(token: token, userId: state.userDetails.id));
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => ScreenParentNavigation()));
     }

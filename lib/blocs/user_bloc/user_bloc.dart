@@ -26,6 +26,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         print('respnse success state -------------------------------------');
 
         final userDetails = UserModel.fromJson(response['userDetails'], token);
+        SharedPrefModel.instance.insertData('userId', userDetails.id);
+
         emit(UserDataFetchSuccessState(userDetails: userDetails));
       }
     });

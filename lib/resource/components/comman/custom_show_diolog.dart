@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../../const/custom_colors.dart';
+import '../../const/custom_colors.dart';
 
 class CustomAlertDialogWidget extends StatelessWidget {
   CustomAlertDialogWidget(

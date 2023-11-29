@@ -4,7 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:hotel_booking_user_app/model/booked_rooms_model.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
-import '../const/custom_colors.dart';
+import '../resource/const/custom_colors.dart';
 import '../resource/components/bookings_widgets.dart/amount_text_widget.dart';
 import '../resource/components/bookings_widgets.dart/checkin_checkout_widget.dart';
 import '../resource/components/bookings_widgets.dart/checkin_text_widget.dart';

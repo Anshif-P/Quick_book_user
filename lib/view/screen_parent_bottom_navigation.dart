@@ -6,7 +6,7 @@ import 'package:hotel_booking_user_app/view/screen_bookings.dart';
 import 'package:hotel_booking_user_app/view/screen_home.dart';
 import 'package:hotel_booking_user_app/view/screen_profile.dart';
 import 'package:hotel_booking_user_app/view/screen_rooms.dart';
-import '../const/custom_colors.dart';
+import '../resource/const/custom_colors.dart';
 
 class ScreenParentNavigation extends StatelessWidget {
   ScreenParentNavigation({super.key});

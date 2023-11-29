@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/signup_bloc/signup_bloc.dart';
-import 'package:hotel_booking_user_app/const/custom_colors.dart';
+import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/button_widget.dart';
 import 'package:hotel_booking_user_app/utils/validation.dart';
-import 'package:hotel_booking_user_app/view/screen_home.dart';
 import 'package:hotel_booking_user_app/view/screen_login.dart';
 import 'package:hotel_booking_user_app/view/screen_parent_bottom_navigation.dart';
 import '../resource/components/comman/textfeild.dart';

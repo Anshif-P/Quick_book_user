@@ -1,29 +1,38 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_booking_user_app/const/custom_colors.dart';
+import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/comman_text_widget.dart';
 import '../../../model/room_model.dart';
 
-class PriceDetailsWidget extends StatelessWidget {
+class PriceDetailsWidget extends StatefulWidget {
   const PriceDetailsWidget(
       {super.key,
       required this.data,
       required this.dates,
+      required this.totalPrice,
+      required this.discoutAmount,
       required this.numberOfRoomsNotifeir});
   final RoomsModel data;
   final ValueNotifier<DateTimeRange> dates;
   final ValueNotifier<int> numberOfRoomsNotifeir;
+  final ValueNotifier<int> totalPrice;
+  final ValueNotifier<int> discoutAmount;
 
+  @override
+  State<PriceDetailsWidget> createState() => _PriceDetailsWidgetState();
+}
+
+class _PriceDetailsWidgetState extends State<PriceDetailsWidget> {
   @override
   Widget build(BuildContext context) {
     return ValueListenableBuilder(
-      valueListenable: numberOfRoomsNotifeir,
+      valueListenable: widget.numberOfRoomsNotifeir,
       builder: (context, value_, _) => ValueListenableBuilder(
-          valueListenable: dates,
+          valueListenable: widget.dates,
           builder: (context, value, child) {
             final duration = value.duration;
             final daysDifference = duration.inDays + 1;
-            final tempPrice = int.parse(data.price);
-            var totalAmount = daysDifference * tempPrice * value_;
+            final tempPrice = int.parse(widget.data.price);
+            widget.totalPrice.value = daysDifference * tempPrice * value_;
 
             return Container(
               height: 230,
@@ -37,7 +46,7 @@ class PriceDetailsWidget extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    CustomTextWidget(
+                    const CustomTextWidget(
                         text: 'Price details',
                         color: CustomColors.blackColor,
                         fontSize: 16,
@@ -48,16 +57,24 @@ class PriceDetailsWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CustomTextWidget(
+                        const CustomTextWidget(
                             text: 'Discount',
                             color: CustomColors.blackColor,
                             fontSize: 14,
                             fontWeight: FontWeight.normal),
-                        CustomTextWidget(
-                            text: '₹0',
-                            color: CustomColors.blackColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal),
+                        ValueListenableBuilder(
+                          valueListenable: widget.discoutAmount,
+                          builder: (context, value, child) {
+                            print(
+                                '       this is --------------------------888888888888888888888899999999999499999 $value');
+
+                            return CustomTextWidget(
+                                text: '₹${value.toString()}',
+                                color: CustomColors.blackColor,
+                                fontSize: 14,
+                                fontWeight: FontWeight.normal);
+                          },
+                        ),
                       ],
                     ),
                     const SizedBox(
@@ -66,13 +83,13 @@ class PriceDetailsWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CustomTextWidget(
+                        const CustomTextWidget(
                             text: 'Day price',
                             color: CustomColors.blackColor,
                             fontSize: 14,
                             fontWeight: FontWeight.normal),
                         CustomTextWidget(
-                            text: '₹${data.price}',
+                            text: '₹${widget.data.price}',
                             color: CustomColors.blackColor,
                             fontSize: 14,
                             fontWeight: FontWeight.normal),
@@ -84,16 +101,20 @@ class PriceDetailsWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CustomTextWidget(
+                        const CustomTextWidget(
                             text: 'Room price',
                             color: CustomColors.blackColor,
                             fontSize: 14,
                             fontWeight: FontWeight.normal),
-                        CustomTextWidget(
-                            text: '₹${totalAmount.toString()}',
-                            color: CustomColors.blackColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.normal),
+                        ValueListenableBuilder<int>(
+                            valueListenable: widget.totalPrice,
+                            builder: (context, value, child) {
+                              return CustomTextWidget(
+                                  text: '₹${value.toString()}',
+                                  color: CustomColors.blackColor,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.normal);
+                            }),
                       ],
                     ),
                     const SizedBox(
@@ -110,16 +131,24 @@ class PriceDetailsWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        CustomTextWidget(
-                            text: 'Total price',
-                            color: CustomColors.blackColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600),
-                        CustomTextWidget(
-                            text: '₹${totalAmount.toString()}',
-                            color: CustomColors.greenColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600),
+                        const CustomTextWidget(
+                          text: 'Total price',
+                          color: CustomColors.blackColor,
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                        ValueListenableBuilder<int>(
+                          valueListenable: widget.totalPrice,
+                          builder: (context, value, child) {
+                            return CustomTextWidget(
+                              text:
+                                  '₹${(value - widget.discoutAmount.value).toString()}',
+                              color: CustomColors.greenColor,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w600,
+                            );
+                          },
+                        ),
                       ],
                     ),
                   ],

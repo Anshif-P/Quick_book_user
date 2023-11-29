@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:hotel_booking_user_app/const/custom_colors.dart';
+import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/comman_text_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/hotel_details_widgets/stars_widget.dart';
 import 'package:intl/intl.dart';

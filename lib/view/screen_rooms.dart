@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotel_booking_user_app/blocs/coupon_bloc/coupon_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/review_bloc/review_bloc.dart';
-import 'package:hotel_booking_user_app/const/custom_colors.dart';
+import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
 import 'package:hotel_booking_user_app/data/shared_preferences/shared_pref_model.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/comman_text_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/search_textfeild_widget.dart';
@@ -16,15 +17,18 @@ class ScreenRooms extends StatelessWidget {
   ScreenRooms(
       {super.key,
       this.allRoomsOrCategorizedRoomCheck = false,
-      this.categorizedRooms});
+      this.categorizedRooms,
+      this.headingCheckForWishlist = false});
   bool allRoomsOrCategorizedRoomCheck;
   List<RoomsModel>? categorizedRooms;
+  bool headingCheckForWishlist;
 
   @override
   Widget build(BuildContext context) {
     double screenHeightTemp = MediaQuery.sizeOf(context).height;
     double safeAreaSize = MediaQuery.of(context).padding.top;
     double screenHeight = screenHeightTemp - safeAreaSize;
+
     // double screenWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -49,7 +53,9 @@ class ScreenRooms extends StatelessWidget {
                       Expanded(
                         flex: 1,
                         child: CustomTextWidget(
-                            text: categorizedRooms![0].category,
+                            text: headingCheckForWishlist
+                                ? 'WishList'
+                                : categorizedRooms![0].category,
                             color: CustomColors.blackColor,
                             fontSize: 23,
                             fontWeight: FontWeight.w600),
@@ -63,7 +69,7 @@ class ScreenRooms extends StatelessWidget {
                           flex: 6,
                           child: SearchTextFeildWidget(
                               controller: searchController)),
-                      SizedBox(
+                      const SizedBox(
                         width: 16,
                       ),
                       Expanded(flex: 1, child: FilterWidget())
@@ -90,6 +96,8 @@ class ScreenRooms extends StatelessWidget {
                         onTap: () async {
                           final token =
                               await SharedPrefModel.instance.getData('token');
+                          context.read<CouponBloc>().add(GetRoomCouponsEvent(
+                              vendorId: data.vendorId.id, token: token));
                           context.read<ReviewBloc>().add(GetRoomReviews(
                                 roomId: data.id,
                                 token: token,
@@ -123,17 +131,22 @@ class ScreenRooms extends StatelessWidget {
                             onTap: () async {
                               final token = await SharedPrefModel.instance
                                   .getData('token');
+                              context.read<CouponBloc>().add(
+                                  GetRoomCouponsEvent(
+                                      vendorId: data.vendorId.id,
+                                      token: token));
                               context.read<ReviewBloc>().add(GetRoomReviews(
                                     roomId: data.id,
                                     token: token,
                                   ));
+
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
                                       ScreenRoomDetails(data: data)));
                             },
                             child: Column(
                               children: [
-                                SizedBox(
+                                const SizedBox(
                                   height: 20,
                                 ),
                                 RoomsCardWidget(

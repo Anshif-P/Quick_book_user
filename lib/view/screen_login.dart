@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/login_bloc/login_bloc.dart';
-import 'package:hotel_booking_user_app/const/custom_colors.dart';
+import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
 import 'package:hotel_booking_user_app/data/shared_preferences/shared_pref_model.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/button_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/text_widget.dart';
@@ -151,6 +151,7 @@ class ScreenLogin extends StatelessWidget {
       context.read<RoomsBloc>().add(FetchBookedRoomsEvent(token: token));
       context.read<UserBloc>().add(FetchUserData(token: token));
       context.read<HomeBloc>().add(GetAllRoomsEvent());
+
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => ScreenParentNavigation()));
     }

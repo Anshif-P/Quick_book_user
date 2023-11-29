@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:hotel_booking_user_app/const/custom_colors.dart';
+import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
 
 class SearchTextFeildWidget extends StatelessWidget {
   final TextEditingController controller;
-  const SearchTextFeildWidget({super.key, required this.controller});
-
+  final ValueChanged<String>? onChanged;
+  SearchTextFeildWidget(
+      {super.key,
+      required this.controller,
+      this.notEditableCheck = true,
+      this.onChanged});
+  bool notEditableCheck;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -14,7 +19,9 @@ class SearchTextFeildWidget extends StatelessWidget {
         color: CustomColors.searchTextFeildColor,
       ),
       child: TextField(
+        enabled: notEditableCheck ? false : true,
         controller: controller,
+        onChanged: onChanged,
         decoration: InputDecoration(
             prefixIcon: const Icon(
               Icons.search_rounded,

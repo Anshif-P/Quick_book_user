@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../blocs/user_bloc/user_bloc.dart';
-import '../const/custom_colors.dart';
+import '../resource/const/custom_colors.dart';
 import '../resource/components/comman/show_dialog.dart';
 
 class ScreenDrawer extends StatelessWidget {

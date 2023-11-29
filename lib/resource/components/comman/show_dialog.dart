@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_user_app/data/shared_preferences/shared_pref_model.dart';
 import 'package:hotel_booking_user_app/view/screen_login.dart';
-import '../../../const/custom_colors.dart';
+import '../../const/custom_colors.dart';
 
 class LogoutDialog extends StatelessWidget {
   LogoutDialog({
@@ -37,6 +37,7 @@ class LogoutDialog extends StatelessWidget {
         TextButton(
           onPressed: () async {
             SharedPrefModel.instance.removeData('token');
+            SharedPrefModel.instance.removeData('userId');
             Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => ScreenLogin()));
           },

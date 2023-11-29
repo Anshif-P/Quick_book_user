@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../../const/custom_colors.dart';
+import '../../const/custom_colors.dart';
 import 'text_cusomerinfo.dart';
 
 class CustomerInformationWidget extends StatelessWidget {

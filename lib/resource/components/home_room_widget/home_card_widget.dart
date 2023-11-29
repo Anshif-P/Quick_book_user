@@ -2,13 +2,14 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/review_bloc/review_bloc.dart';
-import 'package:hotel_booking_user_app/const/custom_colors.dart';
+import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
 import 'package:hotel_booking_user_app/data/shared_preferences/shared_pref_model.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/comman_text_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/location_text_widget.dart';
 import 'package:hotel_booking_user_app/view/screen_room_details.dart';
 import 'package:shimmer/shimmer.dart';
 
+import '../../../blocs/coupon_bloc/coupon_bloc.dart';
 import '../../../blocs/home_bloc/home_bloc.dart';
 
 class HomeCardWidget extends StatelessWidget {
@@ -31,8 +32,10 @@ class HomeCardWidget extends StatelessWidget {
             itemBuilder: (context, index) {
               final data = state.totalRoomList[index];
               return InkWell(
-                onTap: () async {
-                  final token = await SharedPrefModel.instance.getData('token');
+                onTap: () {
+                  final token = SharedPrefModel.instance.getData('token');
+                  context.read<CouponBloc>().add(GetRoomCouponsEvent(
+                      vendorId: data.vendorId.id, token: token));
                   context.read<ReviewBloc>().add(GetRoomReviews(
                         roomId: data.id,
                         token: token,

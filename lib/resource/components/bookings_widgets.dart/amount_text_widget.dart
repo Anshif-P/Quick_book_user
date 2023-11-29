@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../../const/custom_colors.dart';
+import '../../const/custom_colors.dart';
 
 class AmountText extends StatelessWidget {
   const AmountText({super.key, required this.text});

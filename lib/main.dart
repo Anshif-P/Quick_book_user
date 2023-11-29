@@ -1,13 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hotel_booking_user_app/blocs/booking_bloc/bookings_bloc.dart';
+import 'package:hotel_booking_user_app/blocs/booking_bloc/booking_bloc.dart';
+
+import 'package:hotel_booking_user_app/blocs/coupon_bloc/coupon_bloc.dart';
+import 'package:hotel_booking_user_app/blocs/date_checking_bloc/date_checking_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/home_bloc/home_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/login_bloc/login_bloc.dart';
+import 'package:hotel_booking_user_app/blocs/payment_bloc/payment_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/rooms_bloc/rooms_bloc.dart';
+import 'package:hotel_booking_user_app/blocs/search_bloc/search_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/signup_bloc/signup_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/user_bloc/user_bloc.dart';
+import 'package:hotel_booking_user_app/blocs/wishlist_bloc/wishlist_bloc.dart';
 import 'package:hotel_booking_user_app/data/shared_preferences/shared_pref_model.dart';
-import 'package:hotel_booking_user_app/view/screen_bookings.dart';
+import 'package:hotel_booking_user_app/view/screen_map.dart';
 import 'package:hotel_booking_user_app/view/screen_splash.dart';
 import 'blocs/review_bloc/review_bloc.dart';
 
@@ -27,9 +33,13 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => SignupBloc()),
         BlocProvider(create: (context) => UserBloc()),
         BlocProvider(create: (context) => HomeBloc()),
-        BlocProvider(create: (context) => BookingsBloc()),
         BlocProvider(create: (context) => RoomsBloc()),
-        BlocProvider(create: (context) => ReviewBloc())
+        BlocProvider(create: (context) => ReviewBloc()),
+        BlocProvider(create: (context) => WishlistBloc()),
+        BlocProvider(create: (context) => CouponBloc()),
+        BlocProvider(create: (context) => PaymentBloc()),
+        BlocProvider(create: (context) => BookingBloc()),
+        BlocProvider(create: (context) => DateCheckingBloc()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

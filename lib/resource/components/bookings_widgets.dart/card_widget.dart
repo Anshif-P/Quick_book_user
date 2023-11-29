@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:hotel_booking_user_app/blocs/rooms_bloc/rooms_bloc.dart';
-import 'package:hotel_booking_user_app/const/custom_colors.dart';
+import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
 import 'package:hotel_booking_user_app/model/booked_rooms_model.dart';
 import 'package:hotel_booking_user_app/resource/components/bookings_widgets.dart/bottom_sheet_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/card_text_widget.dart';

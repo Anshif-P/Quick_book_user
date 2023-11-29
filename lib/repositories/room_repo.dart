@@ -26,4 +26,19 @@ class RoomRepositories {
 
   EitherResponse cancelBooking(Map map) async =>
       await ApiService.postApi(Urls.cancelBooking, map);
+
+  EitherResponse getWishlist(String userId, String token) async =>
+      await ApiService.getApi(Urls.getWishlist + userId, token);
+
+  EitherResponse addWishlist(Map map, token) async =>
+      await ApiService.postApi(Urls.addWishlist, map, token);
+
+  EitherResponse removeFromWishlist(String roomId) async =>
+      await ApiService.deleteApi(Urls.removeFromWishlist + roomId, token!);
+
+  EitherResponse getRoomCoupons(String vendorId, token) async =>
+      await ApiService.getApi(Urls.getRoomCoupons + vendorId, token);
+
+  EitherResponse applyCoupons(Map map, token) async =>
+      await ApiService.postApi(Urls.applyCoupon, map, token);
 }
