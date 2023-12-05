@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class LocationTextWidget extends StatelessWidget {
+class LocationHomeWidget extends StatelessWidget {
   final String text1;
   final String text2;
-  const LocationTextWidget(
+  const LocationHomeWidget(
       {super.key, required this.text1, required this.text2});
 
   @override
@@ -16,16 +16,14 @@ class LocationTextWidget extends StatelessWidget {
           color: Color(0xFFCB102F),
           size: 15,
         ),
-        Expanded(
-          child: Text(
-            '$text1 , $text2',
-            style: GoogleFonts.inter(
-                textStyle: const TextStyle(
-              color: Color(0xFFA19B9B),
-              fontSize: 12,
-            )),
-            overflow: TextOverflow.ellipsis,
-          ),
+        Text(
+          '$text1 , $text2',
+          style: GoogleFonts.inter(
+              textStyle: const TextStyle(
+            color: Color(0xFFA19B9B),
+            fontSize: 12,
+          )),
+          overflow: TextOverflow.ellipsis,
         )
       ],
     );

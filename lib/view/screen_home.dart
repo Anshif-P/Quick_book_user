@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hotel_booking_user_app/blocs/search_bloc/search_bloc.dart';
 import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/comman_text_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/search_textfeild_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/home_room_widget/home_card_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/rooms_widget/search_filter.dart';
 import 'package:hotel_booking_user_app/view/screen_drawer.dart';
-import 'package:hotel_booking_user_app/view/screen_rooms.dart';
 import 'package:hotel_booking_user_app/view/screen_search_rooms.dart';
 import '../blocs/home_bloc/home_bloc.dart';
 import '../blocs/user_bloc/user_bloc.dart';
@@ -44,7 +44,7 @@ class ScreenHome extends StatelessWidget {
                         }),
                         Text('qb',
                             style: GoogleFonts.inter(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                     color: CustomColors.mainColor,
                                     fontSize: 45,
                                     fontWeight: FontWeight.bold)))
@@ -67,7 +67,7 @@ class ScreenHome extends StatelessWidget {
                   const SizedBox(
                     height: 15,
                   ),
-                  CustomTextWidget(
+                  const CustomTextWidget(
                       text: "Let's find the best stay",
                       color: CustomColors.blackColor,
                       fontSize: 19,
@@ -80,6 +80,10 @@ class ScreenHome extends StatelessWidget {
                       if (state is HomeFetchRoomsSuccessState) {
                         return InkWell(
                           onTap: () {
+                            context.read<SearchBloc>().add(SearchHotelEvent(
+                                priceRange: null,
+                                query: null,
+                                amentiesList: []));
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => ScreenSearchRooms(
                                       totalRooms: state.totalRoomList,
@@ -106,7 +110,7 @@ class ScreenHome extends StatelessWidget {
                   const SizedBox(
                     height: 20,
                   ),
-                  CustomTextWidget(
+                  const CustomTextWidget(
                       text: "Brows your rooms",
                       color: CustomColors.blackColor,
                       fontSize: 19,
@@ -133,8 +137,8 @@ class ScreenHome extends StatelessWidget {
             const SizedBox(
               height: 25,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20),
               child: CustomTextWidget(
                   text: "Top category",
                   color: CustomColors.blackColor,

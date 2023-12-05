@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/comman_text_widget.dart';
+import 'package:hotel_booking_user_app/view/screen_edit_profile.dart';
 import '../blocs/home_bloc/home_bloc.dart';
 import '../blocs/user_bloc/user_bloc.dart';
 import '../resource/const/custom_colors.dart';
@@ -22,7 +23,7 @@ class ScreenProfile extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: heightMidia * 0.23,
+              height: heightMidia * 0.20,
               width: double.infinity,
               decoration: const BoxDecoration(
                   image: DecorationImage(
@@ -40,7 +41,7 @@ class ScreenProfile extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              SizedBox(
+                              const SizedBox(
                                 height: 20,
                               ),
                               Row(
@@ -54,7 +55,13 @@ class ScreenProfile extends StatelessWidget {
                                       fontSize: 22,
                                       fontWeight: FontWeight.w700),
                                   InkWell(
-                                    onTap: () {},
+                                    onTap: () {
+                                      Navigator.of(context)
+                                          .push(MaterialPageRoute(
+                                        builder: (context) => ScreenEdit(
+                                            userDetails: state.userDetails),
+                                      ));
+                                    },
                                     child: CustomTextWidget(
                                         text: 'Edit Profile',
                                         color: Colors.white,
@@ -66,7 +73,7 @@ class ScreenProfile extends StatelessWidget {
                               CustomTextWidget(
                                   text: state.userDetails.email,
                                   color: Colors.white,
-                                  fontSize: 12,
+                                  fontSize: 10,
                                   fontWeight: FontWeight.normal),
                             ],
                           );
@@ -75,14 +82,14 @@ class ScreenProfile extends StatelessWidget {
                       },
                     ),
                   ),
-                  Positioned(
-                      bottom: heightMidia * 0.0,
-                      right: 0,
-                      left: 0,
-                      child: Container(
-                        height: heightMidia * 0.02,
-                        color: CustomColors.extraLightGrey,
-                      )),
+                  // Positioned(
+                  //     bottom: heightMidia * 0.0,
+                  //     right: 0,
+                  //     left: 0,
+                  //     child: Container(
+                  //       height: heightMidia * 0.02,
+                  //       color: CustomColors.extraLightGrey,
+                  //     )),
                 ],
               ),
             ),

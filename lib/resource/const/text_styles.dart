@@ -8,10 +8,11 @@ class AppText {
         fontFamily: 'Poppins',
         color: Colors.grey[500],
       );
-  static TextStyle get smallDark => TextStyle(
+  static TextStyle get smallDark => const TextStyle(
         fontSize: 12,
-        color: CustomColors.mainColor,
+        color: Color.fromARGB(255, 132, 132, 132),
       );
+
   static TextStyle get smallLight => const TextStyle(
         fontSize: 12,
         color: CustomColors.lightGreyColor,
@@ -21,6 +22,11 @@ class AppText {
         fontWeight: FontWeight.w600,
         color: CustomColors.lightGreyColor,
       );
+  static TextStyle get darkTerms => const TextStyle(
+        fontSize: 14,
+        fontWeight: FontWeight.w600,
+        color: CustomColors.blackColor,
+      );
   static TextStyle get mediumLight => const TextStyle(
         fontSize: 14,
         fontWeight: FontWeight.w500,
@@ -29,7 +35,12 @@ class AppText {
   static TextStyle get largeDark => const TextStyle(
         fontSize: 16,
         fontWeight: FontWeight.w600,
-        color: CustomColors.lightGreyColor,
+        color: CustomColors.mainColor,
+      );
+  static TextStyle get dark => const TextStyle(
+        fontSize: 16,
+        fontWeight: FontWeight.w600,
+        color: CustomColors.blackColor,
       );
   static TextStyle get largeLight => const TextStyle(
         fontSize: 16,

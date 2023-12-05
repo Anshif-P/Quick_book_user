@@ -13,6 +13,7 @@ import 'package:hotel_booking_user_app/blocs/signup_bloc/signup_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/user_bloc/user_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/wishlist_bloc/wishlist_bloc.dart';
 import 'package:hotel_booking_user_app/data/shared_preferences/shared_pref_model.dart';
+import 'package:hotel_booking_user_app/view/screen_login.dart';
 import 'package:hotel_booking_user_app/view/screen_map.dart';
 import 'package:hotel_booking_user_app/view/screen_splash.dart';
 import 'blocs/review_bloc/review_bloc.dart';
@@ -31,15 +32,17 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(create: (context) => LoginBloc()),
         BlocProvider(create: (context) => SignupBloc()),
-        BlocProvider(create: (context) => UserBloc()),
+        BlocProvider(create: (context) => WishlistBloc()),
+        BlocProvider(
+            create: (context) => UserBloc(context.read<WishlistBloc>())),
         BlocProvider(create: (context) => HomeBloc()),
         BlocProvider(create: (context) => RoomsBloc()),
         BlocProvider(create: (context) => ReviewBloc()),
-        BlocProvider(create: (context) => WishlistBloc()),
         BlocProvider(create: (context) => CouponBloc()),
         BlocProvider(create: (context) => PaymentBloc()),
         BlocProvider(create: (context) => BookingBloc()),
         BlocProvider(create: (context) => DateCheckingBloc()),
+        BlocProvider(create: (context) => SearchBloc(context.read<HomeBloc>())),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

@@ -7,28 +7,47 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../const/custom_colors.dart';
 
 class CheckBoxWidget extends StatelessWidget {
-  CheckBoxWidget({Key? key, required this.amentiesList}) : super(key: key);
-  final ValueNotifier<List<bool>> amentiesList;
+  CheckBoxWidget({Key? key, required this.filterList}) : super(key: key);
+  final ValueNotifier<List<String>> filterList;
 
-  final List<String> items = ['Ac', 'Swimming Pool', 'Meeting Room', 'Wifi'];
-
+  final List<String> items = [
+    'Ac',
+    'Swimming Pool',
+    'Meeting Room',
+    'Wifi',
+    'Restaurant',
+    'Power backup',
+    'Fitness Center',
+    'Tv',
+    'Elevatorv'
+  ];
+  // 'Wifi': const Icon(Icons.wifi),
+  //   'Restaurant': const Icon(Icons.hot_tub_outlined),
+  //   'Ac': const Icon(Icons.ac_unit_outlined),
+  //   'Power backup': const Icon(Icons.power),
+  //   'Fitness Center': const Icon(Icons.fitness_center),
+  //   'Tv': const Icon(Icons.tv_rounded),
+  //   'Swimming Pool': const Icon(Icons.pool),
+  //   'Meeting Room': const Icon(Icons.meeting_room_outlined),
+  //   'Elevator': const Icon(Icons.elevator_outlined)
+  // final filterList = [];
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
       shrinkWrap: true,
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 4,
+        crossAxisCount: 3,
+        childAspectRatio: 3,
       ),
-      itemCount: amentiesList.value.length,
+      itemCount: 9,
       itemBuilder: (context, index) {
         return Row(
           children: [
             SizedBox(
               width: 22,
               child: ValueListenableBuilder(
-                valueListenable: amentiesList,
+                valueListenable: filterList,
                 builder: (context, value, child) => Checkbox(
                   overlayColor:
                       MaterialStateColor.resolveWith((states) => Colors.white),
@@ -37,10 +56,15 @@ class CheckBoxWidget extends StatelessWidget {
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(3),
                   ),
-                  value: amentiesList.value[index],
+                  value: filterList.value.contains(items[index]),
                   onChanged: (value) {
-                    amentiesList.value[index] = value!;
-                    amentiesList.notifyListeners();
+                    if (value!) {
+                      filterList.value.add(items[index]);
+                    } else {
+                      filterList.value.remove(items[index]);
+                    }
+                    print(filterList.value);
+                    filterList.notifyListeners();
                   },
                 ),
               ),

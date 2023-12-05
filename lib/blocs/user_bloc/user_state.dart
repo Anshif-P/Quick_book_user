@@ -20,3 +20,23 @@ class UserTokenFoundState extends UserState {
   String token;
   UserTokenFoundState({required this.token});
 }
+
+class EditUserSuccessState extends UserState {}
+
+class EditUserErrorState extends UserState {
+  final String errorMessage;
+
+  EditUserErrorState(this.errorMessage);
+}
+
+class EditUserLoadingState extends UserState {}
+
+class PasswordChangedSuccessState extends UserState {}
+
+class PasswordChangedErrorState extends UserState {
+  final String errorMessage;
+
+  PasswordChangedErrorState({required this.errorMessage});
+}
+
+class PasswordChangedLoadingState extends UserState {}

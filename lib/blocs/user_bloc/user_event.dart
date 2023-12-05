@@ -7,4 +7,16 @@ class FetchUserData extends UserEvent {
   FetchUserData({required this.token});
 }
 
+class EditUserProfileEvent extends UserEvent {
+  final Map map;
+
+  EditUserProfileEvent(this.map);
+}
+
+class ChangePasswordEvent extends UserEvent {
+  final Map map;
+
+  ChangePasswordEvent(this.map);
+}
+
 class UserTokenChecking extends UserEvent {}

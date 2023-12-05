@@ -328,7 +328,7 @@ class ScreenRoomDetails extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: heightMedia * 0.03,
+                top: heightMedia * 0.06,
                 left: widthMedia * 0.04,
                 child: InkWell(
                   onTap: () => Navigator.of(context).pop(),
@@ -348,8 +348,8 @@ class ScreenRoomDetails extends StatelessWidget {
                 ),
               ),
               Positioned(
-                  top: heightMedia * 0.03,
-                  right: widthMedia * 0.04,
+                  top: heightMedia * 0.06,
+                  right: widthMedia * 0.07,
                   child: BlocBuilder<WishlistBloc, WishlistState>(
                       builder: (context, state) {
                     if (state is FetchWishlistSuccessState) {

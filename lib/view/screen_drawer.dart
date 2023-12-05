@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hotel_booking_user_app/view/screen_app_info.dart';
+import 'package:hotel_booking_user_app/view/screen_help.dart';
+import 'package:hotel_booking_user_app/view/screen_privacy_policy.dart';
 import '../blocs/user_bloc/user_bloc.dart';
 import '../resource/const/custom_colors.dart';
 import '../resource/components/comman/show_dialog.dart';
@@ -22,14 +25,6 @@ class ScreenDrawer extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(width: 25),
-                Container(
-                  width: 60,
-                  height: 55,
-                  decoration: BoxDecoration(
-                    color: Colors.amber,
-                    borderRadius: BorderRadius.circular(7),
-                  ),
-                ),
                 const SizedBox(width: 14),
                 BlocBuilder<UserBloc, UserState>(builder: (context, state) {
                   if (state is UserDataFetchSuccessState) {
@@ -63,23 +58,28 @@ class ScreenDrawer extends StatelessWidget {
         ListTile(
           leading: const Icon(Icons.info_outline),
           title: const Text('App info'),
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const ScreenAppInfo()));
+          },
         ),
         ListTile(
           leading: const Icon(Icons.lock),
           title: const Text('Privacy & policy'),
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => const ScreenPrivacyPolicy()));
+          },
         ),
         ListTile(
           leading: const Icon(Icons.question_mark),
           title: const Text('Help'),
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const ScreenHelp()));
+          },
         ),
-        ListTile(
-          leading: const Icon(Icons.card_membership),
-          title: const Text('Add Coupons'),
-          onTap: () {},
-        ),
+
         ListTile(
           leading: Icon(
             Icons.logout,

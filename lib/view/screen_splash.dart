@@ -87,18 +87,17 @@ class _ScreenSplashState extends State<ScreenSplash> {
     );
   }
 
-  userLoginValidation(BuildContext context, state) async {
+  userLoginValidation(BuildContext context, state) {
     if (state is UserTokenNotFoundState) {
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => ScreenLogin()));
     } else if (state is UserTokenFoundState) {
+      print(
+          '--------------------------------------------------dddddddddddddddddddddddd');
       context.read<RoomsBloc>().add(FetchBookedRoomsEvent(token: state.token));
       context.read<UserBloc>().add(FetchUserData(token: state.token));
     } else if (state is UserDataFetchSuccessState) {
-      final token = await SharedPrefModel.instance.getData('token');
       context.read<HomeBloc>().add(GetAllRoomsEvent());
-      context.read<WishlistBloc>().add(
-          GetWishlistRoomsEvent(token: token, userId: state.userDetails.id));
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => ScreenParentNavigation()));
     }

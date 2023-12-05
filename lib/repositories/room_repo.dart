@@ -41,4 +41,10 @@ class RoomRepositories {
 
   EitherResponse applyCoupons(Map map, token) async =>
       await ApiService.postApi(Urls.applyCoupon, map, token);
+
+  EitherResponse editUserDetails(Map map, token) async =>
+      await ApiService.patch(Urls.editProfile, map, token);
+
+  EitherResponse changePassword(Map map, token) async =>
+      await ApiService.patch(Urls.changePassword, map, token);
 }

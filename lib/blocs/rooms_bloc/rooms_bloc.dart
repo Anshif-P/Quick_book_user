@@ -50,8 +50,9 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
         (error) => emit(CancelBookingErrorState(errorMessage: error.message)),
         (response) {
       if (response['status'] != 'failed') {
-        emit(CancelBookingSuccessState());
         roomsObjList.removeWhere((element) => element.id == event.bookingId);
+        emit(CancelBookingSuccessState());
+
         emit(FetchBookedRoomsSuccessState(roomList: roomsObjList));
       } else {
         emit(CancelBookingErrorState(errorMessage: response['message']));

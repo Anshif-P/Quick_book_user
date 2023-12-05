@@ -11,16 +11,14 @@ import 'package:shimmer/shimmer.dart';
 
 import '../../../blocs/coupon_bloc/coupon_bloc.dart';
 import '../../../blocs/home_bloc/home_bloc.dart';
+import '../comman/location_home_widget.dart';
 
 class HomeCardWidget extends StatelessWidget {
   const HomeCardWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<HomeBloc, HomeState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+    return BlocBuilder<HomeBloc, HomeState>(
       builder: (context, state) {
         if (state is HomeFetchRoomsSuccessState) {
           return ListView.separated(
@@ -81,9 +79,9 @@ class HomeCardWidget extends StatelessWidget {
                         flex: 2,
                         child: Container(
                           width: 300,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             color: CustomColors.textFeildIconColor,
-                            borderRadius: const BorderRadius.only(
+                            borderRadius: BorderRadius.only(
                                 bottomLeft: Radius.circular(5),
                                 bottomRight: Radius.circular(5)),
                           ),
@@ -101,7 +99,7 @@ class HomeCardWidget extends StatelessWidget {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
                                   children: [
-                                    LocationTextWidget(
+                                    LocationHomeWidget(
                                         text1: data.state, text2: data.city),
                                     CustomTextWidget(
                                         text: '₹${data.price}',
@@ -124,12 +122,12 @@ class HomeCardWidget extends StatelessWidget {
           Expanded(
             flex: 5,
             child: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: CustomColors.textFeildIconColor,
-                  borderRadius: const BorderRadius.only(
+                  borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(8),
                       topRight: Radius.circular(8))),
-              //height: 150,
+              // height: 150,
               width: 300,
             ),
           ),
@@ -137,14 +135,14 @@ class HomeCardWidget extends StatelessWidget {
             flex: 2,
             child: Container(
               width: 300,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 color: CustomColors.grey,
-                borderRadius: const BorderRadius.only(
+                borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(5),
                     bottomRight: Radius.circular(5)),
               ),
-              child: Padding(
-                padding: const EdgeInsets.all(10),
+              child: const Padding(
+                padding: EdgeInsets.all(10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -156,7 +154,7 @@ class HomeCardWidget extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        LocationTextWidget(text1: ',', text2: ''),
+                        LocationHomeWidget(text1: ',', text2: ''),
                         CustomTextWidget(
                             text: '',
                             color: CustomColors.blackColor,

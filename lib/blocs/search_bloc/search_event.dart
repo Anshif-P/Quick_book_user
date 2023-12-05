@@ -5,9 +5,11 @@ abstract class SearchEvent {}
 class SearchShowAllEvent extends SearchEvent {}
 
 class SearchHotelEvent extends SearchEvent {
-  final String query;
-  final List<String> filterList;
+  final String? query;
+  final List<String> amentiesList;
   final double? priceRange;
   SearchHotelEvent(
-      {required this.query, required this.filterList, this.priceRange});
+      {required this.query,
+      required this.amentiesList,
+      required this.priceRange});
 }

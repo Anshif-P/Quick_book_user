@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'package:hotel_booking_user_app/blocs/coupon_bloc/coupon_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/payment_bloc/payment_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/rooms_bloc/rooms_bloc.dart';
@@ -15,7 +14,6 @@ import 'package:hotel_booking_user_app/resource/components/comman/textfeild.dart
 import 'package:hotel_booking_user_app/utils/validation.dart';
 import 'package:hotel_booking_user_app/view/screen_parent_bottom_navigation.dart';
 import '../blocs/booking_bloc/booking_bloc.dart';
-
 import '../blocs/date_checking_bloc/date_checking_bloc.dart';
 import '../model/coupon_model.dart';
 import '../resource/components/booking_page1_widget/coupon_apply_textfeild_widget.dart';
@@ -203,9 +201,6 @@ class _ScreenPaymentState extends State<ScreenPayment> {
                                     .toList();
 
                                 if (couponList.isNotEmpty) {
-                                  // print(
-                                  //     ' this is new coupon code this is available --------------------- ${listCoupons[0].couponCode}');
-
                                   discountAmount.value = couponList[0].discount;
                                   discountAmount.notifyListeners();
                                   setState(() {});
@@ -226,116 +221,7 @@ class _ScreenPaymentState extends State<ScreenPayment> {
               const SizedBox(
                 height: 30,
               ),
-              // BlocConsumer<DateCheckingBloc, DateCheckingEvent>(
-              //     listener: (context, state) {
-              //   if (state is BookingDateNotAvailableState) {
-              //     ScaffoldMessenger.of(context).showSnackBar(
-              //         SnackBar(content: Text(state.errorMessage)));
-              //     bookingLoadingCheck = false;
-              //   }
-              //   if (state is BookingLoadingState) {
-              //     bookingLoadingCheck = true;
-              //   }
-              //   if (state is BookingSuccessState) {
-              //     final token = SharedPrefModel.instance.getData('token');
-              //     // context
-              //     //     .read<RoomsBloc>()
-              //     //     .add(FetchBookedRoomsEvent(token: token));
-              //     // bookingLoadingCheck = false;
-              //     // context.read<PaymentBloc>().add(PaymentStartEvent(
-              //     //       mobNumber: mobNumberController.text,
-              //     //       propertyName: widget.data.vendorId.propertyName,
-              //     //       totalAmount: totalPrice.value.toString()));
-              //   }
-              // }, builder: (context, state) {
-              //   return ButtonWidget(
-              //       loadingCheck: bookingLoadingCheck,
-              //       onpressFunction: () {
-              //         bookNowButtonFunction(context);
-              //       },
-              //       text: 'Book Now',
-              //       colorCheck: true);
-              // }),
-              BlocListener<BookingBloc, BookingState>(
-                listener: (context, state) {
-                  if (state is BookingErrorState) {
-                    ScaffoldMessenger.of(context).showSnackBar(
-                        SnackBar(content: Text(state.errorMessage)));
-                    bookingLoadingCheck = false;
-                  }
-
-                  if (state is BookingSuccessState) {
-                    final token = SharedPrefModel.instance.getData('token');
-                    context
-                        .read<RoomsBloc>()
-                        .add(FetchBookedRoomsEvent(token: token));
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                        content: Text('Payment Successfully Completed')));
-                    bookingLoadingCheck = false;
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => ScreenParentNavigation()));
-                  }
-                },
-                child: BlocConsumer<CouponBloc, CouponState>(
-                  listener: (context, state) {
-                    if (state is CouponApplyLoadinState) {
-                      bookingLoadingCheck = true;
-                    } else if (state is CouponApplyFaliurState) {
-                      bookingLoadingCheck = false;
-                      print(
-                          '-----------------------------counpon errr    rrrrrrrrrr');
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: Text(state.errorMessage),
-                      ));
-                    } else if (state is CouponApplySuccessState) {
-                      context.read<DateCheckingBloc>().add(
-                          GetAvailableDatesEventf(
-                              dateRangeNotifier.value.start.toString(),
-                              dateRangeNotifier.value.end.toString(),
-                              widget.data));
-                    }
-                  },
-                  builder: (context, state) {
-                    return BlocListener<DateCheckingBloc, DateCheckingState>(
-                      listener: (context, state) {
-                        if (state is BookingDateNotAvailableState) {
-                          ScaffoldMessenger.of(context).showSnackBar(
-                              SnackBar(content: Text(state.errorMessage)));
-                          bookingLoadingCheck = false;
-                        }
-                        if (state is DateAvailableCheckLoadingState) {
-                          bookingLoadingCheck = true;
-                        }
-                        if (state is BookingDataAvailable) {
-                          final token =
-                              SharedPrefModel.instance.getData('token');
-                          // context
-                          //     .read<RoomsBloc>()
-                          //     .add(FetchBookedRoomsEvent(token: token));
-                          // bookingLoadingCheck = false;
-                          // context.read<PaymentBloc>().add(PaymentStartEvent(
-                          //       mobNumber: mobNumberController.text,
-                          //       propertyName: widget.data.vendorId.propertyName,
-                          //       totalAmount: totalPrice.value.toString()));
-                          context.read<PaymentBloc>().add(PaymentStartEvent(
-                              mobNumber: mobNumberController.text,
-                              propertyName: widget.data.vendorId.propertyName,
-                              totalAmount: totalPrice.value.toString()));
-                        }
-                      },
-                      child: ButtonWidget(
-                          loadingCheck: bookingLoadingCheck,
-                          onpressFunction: () {
-                            bookNowButtonFunction(context);
-                          },
-                          text: 'Book Now',
-                          colorCheck: true),
-                    );
-                  },
-                ),
-              ),
-
-              BlocListener<PaymentBloc, PaymentState>(
+              BlocConsumer<PaymentBloc, PaymentState>(
                 listener: (context, state) {
                   if (state is PayementSuccessState) {
                     context.read<BookingBloc>().add(BookRoomEvent(
@@ -355,15 +241,95 @@ class _ScreenPaymentState extends State<ScreenPayment> {
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => ScreenParentNavigation()));
                   } else if (state is PayementFailedState) {
+                    bookingLoadingCheck = false;
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('Payment Failed PleaseTry Again '),
                     ));
                   }
                 },
-                child: const SizedBox(
-                  height: 30,
-                ),
-              )
+                builder: (context, state) {
+                  return BlocConsumer<BookingBloc, BookingState>(
+                    listener: (context, state) {
+                      if (state is BookingErrorState) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text(state.errorMessage)));
+                        bookingLoadingCheck = false;
+                      }
+
+                      if (state is BookingSuccessState) {
+                        final token = SharedPrefModel.instance.getData('token');
+                        context
+                            .read<RoomsBloc>()
+                            .add(FetchBookedRoomsEvent(token: token));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                                content:
+                                    Text('Payment Successfully Completed')));
+                        bookingLoadingCheck = false;
+                        Navigator.of(context).pushReplacement(MaterialPageRoute(
+                            builder: (context) => ScreenParentNavigation()));
+                      }
+                    },
+                    builder: (context, state) =>
+                        BlocConsumer<CouponBloc, CouponState>(
+                      listener: (context, state) {
+                        if (state is CouponApplyLoadinState) {
+                          bookingLoadingCheck = true;
+                        } else if (state is CouponApplyFaliurState) {
+                          couponList.clear();
+                          bookingLoadingCheck = false;
+                          print(
+                              '-----------------------------counpon errr    rrrrrrrrrr');
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(state.errorMessage),
+                          ));
+                        } else if (state is CouponApplySuccessState) {
+                          context.read<DateCheckingBloc>().add(
+                              GetAvailableDatesEventf(
+                                  dateRangeNotifier.value.start.toString(),
+                                  dateRangeNotifier.value.end.toString(),
+                                  widget.data));
+                        }
+                      },
+                      builder: (context, state) {
+                        return BlocConsumer<DateCheckingBloc,
+                            DateCheckingState>(
+                          listener: (context, state) {
+                            if (state is BookingDateNotAvailableState) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(content: Text(state.errorMessage)));
+                              bookingLoadingCheck = false;
+                            }
+                            if (state is DateAvailableCheckLoadingState) {
+                              bookingLoadingCheck = true;
+                            }
+                            if (state is BookingDataAvailable) {
+                              final token =
+                                  SharedPrefModel.instance.getData('token');
+
+                              context.read<PaymentBloc>().add(PaymentStartEvent(
+                                  mobNumber: mobNumberController.text,
+                                  propertyName:
+                                      widget.data.vendorId.propertyName,
+                                  totalAmount: totalPrice.value.toString()));
+                            }
+                          },
+                          builder: (context, state) => ButtonWidget(
+                              loadingCheck: bookingLoadingCheck,
+                              onpressFunction: () {
+                                bookNowButtonFunction(context);
+                              },
+                              text: 'Book Now',
+                              colorCheck: true),
+                        );
+                      },
+                    ),
+                  );
+                },
+              ),
+              SizedBox(
+                height: 30,
+              ),
             ],
           ),
         ),
@@ -381,16 +347,6 @@ class _ScreenPaymentState extends State<ScreenPayment> {
             dateRangeNotifier.value.start.toString(),
             dateRangeNotifier.value.end.toString(),
             widget.data));
-        // context.read<BookingsBloc>().add(FetchBookingDates(
-        //     address: addressController.text,
-        //     dates: dateRangeNotifier.value,
-        //     data: widget.data,
-        //     mobNumber: mobNumberController.text,
-        //     guest: guestNotifier.value,
-        //     rooms: roomNotifier.value,
-        //     bookingsData: dateRangeNotifier.value,
-        //     startDate: dateRangeNotifier.value.start.toString(),
-        //     endDate: dateRangeNotifier.value.end.toString()));
       }
     } else {
       ScaffoldMessenger.of(context)

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../../blocs/rooms_bloc/rooms_bloc.dart';
 import '../../const/custom_colors.dart';
@@ -21,10 +20,30 @@ class UpcomingBookingsWidget extends StatelessWidget {
           color: CustomColors.lightGreyColor,
         ),
         Expanded(
-          child: BlocBuilder<RoomsBloc, RoomsState>(
-            buildWhen: (previous, current) => current is! RoomActionState,
+          child: BlocConsumer<RoomsBloc, RoomsState>(
+            // listenWhen: (previous, current) => current is RoomActionState,
+            listener: (context, state) {
+              if (state is CancelBookingErrorState) {
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context)
+                    .showSnackBar(SnackBar(content: Text(state.errorMessage)));
+              }
+              if (state is CancelBookingSuccessState) {
+                Navigator.of(context).pop();
+                ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                    content: Text('Room Canceled Successfully')));
+              }
+              // if (state
+              //     is CancelBookingLoadingState) {
+              //   cancelButtomLoading =
+              //       true;
+              // }
+            },
+            // buildWhen: (previous, current) => current is! RoomActionState,
             builder: (context, state) {
               if (state is FetchBookedRoomsSuccessState) {
+                print(
+                    ' ------------------------------------88888888888888888888888888**************************this is ');
                 final date = DateTime.now();
                 final upcomingRooms = state.roomList
                     .where((data) =>
@@ -51,14 +70,14 @@ class UpcomingBookingsWidget extends StatelessWidget {
                             ),
                           );
                         } else {
-                          return Center(
+                          return const Center(
                             child: Text('No Rooms Found'),
                           );
                         }
                       });
                 }
               }
-              return Center(
+              return const Center(
                 child: Text('No Bookings Found'),
               );
             },

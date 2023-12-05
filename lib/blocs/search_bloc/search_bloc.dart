@@ -7,45 +7,106 @@ part 'search_state.dart';
 class SearchBloc extends Bloc<SearchEvent, SearchState> {
   SearchBloc(this.homeBloc) : super(SearchInitial()) {
     on<SearchHotelEvent>(_onSearch);
-    on<SearchShowAllEvent>(_refresh);
   }
   final HomeBloc homeBloc;
+
   _onSearch(SearchHotelEvent event, Emitter<SearchState> emit) {
-    List<RoomsModel> rawHotelList = homeBloc.roomsObjList;
-    List<String> selectedCategories =
-        event.filterList.map((e) => e.toLowerCase()).toList();
-    double? maxPrice = event.priceRange;
+    List<RoomsModel> filteredRooms = [];
+    List<String> amentiesList = [];
+    double priceRange;
 
-    if (selectedCategories.isNotEmpty) {
-      rawHotelList = rawHotelList
-          .where((hotel) =>
-              selectedCategories.contains(hotel.category.toLowerCase()))
-          .toList();
-    }
+    priceRange = event.priceRange == null ? 15000 : event.priceRange!;
 
-    final searchQuery = event.query.toLowerCase();
-
-    rawHotelList = rawHotelList
-        .where((hotel) =>
-            hotel.state.toLowerCase().contains(searchQuery) ||
-            hotel.city.toLowerCase().contains(searchQuery))
-        .toList();
-
-    if (maxPrice != null) {
-      rawHotelList = rawHotelList.where((hotel) {
-        final price = double.parse(hotel.price);
-        return price <= maxPrice;
-      }).toList();
-    }
-
-    if (rawHotelList.isNotEmpty) {
-      emit(SearchFoundState(hotelList: rawHotelList));
+    if (event.amentiesList.isEmpty) {
+      amentiesList = [
+        'Ac',
+        'Swimming Pool',
+        'Meeting Room',
+        'Wifi',
+        'Restaurant',
+        'Power backup',
+        'Fitness Center',
+        'Tv',
+        'Elevatorv'
+      ];
     } else {
-      emit(SearchNotFoundState());
+      amentiesList = event.amentiesList;
     }
-  }
+    print(event.amentiesList);
+    print(event.priceRange);
+    print(event.query);
 
-  _refresh(SearchShowAllEvent event, Emitter<SearchState> emit) {
-    emit(SearchFoundState(hotelList: homeBloc.roomsObjList));
+    List<RoomsModel> totalRooms = homeBloc.roomsObjList;
+    print(totalRooms.length);
+    if (event.query == null &&
+        event.amentiesList.isEmpty &&
+        event.priceRange == null) {
+      emit(SearchFoundState(filteredRooms: totalRooms));
+    } else {
+      print("Else case ----------------------------------");
+      // print(event.amentiesList);
+      // print(event.priceRange);
+
+      filteredRooms = totalRooms.where((e) {
+        for (int i = 0; i < amentiesList.length; i++) {
+          double price = double.parse(e.price);
+          if (e.amenities.contains(amentiesList[i]) && price <= priceRange) {
+            return true;
+          }
+        }
+        return false;
+      }).toList();
+      print(event.query);
+
+      print(filteredRooms.length);
+      if (event.query != null) {
+        filteredRooms = filteredRooms
+            .where((e) =>
+                e.state.toLowerCase().contains(event.query!.toLowerCase()))
+            .toList();
+        if (filteredRooms.isNotEmpty) {
+          print(filteredRooms[0].price);
+          emit(SearchFoundState(filteredRooms: filteredRooms));
+        } else if (filteredRooms.isEmpty) {
+          print('not found');
+          emit(SearchNotFoundState());
+        }
+      } else if (event.query == null && filteredRooms.isNotEmpty) {
+        emit(SearchNotFoundState());
+      }
+    }
   }
 }
+
+
+
+       // if (event.query != null) {
+      //   filteredRooms = totalRooms
+      //       .where((element) => element.state
+      //           .toLowerCase()
+      //           .contains(event.query!.toLowerCase()))
+      //       .toList();
+      //   if (filteredRooms.isEmpty) {
+      //     emit(SearchNotFoundState());
+      //   } else {
+      //     emit(SearchFoundState(filteredRooms: filteredRooms));
+      //   }
+      // }
+
+
+      // filteredRooms = totalRooms.where((e) {
+      //   double price = double.parse(e.price);
+
+      //   // Assume initially that all amenities are present
+      //   bool allAmenitiesPresent = true;
+
+      //   for (int i = 0; i < amentiesList.length; i++) {
+      //     if (!e.amenities.contains(amentiesList[i]) || price > priceRange) {
+      //       // If any amenity is not present or the price is higher, set the flag to false
+      //       allAmenitiesPresent = false;
+      //       break; // No need to continue checking, as we've already found a missing amenity
+      //     }
+      //   }
+
+      //   return allAmenitiesPresent;
+      // }).toList();

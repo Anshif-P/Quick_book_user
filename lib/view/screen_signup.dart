@@ -6,6 +6,7 @@ import 'package:hotel_booking_user_app/resource/components/comman/button_widget.
 import 'package:hotel_booking_user_app/utils/validation.dart';
 import 'package:hotel_booking_user_app/view/screen_login.dart';
 import 'package:hotel_booking_user_app/view/screen_parent_bottom_navigation.dart';
+import 'package:permission_handler/permission_handler.dart';
 import '../resource/components/comman/textfeild.dart';
 import '../resource/components/signup_login_widgets/divider_widget.dart';
 import '../resource/components/signup_login_widgets/mobileno_textfeild.dart';
@@ -132,7 +133,7 @@ class ScreenSignUp extends StatelessWidget {
                     builder: (context, state) {
                       return ButtonWidget(
                           loadingCheck: loadingCheck,
-                          onpressFunction: () => signUpAddAccount(context),
+                          onpressFunction: () => _requestPermissions(context),
                           text: 'Sign Up',
                           colorCheck: true);
                     },
@@ -172,5 +173,19 @@ class ScreenSignUp extends StatelessWidget {
           password: passwordController.text,
           conformPassword: conformPasswordController.text));
     } else {}
+  }
+
+  Future<void> _requestPermissions(BuildContext context) async {
+    Map<Permission, PermissionStatus> statuses = await [
+      Permission.storage,
+    ].request();
+
+    if (statuses[Permission.storage] == PermissionStatus.granted) {
+      signUpAddAccount(context);
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+          content: Text(
+              'To Continue, please enable the Storage permission in the app settings')));
+    }
   }
 }

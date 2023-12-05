@@ -17,4 +17,6 @@ class Urls {
   static String getRoomCoupons = '$baseUrl/api/getCoupon/';
   static String applyCoupon = '$baseUrl/api/coupnapply';
   static String roomBookingSuccess = '$baseUrl/api/successData/';
+  static String editProfile = '$baseUrl/api/editProfile';
+  static String changePassword = '$baseUrl/api/editpassword';
 }

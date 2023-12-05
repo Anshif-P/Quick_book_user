@@ -1,7 +1,7 @@
 class UserModel {
   final String id;
-  final String name;
-  final String email;
+  String name;
+  String email;
   final String password;
   final String phone;
   final bool isBanned;

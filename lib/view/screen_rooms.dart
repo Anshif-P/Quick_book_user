@@ -47,7 +47,7 @@ class ScreenRooms extends StatelessWidget {
                           alignment: Alignment.centerLeft,
                           child: InkWell(
                               onTap: () => Navigator.of(context).pop(),
-                              child: Icon(Icons.arrow_back)),
+                              child: const Icon(Icons.arrow_back)),
                         ),
                       ),
                       Expanded(
@@ -63,20 +63,29 @@ class ScreenRooms extends StatelessWidget {
                       const Expanded(flex: 1, child: SizedBox())
                     ],
                   )
-                : Row(
-                    children: [
-                      Expanded(
-                          flex: 6,
-                          child: SearchTextFeildWidget(
-                              controller: searchController)),
-                      const SizedBox(
-                        width: 16,
-                      ),
-                      Expanded(flex: 1, child: FilterWidget())
-                    ],
+                : BlocBuilder<HomeBloc, HomeState>(
+                    builder: (context, state) {
+                      if (state is HomeFetchRoomsSuccessState) {
+                        return InkWell(
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  flex: 6,
+                                  child: SearchTextFeildWidget(
+                                      controller: searchController)),
+                              const SizedBox(
+                                width: 16,
+                              ),
+                              const Expanded(flex: 1, child: FilterWidget())
+                            ],
+                          ),
+                        );
+                      }
+                      return SizedBox();
+                    },
                   ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 8,
           ),
           Container(
@@ -93,9 +102,9 @@ class ScreenRooms extends StatelessWidget {
                       final data = categorizedRooms![index];
 
                       return InkWell(
-                        onTap: () async {
+                        onTap: () {
                           final token =
-                              await SharedPrefModel.instance.getData('token');
+                              SharedPrefModel.instance.getData('token');
                           context.read<CouponBloc>().add(GetRoomCouponsEvent(
                               vendorId: data.vendorId.id, token: token));
                           context.read<ReviewBloc>().add(GetRoomReviews(

@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/wishlist_bloc/wishlist_bloc.dart';
 import 'package:hotel_booking_user_app/model/room_model.dart';
+import 'package:hotel_booking_user_app/view/screen_app_info.dart';
+import 'package:hotel_booking_user_app/view/screen_help.dart';
+import 'package:hotel_booking_user_app/view/screen_privacy_policy.dart';
 import 'package:hotel_booking_user_app/view/screen_rooms.dart';
+import 'package:hotel_booking_user_app/view/screen_terms_conditions.dart';
 import '../../const/custom_colors.dart';
 import '../comman/show_dialog.dart';
 
@@ -15,50 +19,11 @@ class ProfileListTileWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        ListTile(
-          title: const Text('Security'),
-          leading: const Icon(Icons.security, color: Colors.black),
-          trailing: Icon(
-            Icons.keyboard_arrow_right_outlined,
-            color: CustomColors.lightGreyColor,
-          ),
-          onTap: () {},
-        ),
-        Divider(
-          height: 1,
-          color: CustomColors.lightGreyColor,
-          thickness: 0.5,
-        ),
-        ListTile(
-          leading: const Icon(Icons.help_outline_outlined, color: Colors.black),
-          title: const Text('Help'),
-          trailing: Icon(
-            Icons.keyboard_arrow_right_outlined,
-            color: CustomColors.lightGreyColor,
-          ),
-          onTap: () {},
-        ),
-        Divider(
-          height: 1,
-          color: CustomColors.lightGreyColor,
-          thickness: 0.5,
-        ),
         Container(
           height: 10,
           color: CustomColors.extraLightGrey,
         ),
-        ListTile(
-          leading: const Icon(
-            Icons.lock_open_outlined,
-            color: Colors.black,
-          ),
-          title: const Text('Change Password'),
-          trailing: Icon(
-            Icons.keyboard_arrow_right_outlined,
-            color: CustomColors.lightGreyColor,
-          ),
-          onTap: () {},
-        ),
+
         BlocBuilder<WishlistBloc, WishlistState>(builder: (context, state) {
           if (state is FetchWishlistSuccessState) {
             wishList = data!
@@ -71,7 +36,7 @@ class ProfileListTileWidget extends StatelessWidget {
                 color: Colors.black,
               ),
               title: const Text('Wishlist'),
-              trailing: Icon(
+              trailing: const Icon(
                 Icons.keyboard_arrow_right_outlined,
                 color: CustomColors.lightGreyColor,
               ),
@@ -87,6 +52,81 @@ class ProfileListTileWidget extends StatelessWidget {
           }
           return SizedBox();
         }),
+        const Divider(
+          height: 1,
+          color: CustomColors.lightGreyColor,
+          thickness: 0.5,
+        ),
+        ListTile(
+          title: const Text('App info'),
+          leading: const Icon(Icons.security, color: Colors.black),
+          trailing: const Icon(
+            Icons.keyboard_arrow_right_outlined,
+            color: CustomColors.lightGreyColor,
+          ),
+          onTap: () {
+            Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => ScreenAppInfo()));
+          },
+        ),
+        // const Divider(
+        //   height: 1,
+        //   color: CustomColors.lightGreyColor,
+        //   thickness: 0.5,
+        // ),
+
+        // const Divider(
+        //   height: 1,
+        //   color: CustomColors.lightGreyColor,
+        //   thickness: 0.5,
+        // ),
+        Container(
+          height: 10,
+          color: CustomColors.extraLightGrey,
+        ),
+
+        ListTile(
+          leading:
+              const Icon(Icons.my_library_books_outlined, color: Colors.black),
+          title: const Text('Terms & Conditions'),
+          trailing: const Icon(
+            Icons.keyboard_arrow_right_outlined,
+            color: CustomColors.lightGreyColor,
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (context) => const ScreenTermsAndCondition()),
+            );
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.privacy_tip_outlined, color: Colors.black),
+          title: const Text('Privacy & Policy'),
+          trailing: const Icon(
+            Icons.keyboard_arrow_right_outlined,
+            color: CustomColors.lightGreyColor,
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(
+                  builder: (context) => const ScreenPrivacyPolicy()),
+            );
+          },
+        ),
+        ListTile(
+          leading: const Icon(Icons.help_outline_outlined, color: Colors.black),
+          title: const Text('Help'),
+          trailing: const Icon(
+            Icons.keyboard_arrow_right_outlined,
+            color: CustomColors.lightGreyColor,
+          ),
+          onTap: () {
+            Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => const ScreenHelp()),
+            );
+          },
+        ),
 
         // Divider(
         //   height: 1,
@@ -105,7 +145,7 @@ class ProfileListTileWidget extends StatelessWidget {
         //         isDarkThemeEnabled.value = value;
         //       }),
         // ),
-        Divider(
+        const Divider(
           height: 1,
           color: CustomColors.lightGreyColor,
           thickness: 0.5,

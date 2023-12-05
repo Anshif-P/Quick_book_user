@@ -7,7 +7,7 @@ class PriceFilterWidget extends StatelessWidget {
   final double maxPrice;
   final ValueNotifier<double> selectedPrice;
 
-  PriceFilterWidget({
+  const PriceFilterWidget({
     required this.minPrice,
     required this.maxPrice,
     required this.selectedPrice,
@@ -19,42 +19,51 @@ class PriceFilterWidget extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomTextWidget(
+          const CustomTextWidget(
               text: 'Price',
               color: CustomColors.blackColor,
               fontSize: 15,
               fontWeight: FontWeight.w600),
           Row(
             children: [
-              ValueListenableBuilder(
-                  valueListenable: selectedPrice,
-                  builder: (context, value, child) => CustomTextWidget(
-                      text: '₹${selectedPrice.value.toStringAsFixed(0)}',
-                      color: CustomColors.blackColor,
-                      fontSize: 12,
-                      fontWeight: FontWeight.normal)),
-              SizedBox(height: 8.0),
-              ValueListenableBuilder<double>(
-                valueListenable: selectedPrice,
-                builder: (context, value, child) {
-                  return Slider(
-                    activeColor: CustomColors.mainColor,
-                    min: minPrice,
-                    max: maxPrice,
-                    value: value,
-                    onChanged: (newValue) {
-                      selectedPrice.value = newValue;
-
-                      selectedPrice.notifyListeners();
-                    },
-                  );
-                },
+              Expanded(
+                flex: 2,
+                child: ValueListenableBuilder(
+                    valueListenable: selectedPrice,
+                    builder: (context, value, child) => CustomTextWidget(
+                        text: '₹${selectedPrice.value.toStringAsFixed(0)}',
+                        color: CustomColors.blackColor,
+                        fontSize: 12,
+                        fontWeight: FontWeight.normal)),
               ),
-              CustomTextWidget(
-                  text: '₹15000',
-                  color: Colors.black,
-                  fontSize: 12,
-                  fontWeight: FontWeight.normal),
+              // SizedBox(height: 8.0),
+              Expanded(
+                flex: 9,
+                child: ValueListenableBuilder<double>(
+                  valueListenable: selectedPrice,
+                  builder: (context, value, child) {
+                    return Slider(
+                      activeColor: CustomColors.mainColor,
+                      min: minPrice,
+                      max: maxPrice,
+                      value: value,
+                      onChanged: (newValue) {
+                        selectedPrice.value = newValue;
+
+                        selectedPrice.notifyListeners();
+                      },
+                    );
+                  },
+                ),
+              ),
+              const Expanded(
+                flex: 2,
+                child: CustomTextWidget(
+                    text: '₹15000',
+                    color: Colors.black,
+                    fontSize: 12,
+                    fontWeight: FontWeight.normal),
+              ),
             ],
           ),
         ],

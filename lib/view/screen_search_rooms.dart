@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/search_textfeild_widget.dart';
 import 'package:hotel_booking_user_app/view/screen_room_details.dart';
-import '../data/shared_preferences/shared_pref_model.dart';
+
+import '../blocs/search_bloc/search_bloc.dart';
 import '../model/room_model.dart';
 import '../resource/components/comman/comman_text_widget.dart';
 import '../resource/components/rooms_widget/rooms_card_widget.dart';
@@ -9,54 +11,24 @@ import '../resource/components/rooms_widget/search_filter.dart';
 import '../resource/components/search_widgets.dart/search_filter_widget.dart';
 import '../resource/const/custom_colors.dart';
 
-class ScreenSearchRooms extends StatefulWidget {
+class ScreenSearchRooms extends StatelessWidget {
   ScreenSearchRooms({Key? key, required this.totalRooms}) : super(key: key);
   final List<RoomsModel> totalRooms;
 
-  @override
-  State<ScreenSearchRooms> createState() => _ScreenSearchRoomsState();
-}
-
-class _ScreenSearchRoomsState extends State<ScreenSearchRooms> {
   final TextEditingController searchController = TextEditingController();
 
-  ValueNotifier<List<bool>> amentiesList =
-      ValueNotifier<List<bool>>([false, false, false, false]);
+  ValueNotifier<List<String>> amentiesList = ValueNotifier([]);
 
   ValueNotifier<bool> containerVisiblity = ValueNotifier(false);
+  ValueNotifier<String> queryNotifier = ValueNotifier('');
 
-  ValueNotifier<double> selectedPrice = ValueNotifier(500);
+  ValueNotifier<double> selectedPrice = ValueNotifier(15000);
 
   List<RoomsModel>? filteredRooms;
 
-  ValueNotifier<bool> searchFilterEnableCheck = ValueNotifier(false);
+  // final List<String> items = ['Ac', 'Swimming Pool', 'Meeting Room', 'Wifi'];
 
-  final List<String> items = ['Ac', 'Swimming Pool', 'Meeting Room', 'Wifi'];
-
-  List<RoomsModel>? filteredList;
-
-  @override
-  void initState() {
-    super.initState();
-    filteredList = widget.totalRooms;
-  }
-
-  void filterRooms(bool value) {
-    filteredList = widget.totalRooms
-        .where((room) =>
-            room.vendorId.propertyName
-                .toLowerCase()
-                .contains(searchController.text.toLowerCase()) &&
-            (value
-                ? int.parse(room.totalRoomRate) <= selectedPrice.value &&
-                    room.amenities.any((element) =>
-                        items.contains(element) &&
-                        amentiesList.value[items.indexOf(element)])
-                : true))
-        .toList();
-
-    setState(() {});
-  }
+  ValueNotifier<List<RoomsModel>> filteredListNotifier = ValueNotifier([]);
 
   @override
   Widget build(BuildContext context) {
@@ -64,11 +36,12 @@ class _ScreenSearchRoomsState extends State<ScreenSearchRooms> {
       body: SafeArea(
         child: Column(
           children: [
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-              child: Column(
-                children: [
-                  Row(
+            Column(
+              children: [
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                  child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
                       Expanded(
@@ -90,24 +63,28 @@ class _ScreenSearchRoomsState extends State<ScreenSearchRooms> {
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 20,
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 20,
                   ),
-                  Row(
+                  child: Row(
                     children: [
                       Expanded(
                           flex: 6,
-                          child: ValueListenableBuilder(
-                            valueListenable: searchFilterEnableCheck,
-                            builder: (context, value, child) =>
-                                SearchTextFeildWidget(
-                                    notEditableCheck: false,
-                                    controller: searchController,
-                                    onChanged: (value) {
-                                      filterRooms(
-                                          searchFilterEnableCheck.value);
-                                    }),
-                          )),
+                          child: SearchTextFeildWidget(
+                              notEditableCheck: false,
+                              controller: searchController,
+                              onChanged: (value) {
+                                queryNotifier.value = value;
+                                context.read<SearchBloc>().add(SearchHotelEvent(
+                                    query: value,
+                                    amentiesList: amentiesList.value,
+                                    priceRange: selectedPrice.value));
+                              })),
                       const SizedBox(
                         width: 16,
                       ),
@@ -119,60 +96,71 @@ class _ScreenSearchRoomsState extends State<ScreenSearchRooms> {
                                     !containerVisiblity.value;
                                 containerVisiblity.notifyListeners();
                               },
-                              child: FilterWidget()))
+                              child: const FilterWidget()))
                     ],
                   ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  SearchFilterWidget(
-                    searchFilterEnableCheck: searchFilterEnableCheck,
-                    intialPrice: selectedPrice,
-                    ametiesList: amentiesList,
-                    containerVisiblity: containerVisiblity,
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                SearchFilterWidget(
+                  queryNotifier: queryNotifier,
+                  selectedPrice: selectedPrice,
+                  filterResult: filteredListNotifier,
+                  ametiesList: amentiesList,
+                  containerVisiblity: containerVisiblity,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+              ],
             ),
             Container(
               height: 0.6,
               color: CustomColors.lightGreyColor,
             ),
             Expanded(
-              child: Container(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: ListView.separated(
-                    separatorBuilder: (context, index) => SizedBox(
-                      height: 0,
-                    ),
-                    itemBuilder: (context, index) {
-                      final data = filteredList![index];
-                      return InkWell(
-                        onTap: () async {
-                          final token =
-                              await SharedPrefModel.instance.getData('token');
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  ScreenRoomDetails(data: data)));
-                        },
-                        child: Column(
-                          children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            RoomsCardWidget(
-                              data: data,
-                            )
-                          ],
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: BlocBuilder<SearchBloc, SearchState>(
+                  builder: (context, state) {
+                    if (state is SearchFoundState) {
+                      return ListView.separated(
+                        separatorBuilder: (context, index) => const SizedBox(
+                          height: 0,
                         ),
+                        itemBuilder: (context, index) {
+                          final data = state.filteredRooms[index];
+                          return InkWell(
+                            onTap: () {
+                              Navigator.of(context).push(MaterialPageRoute(
+                                  builder: (context) =>
+                                      ScreenRoomDetails(data: data)));
+                            },
+                            child: Column(
+                              children: [
+                                const SizedBox(
+                                  height: 20,
+                                ),
+                                RoomsCardWidget(
+                                  data: data,
+                                )
+                              ],
+                            ),
+                          );
+                        },
+                        itemCount: state.filteredRooms.length,
                       );
-                    },
-                    itemCount: filteredList?.length ?? 0,
-                  ),
+                    }
+                    if (state is SearchNotFoundState) {
+                      print(
+                          'heloowwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww');
+                      const Center(
+                        child: Text('Room Not Found'),
+                      );
+                    }
+                    return const SizedBox();
+                  },
                 ),
               ),
             ),
@@ -182,3 +170,28 @@ class _ScreenSearchRoomsState extends State<ScreenSearchRooms> {
     );
   }
 }
+
+//  void filterRooms(String value) {
+//     // if (amentiesList.value.isNotEmpty) {
+//     //   filteredListNotifier.value = filteredListNotifier.value.where((e) {
+//     //     for (int i = 0; i < amentiesList.value.length; i++) {
+//     //       double price = double.parse(e.price);
+//     //       if (e.amenities.contains(amentiesList.value[i]) &&
+//     //           price <= selectedPrice.value) {
+//     //         return true;
+//     //       }
+//     //     }
+//     //     return false;
+//     //   }).toList();
+
+//     //   print(filteredListNotifier);
+//     //   setState(() {});
+//     // }
+
+//     filteredListNotifier.value = widget.totalRooms
+//         .where((e) => e.state.toLowerCase().contains(value.toLowerCase()))
+//         .toList();
+//     filteredListNotifier.notifyListeners();
+
+//     setState(() {});
+//   }
