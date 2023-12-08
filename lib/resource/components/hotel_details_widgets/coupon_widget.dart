@@ -132,14 +132,14 @@ class CouponWidget extends StatelessWidget {
       ),
       height: 90,
       child: ListView.separated(
-        separatorBuilder: (context, index) => SizedBox(
+        separatorBuilder: (context, index) => const SizedBox(
           width: 10,
         ),
         scrollDirection: Axis.horizontal,
         itemCount: couponList.length,
         itemBuilder: (context, index) {
           final data = couponList[index];
-          return Container(
+          return SizedBox(
             height: 90,
             width: 300,
             child: Row(
@@ -185,7 +185,7 @@ class CouponWidget extends StatelessWidget {
                           const SizedBox(
                             height: 10,
                           ),
-                          Row(
+                          const Row(
                             mainAxisAlignment: MainAxisAlignment.end,
                             children: [
                               CustomTextWidget(
@@ -208,9 +208,9 @@ class CouponWidget extends StatelessWidget {
                       _copyToClipboard(data.couponCode);
                     },
                     child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                         color: CustomColors.blackColor,
-                        borderRadius: const BorderRadius.only(
+                        borderRadius: BorderRadius.only(
                           topRight: Radius.circular(8),
                           bottomRight: Radius.circular(8),
                         ),

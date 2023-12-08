@@ -7,6 +7,7 @@ class ScreenOtp extends StatefulWidget {
   const ScreenOtp({super.key});
 
   @override
+  // ignore: library_private_types_in_public_api
   _OTPScreenState createState() => _OTPScreenState();
 }
 
@@ -35,7 +36,7 @@ class _OTPScreenState extends State<ScreenOtp> {
           child: SingleChildScrollView(
             child: Column(
               children: [
-                Container(
+                SizedBox(
                   //  color: Colors.red,
                   height: screenHeight * 0.8,
                   child: Column(
@@ -87,10 +88,8 @@ class _OTPScreenState extends State<ScreenOtp> {
                                       _focusNodes[index + 1].requestFocus();
                                     } else {
                                       // All OTP fields are filled
-                                      String otp = '';
-                                      for (var controller in _controllers) {
-                                        otp += controller.text;
-                                      }
+                                      // ignore: unused_local_variable
+                                      for (var controller in _controllers) {}
                                     }
                                   } else if (index > 0) {
                                     _focusNodes[index - 1].requestFocus();
@@ -129,7 +128,7 @@ class _OTPScreenState extends State<ScreenOtp> {
                           Text(
                             ' Password',
                             style: GoogleFonts.inter(
-                                textStyle: TextStyle(
+                                textStyle: const TextStyle(
                                     color: CustomColors.mainColor,
                                     fontSize: 11,
                                     fontWeight: FontWeight.bold)),

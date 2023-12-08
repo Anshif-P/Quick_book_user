@@ -22,6 +22,7 @@ import '../comman/location_text_widget.dart';
 import 'booking_rateus_button_widget.dart';
 import 'booking_text_widget.dart';
 
+// ignore: must_be_immutable
 class BookingCardWidget extends StatelessWidget {
   final double widthMedia;
   final double heightMedia;
@@ -53,7 +54,7 @@ class BookingCardWidget extends StatelessWidget {
             border: Border.all(color: CustomColors.lightGreyColor)),
         height: heightMedia * 0.199,
         width: double.maxFinite,
-        constraints: BoxConstraints(minHeight: 150),
+        constraints: const BoxConstraints(minHeight: 150),
         child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -100,7 +101,7 @@ class BookingCardWidget extends StatelessWidget {
                         )),
                     Expanded(
                         flex: 4,
-                        child: Container(
+                        child: SizedBox(
                           width: double.maxFinite,
                           child: Padding(
                             padding: const EdgeInsets.only(left: 8, top: 8),
@@ -116,13 +117,13 @@ class BookingCardWidget extends StatelessWidget {
                                   text1: data.roomId.state,
                                   text2: data.location,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 BookingTextWidget(
                                     text1: formattedCheckIn,
                                     text2: formattedCheckOut),
-                                SizedBox(
+                                const SizedBox(
                                   height: 5,
                                 ),
                                 BookingTextWidget(
@@ -132,22 +133,20 @@ class BookingCardWidget extends StatelessWidget {
                             ),
                           ),
                         )),
-                    Expanded(
+                    const Expanded(
                       flex: 2,
-                      child: Container(
-                        child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: []),
-                      ),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: []),
                     ),
                   ],
                 ),
               ),
               Expanded(
                   child: Container(
-                      decoration: BoxDecoration(
+                      decoration: const BoxDecoration(
                           color: CustomColors.extraLightGrey,
-                          borderRadius: const BorderRadius.only(
+                          borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(8),
                               bottomRight: Radius.circular(8))),
                       height: 40, // Adjust the height here as needed
@@ -199,7 +198,6 @@ class BookingCardWidget extends StatelessWidget {
                                         builder: (context, state) {
                                           if (state
                                               is HomeFetchRoomsSuccessState) {
-                                            print(state.totalRoomList[0].id);
                                             totalRooms = state.totalRoomList;
                                             totalRooms = totalRooms!
                                                 .where((element) =>
@@ -240,7 +238,7 @@ class BookingCardWidget extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.end,
                                         children: [
-                                            Container(
+                                            SizedBox(
                                               height: 30,
                                               width: 80,
                                               child: BlocConsumer<RoomsBloc,
@@ -288,7 +286,7 @@ class BookingCardWidget extends StatelessWidget {
                                                           ? Transform.scale(
                                                               scale: 0.5,
                                                               child:
-                                                                  CircularProgressIndicator(
+                                                                  const CircularProgressIndicator(
                                                                       strokeWidth:
                                                                           05),
                                                             )

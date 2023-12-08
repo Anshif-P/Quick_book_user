@@ -5,7 +5,6 @@ import 'package:hotel_booking_user_app/blocs/review_bloc/review_bloc.dart';
 import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
 import 'package:hotel_booking_user_app/data/shared_preferences/shared_pref_model.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/comman_text_widget.dart';
-import 'package:hotel_booking_user_app/resource/components/comman/location_text_widget.dart';
 import 'package:hotel_booking_user_app/view/screen_room_details.dart';
 import 'package:shimmer/shimmer.dart';
 

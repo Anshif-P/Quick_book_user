@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 
-import '../../const/custom_colors.dart';
-
 class CheckBoxWidget extends StatelessWidget {
   CheckBoxWidget({Key? key, required this.filterList}) : super(key: key);
   final ValueNotifier<List<String>> filterList;
@@ -63,7 +61,8 @@ class CheckBoxWidget extends StatelessWidget {
                     } else {
                       filterList.value.remove(items[index]);
                     }
-                    print(filterList.value);
+
+                    // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
                     filterList.notifyListeners();
                   },
                 ),

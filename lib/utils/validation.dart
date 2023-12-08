@@ -9,7 +9,7 @@ class Validations {
   }
 
   static String? emtyValidation(String? value) {
-    if (value == null || value == '') {
+    if (value == null || value.trim() == '') {
       return 'fill the feild ';
     } else {
       return null;

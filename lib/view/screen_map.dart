@@ -36,7 +36,7 @@ class ScreenMap extends StatelessWidget {
                   width: 20.0,
                   height: 20.0,
                   point: LatLng(latitude, longitude),
-                  child: Icon(
+                  child: const Icon(
                     Icons.location_on,
                     color: CustomColors.mainColor,
                   )),

@@ -3,16 +3,17 @@ part of 'booking_bloc.dart';
 @immutable
 abstract class BookingEvent {}
 
+// ignore: must_be_immutable
 class BookRoomEvent extends BookingEvent {
   DateTimeRange dates;
-  var mobNumber;
-  var startDate;
-  var endDate;
-  var bookingsData;
-  var address;
+  dynamic mobNumber;
+  dynamic startDate;
+  dynamic endDate;
+  dynamic bookingsData;
+  dynamic address;
   RoomsModel data;
-  var guest;
-  var rooms;
+  dynamic guest;
+  dynamic rooms;
   BookRoomEvent(
       {required this.mobNumber,
       required this.dates,

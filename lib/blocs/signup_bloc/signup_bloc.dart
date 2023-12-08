@@ -19,8 +19,6 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       'password': event.password,
       'confirmPass': event.conformPassword
     };
-    print(
-        '$userSignupData----------------------------------in block -----------------');
 
     emit(SignupLoadingState());
 
@@ -33,16 +31,10 @@ class SignupBloc extends Bloc<SignupEvent, SignupState> {
       }
     });
     if (either.right['status'] == 'success') {
-      print(
-          'hai-------------------------------------second fnc----------------');
       final either = await AuthenticationRepo().conformSignUp(userSignupData);
       either.fold((error) => emit(SignupErrorState(message: error.message)),
           (response) {
         if (response['status'] == 'success') {
-          print(
-              '$response ------------------------------------ in bloc success     state');
-          print(response['token']);
-
           emit(SignupSuccessState());
           SharedPrefModel.instance.insertData('token', response['token']);
         } else {

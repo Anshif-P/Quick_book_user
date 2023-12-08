@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../const/custom_colors.dart';
 
+// ignore: must_be_immutable
 class CustomAlertDialogWidget extends StatelessWidget {
   CustomAlertDialogWidget(
       {super.key,
@@ -20,13 +21,13 @@ class CustomAlertDialogWidget extends StatelessWidget {
     return AlertDialog(
       title: Text(
         text1,
-        style: TextStyle(
+        style: const TextStyle(
           fontWeight: FontWeight.bold,
         ),
       ),
       content: Text(
         text2,
-        style: TextStyle(color: Color(0xFF6D6D6D)),
+        style: const TextStyle(color: Color(0xFF6D6D6D)),
       ),
       actions: <Widget>[
         TextButton(
@@ -45,7 +46,7 @@ class CustomAlertDialogWidget extends StatelessWidget {
           onPressed: onPressFunction,
           child: Text(
             text4,
-            style: TextStyle(
+            style: const TextStyle(
               color: CustomColors.mainColor,
               fontWeight: FontWeight.bold,
             ),

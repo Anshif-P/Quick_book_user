@@ -20,7 +20,7 @@ class ReviewWidget extends StatelessWidget {
     String createdAtString = reviewObj.createdAt;
     DateTime createdAtDateTime = DateTime.parse(createdAtString);
     String formattedDate = DateFormat('yyyy-MM-dd').format(createdAtDateTime);
-    ;
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -29,10 +29,10 @@ class ReviewWidget extends StatelessWidget {
             color: CustomColors.blackColor,
             fontSize: 9,
             fontWeight: FontWeight.w600),
-        SizedBox(
+        const SizedBox(
           height: 2,
         ),
-        Container(
+        SizedBox(
           width: 40,
           //  color: Colors.blue,
           child: StartsWidget(
@@ -46,12 +46,12 @@ class ReviewWidget extends StatelessWidget {
         Text(
           reviewObj.feedback,
           style: GoogleFonts.inter(
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
                   color: CustomColors.blackColor,
                   fontSize: 9,
                   fontWeight: FontWeight.w300)),
         ),
-        SizedBox(
+        const SizedBox(
           height: 8,
         ),
         CustomTextWidget(
@@ -59,7 +59,7 @@ class ReviewWidget extends StatelessWidget {
             color: CustomColors.grey,
             fontSize: 9,
             fontWeight: FontWeight.w300),
-        SizedBox(
+        const SizedBox(
           height: 15,
         ),
         ViewAllButton(
@@ -77,15 +77,12 @@ class ReviewWidget extends StatelessWidget {
                     physics: const BouncingScrollPhysics(),
                     child: Column(
                       children: [
-                        // SizedBox(
-                        //   height: 10,
-                        // ),
-                        CustomTextWidget(
+                        const CustomTextWidget(
                             text: 'Reviews ',
                             color: CustomColors.blackColor,
                             fontSize: 14,
                             fontWeight: FontWeight.w600),
-                        SizedBox(
+                        const SizedBox(
                           height: 10,
                         ),
                         ListView.separated(

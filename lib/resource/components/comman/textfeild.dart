@@ -57,7 +57,8 @@ class TextFieldWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(10.0),
               ),
               enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: CustomColors.lightGreyColor),
+                borderSide:
+                    const BorderSide(color: CustomColors.lightGreyColor),
                 borderRadius: BorderRadius.circular(10.0),
               ),
               prefixIcon: Icon(
@@ -69,7 +70,7 @@ class TextFieldWidget extends StatelessWidget {
               contentPadding:
                   const EdgeInsets.symmetric(vertical: 15, horizontal: 10),
               hintText: hintText,
-              hintStyle: TextStyle(color: CustomColors.hintTextColor),
+              hintStyle: const TextStyle(color: CustomColors.hintTextColor),
             ),
           ),
         ),

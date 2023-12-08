@@ -6,11 +6,15 @@ import 'package:hotel_booking_user_app/resource/components/comman/button_widget.
 import 'package:hotel_booking_user_app/utils/validation.dart';
 import 'package:hotel_booking_user_app/view/screen_login.dart';
 import 'package:hotel_booking_user_app/view/screen_parent_bottom_navigation.dart';
-import 'package:permission_handler/permission_handler.dart';
+import '../blocs/home_bloc/home_bloc.dart';
+
+import '../blocs/user_bloc/user_bloc.dart';
+import '../data/shared_preferences/shared_pref_model.dart';
 import '../resource/components/comman/textfeild.dart';
 import '../resource/components/signup_login_widgets/divider_widget.dart';
 import '../resource/components/signup_login_widgets/mobileno_textfeild.dart';
 
+// ignore: must_be_immutable
 class ScreenSignUp extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController nameController = TextEditingController();
@@ -116,6 +120,13 @@ class ScreenSignUp extends StatelessWidget {
                   BlocConsumer<SignupBloc, SignupState>(
                     listener: (context, state) {
                       if (state is SignupSuccessState) {
+                        context.read<UserBloc>().add(UserTokenChecking());
+                        final token = SharedPrefModel.instance.getData('token');
+                        // context.read<RoomsBloc>().add(FetchBookedRoomsEvent(token: token));
+                        context
+                            .read<UserBloc>()
+                            .add(FetchUserData(token: token));
+                        context.read<HomeBloc>().add(GetAllRoomsEvent());
                         Navigator.of(context).pushReplacement(MaterialPageRoute(
                           builder: (context) => ScreenParentNavigation(),
                         ));
@@ -133,7 +144,7 @@ class ScreenSignUp extends StatelessWidget {
                     builder: (context, state) {
                       return ButtonWidget(
                           loadingCheck: loadingCheck,
-                          onpressFunction: () => _requestPermissions(context),
+                          onpressFunction: () => signUpAddAccount(context),
                           text: 'Sign Up',
                           colorCheck: true);
                     },
@@ -167,25 +178,11 @@ class ScreenSignUp extends StatelessWidget {
   signUpAddAccount(BuildContext context) {
     if (singupFormKey.currentState!.validate()) {
       context.read<SignupBloc>().add(CreateAccountEvent(
-          name: nameController.text,
-          email: emailController.text,
-          mobileNumber: mobNumberController.text,
-          password: passwordController.text,
-          conformPassword: conformPasswordController.text));
-    } else {}
-  }
-
-  Future<void> _requestPermissions(BuildContext context) async {
-    Map<Permission, PermissionStatus> statuses = await [
-      Permission.storage,
-    ].request();
-
-    if (statuses[Permission.storage] == PermissionStatus.granted) {
-      signUpAddAccount(context);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-              'To Continue, please enable the Storage permission in the app settings')));
+          name: nameController.text.trim(),
+          email: emailController.text.trim(),
+          mobileNumber: mobNumberController.text.trim(),
+          password: passwordController.text.trim(),
+          conformPassword: conformPasswordController.text.trim()));
     }
   }
 }

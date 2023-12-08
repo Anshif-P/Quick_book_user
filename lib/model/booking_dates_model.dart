@@ -7,8 +7,7 @@ class BookingDate {
   factory BookingDate.fromJson(json) {
     final checkInDate = DateTime.parse(json['checkIn']);
     final checkOutDate = DateTime.parse(json['checkOut']);
-    print('in model ---------------------------class');
-    print(checkInDate.toString());
+
     return BookingDate(checkIn: checkInDate, checkOut: checkOutDate);
   }
 }

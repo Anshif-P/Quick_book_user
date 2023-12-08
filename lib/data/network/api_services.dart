@@ -6,6 +6,7 @@ import 'package:hotel_booking_user_app/utils/type_def.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
+  // ignore: prefer_final_fields
   static Map<String, String>? _header = {
     'Content-Type': 'application/json',
     'usertoken': ''
@@ -21,8 +22,7 @@ class ApiService {
     dynamic fetchedData;
     try {
       final response = await http.post(uri, body: body, headers: _header);
-      print('hai--------------------------response body');
-      print(response.body);
+
       fetchedData = _getResponse(response);
 
       return Right(fetchedData);
@@ -36,18 +36,16 @@ class ApiService {
   }
 
   static EitherResponse getApi(String url, [String? token]) async {
-    print(url);
     final uri = Uri.parse(url);
     if (token != null) {
       _header!['usertoken'] = token;
     }
     try {
       dynamic fetchedData;
-      print('befor api call');
+
       final response = await http.get(uri, headers: _header);
       fetchedData = _getResponse(response);
-      print('=================================new fetched data');
-      print(fetchedData);
+
       return Right(fetchedData);
     } on SocketException {
       return Left(InternetException());
@@ -67,8 +65,7 @@ class ApiService {
       dynamic fetchedData;
       final response = await http.delete(uri, headers: _header);
       fetchedData = _getResponse(response);
-      print('-----------------------------------------new fetch');
-      print(fetchedData);
+
       return Right(fetchedData);
     } on SocketException {
       return Left(InternetException());
@@ -88,8 +85,7 @@ class ApiService {
     dynamic fetchedData;
     try {
       final response = await http.patch(uri, body: body, headers: _header);
-      print('hai--------------------------response body');
-      print(response.body);
+
       fetchedData = _getResponse(response);
 
       return Right(fetchedData);

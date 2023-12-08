@@ -4,10 +4,11 @@ import 'package:hotel_booking_user_app/resource/components/comman/comman_text_wi
 import 'package:hotel_booking_user_app/view/screen_edit_profile.dart';
 import '../blocs/home_bloc/home_bloc.dart';
 import '../blocs/user_bloc/user_bloc.dart';
-import '../resource/const/custom_colors.dart';
+
 import '../model/room_model.dart';
 import '../resource/components/profile_widgets/listtile_widget.dart';
 
+// ignore: must_be_immutable
 class ScreenProfile extends StatelessWidget {
   ScreenProfile({super.key});
   List<RoomsModel>? data;
@@ -15,7 +16,6 @@ class ScreenProfile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double heightMidia = MediaQuery.sizeOf(context).height;
-    double widhtMidia = MediaQuery.sizeOf(context).width;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -62,7 +62,7 @@ class ScreenProfile extends StatelessWidget {
                                             userDetails: state.userDetails),
                                       ));
                                     },
-                                    child: CustomTextWidget(
+                                    child: const CustomTextWidget(
                                         text: 'Edit Profile',
                                         color: Colors.white,
                                         fontSize: 14,
@@ -97,7 +97,7 @@ class ScreenProfile extends StatelessWidget {
               builder: (context, state) {
                 if (state is HomeFetchRoomsSuccessState) {
                   data = state.totalRoomList;
-                  print(data?[0].address);
+
                   return ProfileListTileWidget(data: data);
                 }
                 return const SizedBox();

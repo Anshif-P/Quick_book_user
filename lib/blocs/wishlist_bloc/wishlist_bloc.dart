@@ -21,9 +21,6 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
     either.fold(
         (error) => emit(FetchWishlistErrorState(errorMessage: error.message)),
         (response) {
-      print(
-          'haiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiieeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee');
-      print(response.runtimeType);
       if (response.runtimeType == List) {
         final List wishlistTemp = response;
         wishlist = wishlistTemp.map((e) => WishlistModel.fromJson(e)).toList();
@@ -43,7 +40,6 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
         (error) => emit(FetchWishlistErrorState(errorMessage: error.message)),
         (response) {
       if (response['status'] != 'failed') {
-        print('error state                  is --------------------------');
         wishlist.add(WishlistModel.fromJson(response['wishList']));
 
         emit(FetchWishlistSuccessState(wishlist: wishlist));
@@ -55,14 +51,13 @@ class WishlistBloc extends Bloc<WishlistEvent, WishlistState> {
 
   FutureOr<void> removeWishlistRoom(
       RemoveWishlistRoom event, Emitter<WishlistState> emit) async {
-    print('-----------------------------------------in side the remove widget');
     final either = await RoomRepositories().removeFromWishlist(event.roomId);
     either.fold(
         (error) => emit(FetchWishlistErrorState(errorMessage: error.message)),
         (response) {
       if (response['status'] != 'failed') {
         wishlist.removeWhere((element) => element.roomId.id == event.roomId);
-        print(wishlist[0].roomId);
+
         emit(FetchWishlistSuccessState(wishlist: wishlist));
       } else {
         FetchWishlistErrorState(errorMessage: response['message']);

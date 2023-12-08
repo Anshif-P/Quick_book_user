@@ -65,9 +65,6 @@ class _PriceDetailsWidgetState extends State<PriceDetailsWidget> {
                         ValueListenableBuilder(
                           valueListenable: widget.discoutAmount,
                           builder: (context, value, child) {
-                            print(
-                                '       this is --------------------------888888888888888888888899999999999499999 $value');
-
                             return CustomTextWidget(
                                 text: '₹${value.toString()}',
                                 color: CustomColors.blackColor,

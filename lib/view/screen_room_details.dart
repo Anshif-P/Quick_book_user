@@ -23,6 +23,7 @@ import '../resource/loaders/coupon_shimmer_loading.dart';
 import '../resource/loaders/review_shimmer_loading.dart';
 import '../resource/components/comman/image_preview_widget.dart';
 
+// ignore: must_be_immutable
 class ScreenRoomDetails extends StatelessWidget {
   ScreenRoomDetails({super.key, required this.data});
   final RoomsModel data;
@@ -30,6 +31,7 @@ class ScreenRoomDetails extends StatelessWidget {
 
   final ValueNotifier<int> selectedImageNotifier = ValueNotifier(0);
 
+  @override
   Widget build(BuildContext context) {
     double heightMedia = MediaQuery.sizeOf(context).height;
     double widthMedia = MediaQuery.sizeOf(context).width;
@@ -37,7 +39,7 @@ class ScreenRoomDetails extends StatelessWidget {
     return Container(
       color: Colors.transparent,
       child: Scaffold(
-        bottomNavigationBar: Container(
+        bottomNavigationBar: SizedBox(
           height: 100,
           child: Row(children: [
             Expanded(
@@ -51,14 +53,14 @@ class ScreenRoomDetails extends StatelessWidget {
             Expanded(
                 flex: 3,
                 child: Container(
-                  padding: EdgeInsets.only(right: 20),
+                  padding: const EdgeInsets.only(right: 20),
                   //    color: Colors.blue,
                   child: ButtonWidget(
                       colorCheck: true,
                       onpressFunction: () {
                         Navigator.of(context).push(MaterialPageRoute(
                             builder: (context) => ScreenPayment(
-                                  coupon: couponList!,
+                                  coupon: couponList,
                                   data: data,
                                 )));
                       },
@@ -122,7 +124,7 @@ class ScreenRoomDetails extends StatelessWidget {
                               height: heightMedia * 0.02,
                             ),
                             HotelDetailsTextWidget(
-                              text: '${data.description}',
+                              text: data.description,
                               colorCheck: true,
                             ),
                             SizedBox(
@@ -159,11 +161,11 @@ class ScreenRoomDetails extends StatelessWidget {
                       ),
                       Container(
                         height: 90,
-                        padding: EdgeInsets.only(left: 20),
+                        padding: const EdgeInsets.only(left: 20),
                         child: BlocBuilder<CouponBloc, CouponState>(
                           builder: (context, state) {
                             if (state is CouponFetchLoadingState) {
-                              return CouponShimmerLoadingWidget();
+                              return const CouponShimmerLoadingWidget();
                             }
                             if (state is CouponFetchSuccessState) {
                               couponList = state.couponObjList;
@@ -190,7 +192,7 @@ class ScreenRoomDetails extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            CustomTextWidget(
+                            const CustomTextWidget(
                                 text: 'Rating & reviews',
                                 color: CustomColors.blackColor,
                                 fontSize: 16,
@@ -203,11 +205,9 @@ class ScreenRoomDetails extends StatelessWidget {
                               listener: (context, state) {},
                               builder: (context, state) {
                                 if (state is ReviewFetchLoadingState) {
-                                  return RatingReviewShimmerLoadingWidget();
+                                  return const RatingReviewShimmerLoadingWidget();
                                 }
                                 if (state is ReviewFetchSuccessState) {
-                                  print(
-                                      '${state.reviewObjList.length}--------------------length');
                                   if (state.reviewObjList.isNotEmpty) {
                                     return RatingAndReviewWidget(
                                       reviewData: state.reviewObjList,
@@ -284,7 +284,7 @@ class ScreenRoomDetails extends StatelessWidget {
                                 ),
                                 Row(
                                   children: [
-                                    Icon(
+                                    const Icon(
                                       Icons.star_rate_rounded,
                                       color: CustomColors.mainColor,
                                       size: 20,
@@ -321,7 +321,7 @@ class ScreenRoomDetails extends StatelessWidget {
                               height: heightMedia * 0.004,
                             ),
                             LocationTextWidget(
-                                text1: '${data.state}', text2: '${data.city}'),
+                                text1: data.state, text2: data.city),
                           ]),
                     ),
                   ),
@@ -358,7 +358,7 @@ class ScreenRoomDetails extends StatelessWidget {
                         data: data,
                       );
                     }
-                    return SizedBox();
+                    return const SizedBox();
                   })),
             ],
           ),

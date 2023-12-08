@@ -18,7 +18,7 @@ class RoomCardPriceWidget extends StatelessWidget {
         child: Text(
           '₹$text',
           style: GoogleFonts.inter(
-              textStyle: TextStyle(
+              textStyle: const TextStyle(
             color: CustomColors.greenColor,
             fontSize: 14,
           )),

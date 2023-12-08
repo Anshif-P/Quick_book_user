@@ -8,11 +8,11 @@ class CouponApplyTextFeild extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return SizedBox(
       height: 35,
       child: TextFormField(
         controller: controller,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
             hintText: 'enter your coupon code',
             hintStyle: TextStyle(color: CustomColors.grey),
             border: OutlineInputBorder(

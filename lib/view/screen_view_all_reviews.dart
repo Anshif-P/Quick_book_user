@@ -35,7 +35,7 @@ class ReviewListWidget extends StatelessWidget {
             const SizedBox(
               height: 2,
             ),
-            Container(
+            SizedBox(
               width: 40,
               //  color: Colors.blue,
               child: StartsWidget(
@@ -49,12 +49,12 @@ class ReviewListWidget extends StatelessWidget {
             Text(
               reviewObj.feedback,
               style: GoogleFonts.inter(
-                  textStyle: TextStyle(
+                  textStyle: const TextStyle(
                       color: CustomColors.blackColor,
                       fontSize: 9,
                       fontWeight: FontWeight.w300)),
             ),
-            SizedBox(
+            const SizedBox(
               height: 8,
             ),
             CustomTextWidget(
@@ -62,7 +62,7 @@ class ReviewListWidget extends StatelessWidget {
                 color: CustomColors.grey,
                 fontSize: 9,
                 fontWeight: FontWeight.w300),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
           ],
@@ -71,50 +71,3 @@ class ReviewListWidget extends StatelessWidget {
     );
   }
 }
-// class ReviewCommentTile extends StatelessWidget {
-//   const ReviewCommentTile(
-//       {super.key, required this.review, required this.rating});
-//   final String review;
-//   final String rating;
-//   @override
-//   Widget build(BuildContext context) {
-//     return Container(
-//       margin: const EdgeInsets.only(top: 5, bottom: 5),
-//       decoration: BoxDecoration(
-//           borderRadius: BorderRadius.circular(10),
-//           border: Border.all(color: Colors.black, width: 1)),
-//       child: ListTile(
-//         trailing: Container(
-//             margin: const EdgeInsets.all(2),
-//             width: 60,
-//             height: 30,
-//             decoration: BoxDecoration(
-//                 borderRadius: BorderRadius.circular(10),
-//                 color: Colors.black.withOpacity(0.5)),
-//             child: Center(
-//               child: Column(
-//                 mainAxisAlignment: MainAxisAlignment.spaceAround,
-//                 children: [
-//                   Row(
-//                     mainAxisAlignment: MainAxisAlignment.center,
-//                     children: [
-//                       SvgPicture.asset("assets/svg/star-svgrepo-com.svg",
-//                           fit: BoxFit.cover, height: 20, width: 20),
-//                       Text(
-//                         rating,
-//                         style: const TextStyle(color: Colors.white),
-//                       )
-//                     ],
-//                   ),
-//                 ],
-//               ),
-//             )),
-//         leading: const CircleAvatar(radius: 20, backgroundColor: Colors.amber),
-//         title: Text(
-//           review,
-//           style: GoogleFonts.poppins(color: Colors.white),
-//         ),
-//       ),
-//     );
-//   }
-// }

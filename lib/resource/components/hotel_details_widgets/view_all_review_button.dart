@@ -21,9 +21,9 @@ class ViewAllButton extends StatelessWidget {
               minimumSize: MaterialStateProperty.all(
                   const Size.fromWidth(double.maxFinite)),
               elevation: MaterialStateProperty.all(0),
-              side: MaterialStateProperty.all<BorderSide>(BorderSide(
+              side: MaterialStateProperty.all<BorderSide>(const BorderSide(
                 color: CustomColors.blackColor,
-                width: 0.7, // Set the border width
+                width: 0.7,
               )),
               shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                 RoundedRectangleBorder(
@@ -37,7 +37,7 @@ class ViewAllButton extends StatelessWidget {
             child: Text(
               'View all ${reviewData.length} Reviews',
               style: GoogleFonts.inter(
-                textStyle: TextStyle(
+                textStyle: const TextStyle(
                     color: CustomColors.blackColor,
                     fontWeight: FontWeight.normal,
                     fontSize: 12),

@@ -7,6 +7,7 @@ import 'package:hotel_booking_user_app/view/screen_rooms.dart';
 import 'package:shimmer/shimmer.dart';
 import '../../../blocs/home_bloc/home_bloc.dart';
 
+// ignore: must_be_immutable
 class CategoryCardWidget extends StatelessWidget {
   CategoryCardWidget({super.key});
 
@@ -113,7 +114,7 @@ class CategoryCardWidget extends StatelessWidget {
                             decoration: BoxDecoration(
                                 color: Colors.white,
                                 borderRadius: BorderRadius.circular(7)),
-                            child: Center(
+                            child: const Center(
                                 child: CustomTextWidget(
                                     text: 'this category not yet added',
                                     color: CustomColors.blackColor,
@@ -129,7 +130,7 @@ class CategoryCardWidget extends StatelessWidget {
             },
           );
         }
-        return Center(
+        return const Center(
           child: Text('No Category found'),
         );
       },

@@ -25,104 +25,97 @@ class RoomGuestCountSelection extends StatelessWidget {
     capacity - 1;
     totalRooms - 1;
 
-    return Container(
-      //color: Colors.blue,
+    return SizedBox(
       height: 40,
       child: Row(
         children: [
           Expanded(
-              child: Container(
-            //color: Colors.red,
-            child: Row(children: [
-              Icon(icon),
-              SizedBox(
-                width: 5,
-              ),
-              CustomTextWidget(
-                  text: text,
-                  color: CustomColors.blackColor,
-                  fontSize: 12,
-                  fontWeight: FontWeight.normal)
-            ]),
-          )),
+              child: Row(children: [
+            Icon(icon),
+            const SizedBox(
+              width: 5,
+            ),
+            CustomTextWidget(
+                text: text,
+                color: CustomColors.blackColor,
+                fontSize: 12,
+                fontWeight: FontWeight.normal)
+          ])),
           Expanded(
               child: ValueListenableBuilder(
             valueListenable: notifier,
-            builder: (context, value, _) => Container(
-              //  color: Colors.yellow,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      if (value >= 2) {
-                        notifier.value--;
-                      }
-                    },
-                    child: Container(
-                        height: 30,
-                        width: 30,
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                                color: CustomColors.lightGreyColor, width: 1),
-                            borderRadius: BorderRadius.circular(4)),
-                        child: Icon(
-                          Icons.remove,
-                          size: 18,
-                        )),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    height: 30,
-                    width: 30,
-                    decoration: BoxDecoration(
-                        //  color: Colors.green,
-                        border: Border.all(
-                            color: CustomColors.lightGreyColor, width: 1),
-                        borderRadius: BorderRadius.circular(4)),
-                    child: Text(value.toString()),
-                  ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      if (guestOrRoomCheck && value < capacity) {
-                        notifier.value++;
-                      } else if (guestOrRoomCheck == false &&
-                          value < totalRooms) {
-                        notifier.value++;
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text('Limit exceeded'),
-                          backgroundColor: CustomColors.mainColor,
-                        ));
-                      }
-                    },
-                    child: Container(
+            builder: (context, value, _) => Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                const SizedBox(
+                  width: 5,
+                ),
+                InkWell(
+                  onTap: () {
+                    if (value >= 2) {
+                      notifier.value--;
+                    }
+                  },
+                  child: Container(
                       height: 30,
                       width: 30,
                       decoration: BoxDecoration(
                           border: Border.all(
                               color: CustomColors.lightGreyColor, width: 1),
                           borderRadius: BorderRadius.circular(4)),
-                      child: Icon(
-                        Icons.add,
+                      child: const Icon(
+                        Icons.remove,
                         size: 18,
-                      ),
+                      )),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  height: 30,
+                  width: 30,
+                  decoration: BoxDecoration(
+                      //  color: Colors.green,
+                      border: Border.all(
+                          color: CustomColors.lightGreyColor, width: 1),
+                      borderRadius: BorderRadius.circular(4)),
+                  child: Text(value.toString()),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+                InkWell(
+                  onTap: () {
+                    if (guestOrRoomCheck && value < capacity) {
+                      notifier.value++;
+                    } else if (guestOrRoomCheck == false &&
+                        value < totalRooms) {
+                      notifier.value++;
+                    } else {
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Limit exceeded'),
+                        backgroundColor: CustomColors.mainColor,
+                      ));
+                    }
+                  },
+                  child: Container(
+                    height: 30,
+                    width: 30,
+                    decoration: BoxDecoration(
+                        border: Border.all(
+                            color: CustomColors.lightGreyColor, width: 1),
+                        borderRadius: BorderRadius.circular(4)),
+                    child: const Icon(
+                      Icons.add,
+                      size: 18,
                     ),
                   ),
-                  const SizedBox(
-                    width: 5,
-                  ),
-                ],
-              ),
+                ),
+                const SizedBox(
+                  width: 5,
+                ),
+              ],
             ),
           )),
         ],

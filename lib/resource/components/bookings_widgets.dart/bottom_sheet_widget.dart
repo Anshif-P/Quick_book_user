@@ -9,6 +9,7 @@ import '../../../utils/validation.dart';
 import '../comman/button_widget.dart';
 import '../comman/textfeild.dart';
 
+// ignore: must_be_immutable
 class BottomSheetWidget extends StatelessWidget {
   BottomSheetWidget(
       {Key? key,
@@ -42,7 +43,7 @@ class BottomSheetWidget extends StatelessWidget {
               icon: Icons.rate_review_sharp,
               validator: (value) => Validations.emtyValidation(value),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             BlocConsumer<ReviewBloc, ReviewState>(
               listener: (context, state) {
                 if (state is ReviewAddLoadingState) {
@@ -56,7 +57,7 @@ class BottomSheetWidget extends StatelessWidget {
                   Navigator.of(context).pop();
                 } else if (state is ReviewAddedSuccessState) {
                   ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
+                    const SnackBar(
                       content: Text('Review added successfully'),
                       backgroundColor: CustomColors.greenColor,
                     ),
@@ -71,23 +72,17 @@ class BottomSheetWidget extends StatelessWidget {
                     loadingCheck: loadingCheck,
                     reviewButtonCheck: true,
                     onpressFunction: () {
-                      print('=========================on press fun');
-
                       if (value == 0.0) {
-                        print(value);
-                        print(
-                            'eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeiiiiiiiiiiiiiiiiiiiiiiiii');
                         ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Add Rating')));
+                            const SnackBar(content: Text('Add Rating')));
                       } else {
-                        print('else ----------------case');
                         Map<String, dynamic> map = {
                           "roomId": data.roomId.id,
                           "feedback": reviewController!.text,
                           "stars": value,
                           "vendorId": data.vendorId.id
                         };
-                        print(map);
+
                         final token = SharedPrefModel.instance.getData('token');
                         context
                             .read<ReviewBloc>()

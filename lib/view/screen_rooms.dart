@@ -12,6 +12,7 @@ import '../blocs/home_bloc/home_bloc.dart';
 import '../model/room_model.dart';
 import '../resource/components/rooms_widget/rooms_card_widget.dart';
 
+// ignore: must_be_immutable
 class ScreenRooms extends StatelessWidget {
   final TextEditingController searchController = TextEditingController();
   ScreenRooms(
@@ -25,10 +26,6 @@ class ScreenRooms extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    double screenHeightTemp = MediaQuery.sizeOf(context).height;
-    double safeAreaSize = MediaQuery.of(context).padding.top;
-    double screenHeight = screenHeightTemp - safeAreaSize;
-
     // double screenWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: Colors.white,
@@ -81,7 +78,7 @@ class ScreenRooms extends StatelessWidget {
                           ),
                         );
                       }
-                      return SizedBox();
+                      return const SizedBox();
                     },
                   ),
           ),
@@ -117,7 +114,7 @@ class ScreenRooms extends StatelessWidget {
                         },
                         child: Column(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 20,
                             ),
                             RoomsCardWidget(
@@ -140,15 +137,18 @@ class ScreenRooms extends StatelessWidget {
                             onTap: () async {
                               final token = await SharedPrefModel.instance
                                   .getData('token');
+                              // ignore: use_build_context_synchronously
                               context.read<CouponBloc>().add(
                                   GetRoomCouponsEvent(
                                       vendorId: data.vendorId.id,
                                       token: token));
+                              // ignore: use_build_context_synchronously
                               context.read<ReviewBloc>().add(GetRoomReviews(
                                     roomId: data.id,
                                     token: token,
                                   ));
 
+                              // ignore: use_build_context_synchronously
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) =>
                                       ScreenRoomDetails(data: data)));

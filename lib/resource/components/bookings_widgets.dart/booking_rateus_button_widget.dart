@@ -30,14 +30,14 @@ class RateUsBookAgainButtonWidget extends StatelessWidget {
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
               borderRadius: radiusCheck
-                  ? BorderRadius.only(bottomLeft: Radius.circular(8))
-                  : BorderRadius.only(bottomRight: Radius.circular(8)),
+                  ? const BorderRadius.only(bottomLeft: Radius.circular(8))
+                  : const BorderRadius.only(bottomRight: Radius.circular(8)),
             ),
           ),
           side: borderCheck
-              ? MaterialStateProperty.all<BorderSide>(BorderSide(
-                  color: Color(0xFFD1D1D1), // Set your desired border color
-                  width: 1, // Set the border width
+              ? MaterialStateProperty.all<BorderSide>(const BorderSide(
+                  color: Color(0xFFD1D1D1),
+                  width: 1,
                 ))
               : null,
           backgroundColor: MaterialStateProperty.all(

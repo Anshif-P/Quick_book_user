@@ -42,8 +42,6 @@ class UpcomingBookingsWidget extends StatelessWidget {
             // buildWhen: (previous, current) => current is! RoomActionState,
             builder: (context, state) {
               if (state is FetchBookedRoomsSuccessState) {
-                print(
-                    ' ------------------------------------88888888888888888888888888**************************this is ');
                 final date = DateTime.now();
                 final upcomingRooms = state.roomList
                     .where((data) =>
@@ -57,9 +55,6 @@ class UpcomingBookingsWidget extends StatelessWidget {
                       itemCount: upcomingRooms.length,
                       itemBuilder: (context, index) {
                         if (upcomingRooms.isNotEmpty) {
-                          print(
-                              'upcoming rooms ------------------------------------------ rooms');
-                          print(upcomingRooms.length);
                           return Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 20),
                             child: BookingCardWidget(

@@ -13,8 +13,6 @@ import 'package:hotel_booking_user_app/blocs/signup_bloc/signup_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/user_bloc/user_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/wishlist_bloc/wishlist_bloc.dart';
 import 'package:hotel_booking_user_app/data/shared_preferences/shared_pref_model.dart';
-import 'package:hotel_booking_user_app/view/screen_login.dart';
-import 'package:hotel_booking_user_app/view/screen_map.dart';
 import 'package:hotel_booking_user_app/view/screen_splash.dart';
 import 'blocs/review_bloc/review_bloc.dart';
 
@@ -44,7 +42,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => DateCheckingBloc()),
         BlocProvider(create: (context) => SearchBloc(context.read<HomeBloc>())),
       ],
-      child: MaterialApp(
+      child: const MaterialApp(
         debugShowCheckedModeBanner: false,
         home: ScreenSplash(),
       ),

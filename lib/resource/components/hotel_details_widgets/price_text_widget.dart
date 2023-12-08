@@ -21,13 +21,13 @@ class PriceTextWidget extends StatelessWidget {
           Text(
             'Price',
             style: GoogleFonts.inter(
-                textStyle: TextStyle(
+                textStyle: const TextStyle(
               color: CustomColors.grey,
               fontSize: 14,
             )),
             overflow: TextOverflow.ellipsis,
           ),
-          SizedBox(
+          const SizedBox(
             height: 5,
           ),
           Row(
@@ -35,19 +35,19 @@ class PriceTextWidget extends StatelessWidget {
               Text(
                 '₹$text',
                 style: GoogleFonts.inter(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                   color: Colors.black,
                   fontSize: 19,
                 )),
                 overflow: TextOverflow.ellipsis,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 5,
               ),
               Text(
                 'Best',
                 style: GoogleFonts.inter(
-                    textStyle: TextStyle(
+                    textStyle: const TextStyle(
                   color: CustomColors.grey,
                   fontSize: 14,
                 )),

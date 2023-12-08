@@ -15,7 +15,7 @@ class RatingAndReviewWidget extends StatelessWidget {
     double stars = double.tryParse(reviewObj.stars) ?? 0.0;
 
 // List<bool> boolList = List.generate(5, (index) => index < );
-    return Container(
+    return SizedBox(
       height: 250,
       child: Column(
         children: [
@@ -23,17 +23,13 @@ class RatingAndReviewWidget extends StatelessWidget {
             children: [
               Expanded(
                   flex: 2,
-                  child: Container(
-                    //  color: Colors.red,
-
-                    child: Column(children: [
-                      StartsWidget(
-                        review: reviewObj.feedback,
-                        rating: stars,
-                        height: 45,
-                      ),
-                    ]),
-                  )),
+                  child: Column(children: [
+                    StartsWidget(
+                      review: reviewObj.feedback,
+                      rating: stars,
+                      height: 45,
+                    ),
+                  ])),
               Expanded(
                   flex: 3,
                   child: Container(
@@ -42,7 +38,7 @@ class RatingAndReviewWidget extends StatelessWidget {
                       // color: Colors.green,
                       child: Column(
                         children: [
-                          SizedBox(
+                          const SizedBox(
                             height: 20,
                           ),
                           CustomTextWidget(
@@ -61,18 +57,18 @@ class RatingAndReviewWidget extends StatelessWidget {
                       ))),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Container(
             height: 0.2,
             color: CustomColors.blackColor,
           ),
-          SizedBox(
+          const SizedBox(
             height: 15,
           ),
           Expanded(
-              child: Container(
+              child: SizedBox(
             //   color: Colors.yellow,
             width: double.maxFinite,
             child: Column(

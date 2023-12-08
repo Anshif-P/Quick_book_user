@@ -22,7 +22,7 @@ import '../resource/components/booking_page1_widget/guest_room_count_selection_w
 import '../resource/components/booking_page1_widget/top_image_room_details.dart';
 
 class ScreenPayment extends StatefulWidget {
-  ScreenPayment({super.key, required this.data, required this.coupon});
+  const ScreenPayment({super.key, required this.data, required this.coupon});
   final RoomsModel data;
   final List<CouponModel> coupon;
 
@@ -202,6 +202,7 @@ class _ScreenPaymentState extends State<ScreenPayment> {
 
                                 if (couponList.isNotEmpty) {
                                   discountAmount.value = couponList[0].discount;
+                                  // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
                                   discountAmount.notifyListeners();
                                   setState(() {});
                                 }
@@ -278,8 +279,6 @@ class _ScreenPaymentState extends State<ScreenPayment> {
                         } else if (state is CouponApplyFaliurState) {
                           couponList.clear();
                           bookingLoadingCheck = false;
-                          print(
-                              '-----------------------------counpon errr    rrrrrrrrrr');
                           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                             content: Text(state.errorMessage),
                           ));
@@ -304,9 +303,6 @@ class _ScreenPaymentState extends State<ScreenPayment> {
                               bookingLoadingCheck = true;
                             }
                             if (state is BookingDataAvailable) {
-                              final token =
-                                  SharedPrefModel.instance.getData('token');
-
                               context.read<PaymentBloc>().add(PaymentStartEvent(
                                   mobNumber: mobNumberController.text,
                                   propertyName:
@@ -327,7 +323,7 @@ class _ScreenPaymentState extends State<ScreenPayment> {
                   );
                 },
               ),
-              SizedBox(
+              const SizedBox(
                 height: 30,
               ),
             ],

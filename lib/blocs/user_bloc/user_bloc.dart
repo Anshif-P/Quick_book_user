@@ -26,11 +26,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
         (error) => emit(UserDataFetchErrorState(errorMessage: error.message)),
         (response) {
       if (response['status'] == 'failed') {
-        print('respnse error state -------------------------------------');
         emit(UserDataFetchErrorState(errorMessage: response['message']));
       } else {
-        print('respnse success state -------------------------------------');
-
         userDetails = UserModel.fromJson(response['userDetails'], token);
         SharedPrefModel.instance.insertData('userId', userDetails!.id);
         wishlistBloc.add(
@@ -46,10 +43,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     token = SharedPrefModel.instance.getData('token');
     if (token != null) {
       emit(UserTokenFoundState(token: token!));
-      print('hai ------------------in token ture');
-      print(token);
     } else {
-      print(' ---------------------------worked else case');
       emit(UserTokenNotFoundState());
     }
   }
@@ -63,7 +57,6 @@ class UserBloc extends Bloc<UserEvent, UserState> {
       emit(UserDataFetchSuccessState(userDetails: userDetails!));
     }, (response) {
       if (response['status'] != 'failed') {
-        print('success');
         userDetails!.name = event.map['name'];
         userDetails!.email = event.map['email'];
         emit(EditUserSuccessState());

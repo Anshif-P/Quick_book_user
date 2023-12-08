@@ -63,12 +63,10 @@ class TopRomInfoWidget extends StatelessWidget {
                         LocationTextWidget(text1: data.state, text2: data.city),
                       ],
                     ),
-                    Container(
-                        //        color: Colors.green,
-                        child: PriceTextWidget(
+                    PriceTextWidget(
                       text: data.price,
                       paddingCheck: false,
-                    )),
+                    ),
                   ],
                 ),
               )),

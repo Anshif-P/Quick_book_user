@@ -8,7 +8,8 @@ class ImagePreviewWidget extends StatelessWidget {
   final RoomsModel data; // Replace with your data model
   final ValueNotifier<int> selectedImageNotifier;
 
-  ImagePreviewWidget({required this.data, required this.selectedImageNotifier});
+  const ImagePreviewWidget(
+      {super.key, required this.data, required this.selectedImageNotifier});
 
   @override
   Widget build(BuildContext context) {

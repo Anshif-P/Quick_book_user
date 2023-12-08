@@ -8,6 +8,7 @@ import 'package:hotel_booking_user_app/resource/components/comman/comman_text_wi
 import 'amentis_selection.dart';
 import 'price_filter_widget.dart';
 
+// ignore: must_be_immutable
 class SearchFilterWidget extends StatelessWidget {
   SearchFilterWidget(
       {super.key,

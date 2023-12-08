@@ -11,7 +11,7 @@ class MapWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        SizedBox(
+        const SizedBox(
           height: 38,
         ),
         Container(

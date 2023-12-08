@@ -12,7 +12,7 @@ class AmountText extends StatelessWidget {
     return Text(
       ' ₹$text',
       style: GoogleFonts.inter(
-          textStyle: TextStyle(
+          textStyle: const TextStyle(
         fontWeight: FontWeight.w600,
         color: CustomColors.greenColor,
         fontSize: 14,

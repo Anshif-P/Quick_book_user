@@ -1,5 +1,3 @@
-import 'package:hotel_booking_user_app/model/rating_review_model.dart';
-
 class BookedRoomModel {
   String id;
   RoomId roomId;

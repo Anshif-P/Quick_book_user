@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:country_code_picker/country_code_picker.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/button_widget.dart';
 import '../resource/components/signup_login_widgets/divider_widget.dart';
 import '../resource/components/signup_login_widgets/mobileno_textfeild.dart';
 
+// ignore: must_be_immutable
 class ScreenMobileNumber extends StatefulWidget {
   ScreenMobileNumber({super.key});
   TextEditingController numberController = TextEditingController();
@@ -15,7 +15,6 @@ class ScreenMobileNumber extends StatefulWidget {
 }
 
 class _ScreenMobileNumberState extends State<ScreenMobileNumber> {
-  CountryCode? _selectedCountry;
   @override
   Widget build(BuildContext context) {
     double screenHeight = MediaQuery.sizeOf(context).height;
@@ -61,7 +60,9 @@ class _ScreenMobileNumberState extends State<ScreenMobileNumber> {
                       ),
                       MobileNoTextField(
                           contextMainScreen: context,
-                          validation: (value) {},
+                          validation: (value) {
+                            return null;
+                          },
                           controller: widget.numberController),
                     ],
                   ),

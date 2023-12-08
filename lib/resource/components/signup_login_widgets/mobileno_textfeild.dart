@@ -26,7 +26,7 @@ class _MobileNoTextFieldState extends State<MobileNoTextField> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text('Enter Number'),
+        const Text('Enter Number'),
         const SizedBox(
           height: 5,
         ),

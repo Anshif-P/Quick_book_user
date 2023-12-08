@@ -9,10 +9,9 @@ import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
 import 'package:hotel_booking_user_app/utils/validation.dart';
 import '../resource/components/comman/heading_text_widget.dart';
 import '../resource/components/edit_profile_widgets/bottomsheet_container.dart';
-import '../resource/components/edit_profile_widgets/textfeild_coupon_widget.dart';
 
 class ScreenEdit extends StatefulWidget {
-  ScreenEdit({super.key, required this.userDetails});
+  const ScreenEdit({super.key, required this.userDetails});
   final UserModel userDetails;
 
   @override
@@ -39,7 +38,6 @@ class _ScreenEditState extends State<ScreenEdit> {
   final passwordEditFormKey = GlobalKey<FormState>();
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     nameController.text = widget.userDetails.name;
     emailController.text = widget.userDetails.email;
@@ -50,21 +48,20 @@ class _ScreenEditState extends State<ScreenEdit> {
     final double screenHeightTemp = MediaQuery.sizeOf(context).height;
     final double screenTopPadding = MediaQuery.of(context).padding.top;
     double screenHeight = screenHeightTemp - screenTopPadding;
-    final double screenWidth = MediaQuery.sizeOf(context).width;
 
     return Scaffold(
       backgroundColor: CustomColors.extraLightGrey,
       body: SafeArea(
         child: ListView(
           children: [
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Container(
               alignment: Alignment.topCenter,
               // color: Colors.red,
               height: screenHeight * 0.06,
-              child: Container(
+              child: SizedBox(
                 height: 40,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -102,7 +99,7 @@ class _ScreenEditState extends State<ScreenEdit> {
                 ),
               ),
             ),
-            Divider(
+            const Divider(
               thickness: 1,
             ),
             Container(
@@ -139,18 +136,9 @@ class _ScreenEditState extends State<ScreenEdit> {
                       const SizedBox(
                         height: 10,
                       ),
-                      // TextFieldWidget(
-                      //   text: 'Phone Number',
-                      //   hintText: 'enter mobile number',
-                      //   controller: mobileNoController,
-                      //   icon: Icons.call,
-                      //   validator: ((value) =>
-                      //       Validations.emtyValidation(value)),
-                      // ),
                       const SizedBox(
                         height: 10,
                       ),
-
                       const SizedBox(
                         height: 10,
                       ),
@@ -165,33 +153,23 @@ class _ScreenEditState extends State<ScreenEdit> {
                           onTap: () {
                             customBottomSheet(context, passwordEditFormKey);
                           },
-                          child: Row(children: [
+                          child: const Row(children: [
                             Expanded(
                                 flex: 1,
-                                child: Container(
-                                  // color: Colors.red,
-                                  child: const Icon(
-                                    Icons.lock,
-                                    color: CustomColors.lightGreyColor,
-                                  ),
+                                child: Icon(
+                                  Icons.lock,
+                                  color: CustomColors.lightGreyColor,
                                 )),
                             Expanded(
                                 flex: 3,
-                                child: Container(
-                                  // color: Colors.green,
-                                  child: const CustomTextWidget(
-                                      text: 'Change Password',
-                                      color: CustomColors.blackColor,
-                                      fontSize: 14,
-                                      fontWeight: FontWeight.normal),
-                                )),
+                                child: CustomTextWidget(
+                                    text: 'Change Password',
+                                    color: CustomColors.blackColor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.normal)),
                             Expanded(
                                 flex: 1,
-                                child: Container(
-                                  // color: Colors.blue,
-                                  child: const Icon(
-                                      Icons.keyboard_arrow_right_rounded),
-                                ))
+                                child: Icon(Icons.keyboard_arrow_right_rounded))
                           ]),
                         ),
                       )
@@ -200,7 +178,7 @@ class _ScreenEditState extends State<ScreenEdit> {
                 ),
               ),
             ),
-            Container(
+            SizedBox(
               // color: Colors.green,
               height: screenHeight * 0.3,
               child: Padding(
@@ -208,7 +186,7 @@ class _ScreenEditState extends State<ScreenEdit> {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Container(
+                    SizedBox(
                       height: 50,
                       width: double.maxFinite,
                       child: BlocConsumer<UserBloc, UserState>(

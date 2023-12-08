@@ -69,10 +69,10 @@ class ScreenBookingDetails extends StatelessWidget {
                 Text(data.vendorId.propertyName,
                     style: GoogleFonts.inter(
                         fontSize: 19, fontWeight: FontWeight.w600)),
-                Row(children: [
+                const Row(children: [
                   Icon(Icons.star_rate_rounded,
                       color: CustomColors.mainColor, size: 18),
-                  const BookingDetailsTextWidget(
+                  BookingDetailsTextWidget(
                     text: '(4.0)',
                   ),
                 ])
@@ -84,7 +84,7 @@ class ScreenBookingDetails extends StatelessWidget {
               BookingDetailsTextWidget(text: 'Booking ID : ${data.id}'),
               SizedBox(height: heightMedia * 0.015),
               Row(children: [
-                BookingDetailsTextWidget(text: 'Room Rate :'),
+                const BookingDetailsTextWidget(text: 'Room Rate :'),
                 AmountText(
                   text: data.total.toString(),
                 )
@@ -105,7 +105,7 @@ class ScreenBookingDetails extends StatelessWidget {
                 widthMedia: widthMedia,
               ),
               SizedBox(height: heightMedia * 0.01),
-              Divider(thickness: 0.5, color: CustomColors.lightGreyColor),
+              const Divider(thickness: 0.5, color: CustomColors.lightGreyColor),
               SizedBox(height: heightMedia * 0.01),
               CheckinDayTotalRoomInfoWidget(
                 heightMedia: heightMedia,
@@ -127,7 +127,7 @@ class ScreenBookingDetails extends StatelessWidget {
           widthMedia: widthMedia,
           address:
               '${data.vendorId.propertyName} ${data.roomId.city} ${data.roomId.state}',
-          mobNo: '${data.vendorId.phone}',
+          mobNo: data.vendorId.phone,
           name: data.vendorId.name,
         )),
       ]),

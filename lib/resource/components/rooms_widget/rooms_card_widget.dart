@@ -4,7 +4,6 @@ import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
 import 'package:hotel_booking_user_app/model/room_model.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/card_text_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/comman/location_text_widget.dart';
-import 'package:hotel_booking_user_app/resource/components/comman/room_rating_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
 import 'room_card_price_widget.dart';
@@ -88,7 +87,6 @@ class RoomsCardWidget extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.end,
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    SizedBox(),
                     RoomCardPriceWidget(
                       text: data.price,
                     ),

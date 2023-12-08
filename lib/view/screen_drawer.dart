@@ -8,7 +8,7 @@ import '../resource/const/custom_colors.dart';
 import '../resource/components/comman/show_dialog.dart';
 
 class ScreenDrawer extends StatelessWidget {
-  ScreenDrawer({super.key});
+  const ScreenDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -81,11 +81,11 @@ class ScreenDrawer extends StatelessWidget {
         ),
 
         ListTile(
-          leading: Icon(
+          leading: const Icon(
             Icons.logout,
             color: CustomColors.mainColor,
           ),
-          title: Text(
+          title: const Text(
             'Sign Out',
             style: TextStyle(color: CustomColors.mainColor),
           ),
@@ -93,7 +93,7 @@ class ScreenDrawer extends StatelessWidget {
             showDialog(
               context: context,
               builder: (BuildContext context) {
-                return LogoutDialog();
+                return const LogoutDialog();
               },
             );
           },

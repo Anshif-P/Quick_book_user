@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
-import 'package:hotel_booking_user_app/resource/components/comman/comman_text_widget.dart';
+
 import 'package:shimmer/shimmer.dart';
 
 class RatingReviewShimmerLoadingWidget extends StatelessWidget {
@@ -11,7 +11,7 @@ class RatingReviewShimmerLoadingWidget extends StatelessWidget {
     return Shimmer.fromColors(
       baseColor: Colors.grey[300]!,
       highlightColor: Colors.grey[100]!,
-      child: Container(
+      child: SizedBox(
         height: 250,
         child: Column(
           children: [
@@ -19,15 +19,13 @@ class RatingReviewShimmerLoadingWidget extends StatelessWidget {
               children: [
                 Expanded(
                   flex: 2,
-                  child: Container(
-                    child: Column(
-                      children: [
-                        Container(
-                          height: 40,
-                          color: Colors.white, // Shimmer background color
-                        ),
-                      ],
-                    ),
+                  child: Column(
+                    children: [
+                      Container(
+                        height: 40,
+                        color: Colors.white, // Shimmer background color
+                      ),
+                    ],
                   ),
                 ),
                 Expanded(
@@ -37,14 +35,14 @@ class RatingReviewShimmerLoadingWidget extends StatelessWidget {
                     height: 80,
                     child: Column(
                       children: [
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         Container(
                           height: 31,
                           color: Colors.white, // Shimmer background color
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 5,
                         ),
                         Container(
@@ -57,18 +55,18 @@ class RatingReviewShimmerLoadingWidget extends StatelessWidget {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Container(
               height: 0.2,
               color: CustomColors.blackColor,
             ),
-            SizedBox(
+            const SizedBox(
               height: 15,
             ),
             Expanded(
-              child: Container(
+              child: SizedBox(
                 width: double.maxFinite,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

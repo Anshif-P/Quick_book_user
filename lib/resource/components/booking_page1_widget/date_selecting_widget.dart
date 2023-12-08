@@ -4,6 +4,7 @@ import 'package:hotel_booking_user_app/resource/components/comman/comman_text_wi
 import '../bookings_widgets.dart/booking_text_widget.dart';
 import 'package:intl/intl.dart';
 
+// ignore: must_be_immutable
 class DateSelectionWidget extends StatefulWidget {
   DateSelectionWidget({super.key, required this.dateRange});
   ValueNotifier<DateTimeRange> dateRange;
@@ -22,7 +23,7 @@ class _DateSelectionWidgetState extends State<DateSelectionWidget> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          CustomTextWidget(
+          const CustomTextWidget(
               text: 'Select Dates',
               color: CustomColors.blackColor,
               fontSize: 14,
@@ -46,13 +47,13 @@ class _DateSelectionWidgetState extends State<DateSelectionWidget> {
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.circular(8),
                           topLeft: Radius.circular(8))),
-                  child: Row(children: [
+                  child: const Row(children: [
                     Icon(
                       Icons.date_range_outlined,
                       weight: 1,
                       color: CustomColors.lightGreyColor,
                     ),
-                    const SizedBox(
+                    SizedBox(
                       width: 5,
                     ),
                     CustomTextWidget(
@@ -100,6 +101,7 @@ class _DateSelectionWidgetState extends State<DateSelectionWidget> {
     if (newDateRange == null) return;
     setState(() {
       widget.dateRange.value = newDateRange;
+      // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
       widget.dateRange.notifyListeners();
     });
   }

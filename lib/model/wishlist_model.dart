@@ -46,7 +46,7 @@ class WishlistModel {
       return WishlistModel(roomId: RoomId.fromJson(roomIdJson));
     } else {
       // Handle the case where 'roomId' is neither a string nor a map
-      throw FormatException("Invalid format for 'roomId'");
+      throw const FormatException("Invalid format for 'roomId'");
     }
   }
 }

@@ -11,6 +11,7 @@ import '../resource/components/rooms_widget/search_filter.dart';
 import '../resource/components/search_widgets.dart/search_filter_widget.dart';
 import '../resource/const/custom_colors.dart';
 
+// ignore: must_be_immutable
 class ScreenSearchRooms extends StatelessWidget {
   ScreenSearchRooms({Key? key, required this.totalRooms}) : super(key: key);
   final List<RoomsModel> totalRooms;
@@ -94,6 +95,7 @@ class ScreenSearchRooms extends StatelessWidget {
                               onTap: () {
                                 containerVisiblity.value =
                                     !containerVisiblity.value;
+                                // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
                                 containerVisiblity.notifyListeners();
                               },
                               child: const FilterWidget()))
@@ -153,8 +155,6 @@ class ScreenSearchRooms extends StatelessWidget {
                       );
                     }
                     if (state is SearchNotFoundState) {
-                      print(
-                          'heloowwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww');
                       const Center(
                         child: Text('Room Not Found'),
                       );

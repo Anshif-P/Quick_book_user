@@ -48,8 +48,6 @@ class BookingBloc extends Bloc<BookingEvent, BookingState> {
       (response) {
         if (response['status'] != 'failed') {
           emit(BookingSuccessState());
-          print('============================================success block');
-          print(response);
         }
       },
     );

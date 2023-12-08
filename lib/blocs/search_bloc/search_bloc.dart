@@ -32,21 +32,14 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
     } else {
       amentiesList = event.amentiesList;
     }
-    print(event.amentiesList);
-    print(event.priceRange);
-    print(event.query);
 
     List<RoomsModel> totalRooms = homeBloc.roomsObjList;
-    print(totalRooms.length);
+
     if (event.query == null &&
         event.amentiesList.isEmpty &&
         event.priceRange == null) {
       emit(SearchFoundState(filteredRooms: totalRooms));
     } else {
-      print("Else case ----------------------------------");
-      // print(event.amentiesList);
-      // print(event.priceRange);
-
       filteredRooms = totalRooms.where((e) {
         for (int i = 0; i < amentiesList.length; i++) {
           double price = double.parse(e.price);
@@ -56,19 +49,15 @@ class SearchBloc extends Bloc<SearchEvent, SearchState> {
         }
         return false;
       }).toList();
-      print(event.query);
 
-      print(filteredRooms.length);
       if (event.query != null) {
         filteredRooms = filteredRooms
             .where((e) =>
                 e.state.toLowerCase().contains(event.query!.toLowerCase()))
             .toList();
         if (filteredRooms.isNotEmpty) {
-          print(filteredRooms[0].price);
           emit(SearchFoundState(filteredRooms: filteredRooms));
         } else if (filteredRooms.isEmpty) {
-          print('not found');
           emit(SearchNotFoundState());
         }
       } else if (event.query == null && filteredRooms.isNotEmpty) {

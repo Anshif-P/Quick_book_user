@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
 
+// ignore: must_be_immutable
 class SearchTextFeildWidget extends StatelessWidget {
   final TextEditingController controller;
   final ValueChanged<String>? onChanged;
@@ -22,8 +23,8 @@ class SearchTextFeildWidget extends StatelessWidget {
         enabled: notEditableCheck ? false : true,
         controller: controller,
         onChanged: onChanged,
-        decoration: InputDecoration(
-            prefixIcon: const Icon(
+        decoration: const InputDecoration(
+            prefixIcon: Icon(
               Icons.search_rounded,
               color: Colors.black,
             ),

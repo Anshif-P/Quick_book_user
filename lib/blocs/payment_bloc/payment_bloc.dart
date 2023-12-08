@@ -21,11 +21,6 @@ class PaymentBloc extends Bloc<PaymentEvent, PaymentState> {
     final amount = int.parse(amountTemp);
     final String propertyName = event.propertyName;
     final String mobileNumber = event.mobNumber;
-    print(
-        '------------------------------------------------------------------total price new -------------');
-    print(amount);
-    print(propertyName);
-    print(mobileNumber);
 
     var options = {
       'key': 'rzp_test_c2uYTsjX7fZJVz',

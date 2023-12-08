@@ -8,14 +8,13 @@ import 'package:hotel_booking_user_app/resource/components/comman/text_widget.da
 import 'package:hotel_booking_user_app/utils/validation.dart';
 import 'package:hotel_booking_user_app/view/screen_parent_bottom_navigation.dart';
 import 'package:hotel_booking_user_app/view/screen_signup.dart';
-import 'package:permission_handler/permission_handler.dart';
 import '../blocs/home_bloc/home_bloc.dart';
 import '../blocs/rooms_bloc/rooms_bloc.dart';
 import '../blocs/user_bloc/user_bloc.dart';
-import '../blocs/wishlist_bloc/wishlist_bloc.dart';
 import '../resource/components/comman/textfeild.dart';
 import '../resource/components/signup_login_widgets/divider_widget.dart';
 
+// ignore: must_be_immutable
 class ScreenLogin extends StatelessWidget {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -29,8 +28,6 @@ class ScreenLogin extends StatelessWidget {
     double screenHeightTemp = MediaQuery.sizeOf(context).height;
     double safeAreaSize = MediaQuery.of(context).padding.top;
     double screenHeight = screenHeightTemp - safeAreaSize;
-
-    double widthHeight = MediaQuery.sizeOf(context).width;
 
     return Scaffold(
       body: ListView(
@@ -59,7 +56,7 @@ class ScreenLogin extends StatelessWidget {
                     SizedBox(
                       height: screenHeight * 0.03,
                     ),
-                    const textWidgetLoginSignin(
+                    const TextWidgetLoginSignin(
                         text: 'Find Your Favorite Hotels To Stay'),
                     SizedBox(
                       height: screenHeight * 0.03,
@@ -100,9 +97,7 @@ class ScreenLogin extends StatelessWidget {
                 builder: (context, state) {
                   return ButtonWidget(
                       loadingCheck: loadingCheck,
-                      onpressFunction: () {
-                        _requestPermissions(context);
-                      },
+                      onpressFunction: () => loginFunction(context),
                       text: 'Log In',
                       colorCheck: true);
                 },
@@ -134,7 +129,8 @@ class ScreenLogin extends StatelessWidget {
   loginFunction(BuildContext context) {
     if (loginFormKey.currentState!.validate()) {
       context.read<LoginBloc>().add(LoginCheckEvent(
-          email: emailController.text, password: passwordController.text));
+          email: emailController.text.trim(),
+          password: passwordController.text.trim()));
     }
   }
 
@@ -158,20 +154,6 @@ class ScreenLogin extends StatelessWidget {
 
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => ScreenParentNavigation()));
-    }
-  }
-
-  Future<void> _requestPermissions(BuildContext context) async {
-    Map<Permission, PermissionStatus> statuses = await [
-      Permission.storage,
-    ].request();
-
-    if (statuses[Permission.storage] == PermissionStatus.granted) {
-      loginFunction(context);
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-          content: Text(
-              'To Continue, please enable the Storage permission in the app settings')));
     }
   }
 }

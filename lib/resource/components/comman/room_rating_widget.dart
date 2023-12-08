@@ -11,7 +11,7 @@ class RatingRoomWidget extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Icon(
+        const Icon(
           Icons.star_rate_rounded,
           color: CustomColors.mainColor,
           size: 20,

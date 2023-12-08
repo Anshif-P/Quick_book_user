@@ -4,7 +4,7 @@ import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
 import 'package:hotel_booking_user_app/model/booked_rooms_model.dart';
 
 class AddStarsWidget extends StatefulWidget {
-  AddStarsWidget({
+  const AddStarsWidget({
     required this.data,
     required this.rating,
     Key? key,
@@ -15,6 +15,7 @@ class AddStarsWidget extends StatefulWidget {
   final ValueNotifier<double> rating;
 
   @override
+  // ignore: library_private_types_in_public_api
   _AddStarsWidgetState createState() => _AddStarsWidgetState();
 }
 
@@ -36,7 +37,7 @@ class _AddStarsWidgetState extends State<AddStarsWidget> {
               allowHalfRating: true,
               itemCount: 5,
               itemSize: 35,
-              itemBuilder: (context, _) => Icon(
+              itemBuilder: (context, _) => const Icon(
                 Icons.star_rate_rounded,
                 color: CustomColors.mainColor,
               ),
@@ -53,7 +54,7 @@ class _AddStarsWidgetState extends State<AddStarsWidget> {
   void _handleRatingUpdate(double rating) {
     // print(widget.rating.value.toString());
     widget.rating.value = rating;
+    // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
     widget.rating.notifyListeners();
-    print(widget.rating.value);
   }
 }

@@ -50,7 +50,7 @@ class ProfileListTileWidget extends StatelessWidget {
               },
             );
           }
-          return SizedBox();
+          return const SizedBox();
         }),
         const Divider(
           height: 1,
@@ -65,8 +65,8 @@ class ProfileListTileWidget extends StatelessWidget {
             color: CustomColors.lightGreyColor,
           ),
           onTap: () {
-            Navigator.of(context)
-                .push(MaterialPageRoute(builder: (context) => ScreenAppInfo()));
+            Navigator.of(context).push(
+                MaterialPageRoute(builder: (context) => const ScreenAppInfo()));
           },
         ),
         // const Divider(
@@ -151,11 +151,11 @@ class ProfileListTileWidget extends StatelessWidget {
           thickness: 0.5,
         ),
         ListTile(
-          leading: Icon(
+          leading: const Icon(
             Icons.logout_outlined,
             color: CustomColors.mainColor,
           ),
-          title: Text(
+          title: const Text(
             'Logout',
             style: TextStyle(color: CustomColors.mainColor),
           ),
@@ -163,12 +163,12 @@ class ProfileListTileWidget extends StatelessWidget {
             showDialog(
               context: context,
               builder: (BuildContext context) {
-                return LogoutDialog();
+                return const LogoutDialog();
               },
             );
           },
         ),
-        Divider(
+        const Divider(
           height: 1,
           color: CustomColors.lightGreyColor,
           thickness: 0.5,

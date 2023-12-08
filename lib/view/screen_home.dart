@@ -21,7 +21,7 @@ class ScreenHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: Drawer(child: ScreenDrawer()),
+      drawer: const Drawer(child: ScreenDrawer()),
       body: SafeArea(
         child: ListView(
           children: [

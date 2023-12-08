@@ -4,7 +4,7 @@ import 'package:hotel_booking_user_app/view/screen_login.dart';
 import '../../const/custom_colors.dart';
 
 class LogoutDialog extends StatelessWidget {
-  LogoutDialog({
+  const LogoutDialog({
     super.key,
   });
 
@@ -41,7 +41,7 @@ class LogoutDialog extends StatelessWidget {
             Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context) => ScreenLogin()));
           },
-          child: Text(
+          child: const Text(
             'Sign out',
             style: TextStyle(
               color: CustomColors.mainColor,

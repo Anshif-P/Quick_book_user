@@ -12,13 +12,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   FutureOr<void> loginCheckEvent(
       LoginCheckEvent event, Emitter<LoginState> emit) async {
     final userData = {'email': event.email, 'password': event.password};
-    print('$userData---------------------------------my map');
+
     emit(LoginLoadingState());
     final either = await AuthenticationRepo().loginUser(userData);
     either.fold((error) => emit(LoginErrorState(errorMessage: error.message)),
         (response) {
       if (response['status'] == 'success') {
-        print(response);
         emit(LoginSuccessState());
         SharedPrefModel.instance.insertData('token', response['token']);
       } else {

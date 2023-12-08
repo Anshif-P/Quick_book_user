@@ -9,13 +9,14 @@ class FavoriteWidget extends StatefulWidget {
   final List<WishlistModel> wishlist;
   final RoomsModel data;
 
-  FavoriteWidget({
+  const FavoriteWidget({
     Key? key,
     required this.wishlist,
     required this.data,
   }) : super(key: key);
 
   @override
+  // ignore: library_private_types_in_public_api
   _FavoriteWidgetState createState() => _FavoriteWidgetState();
 }
 
