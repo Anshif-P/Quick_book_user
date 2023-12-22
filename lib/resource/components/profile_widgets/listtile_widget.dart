@@ -23,7 +23,6 @@ class ProfileListTileWidget extends StatelessWidget {
           height: 10,
           color: CustomColors.extraLightGrey,
         ),
-
         BlocBuilder<WishlistBloc, WishlistState>(builder: (context, state) {
           if (state is FetchWishlistSuccessState) {
             wishList = data!
@@ -50,7 +49,9 @@ class ProfileListTileWidget extends StatelessWidget {
               },
             );
           }
-          return const SizedBox();
+          return const Column(
+            children: [Text('No Added Wishlist')],
+          );
         }),
         const Divider(
           height: 1,
@@ -69,22 +70,10 @@ class ProfileListTileWidget extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const ScreenAppInfo()));
           },
         ),
-        // const Divider(
-        //   height: 1,
-        //   color: CustomColors.lightGreyColor,
-        //   thickness: 0.5,
-        // ),
-
-        // const Divider(
-        //   height: 1,
-        //   color: CustomColors.lightGreyColor,
-        //   thickness: 0.5,
-        // ),
         Container(
           height: 10,
           color: CustomColors.extraLightGrey,
         ),
-
         ListTile(
           leading:
               const Icon(Icons.my_library_books_outlined, color: Colors.black),
@@ -127,24 +116,6 @@ class ProfileListTileWidget extends StatelessWidget {
             );
           },
         ),
-
-        // Divider(
-        //   height: 1,
-        //   color: CustomColors.lightGreyColor,
-        //   thickness: 0.5,
-        // ),
-        // Obx(
-        //   () => SwitchListTile(
-        //       secondary: Icon(
-        //         Icons.remove_red_eye_outlined,
-        //         color: Colors.black,
-        //       ),
-        //       title: Text('Dark Theme'),
-        //       value: isDarkThemeEnabled.value,
-        //       onChanged: (value) {
-        //         isDarkThemeEnabled.value = value;
-        //       }),
-        // ),
         const Divider(
           height: 1,
           color: CustomColors.lightGreyColor,

@@ -16,7 +16,6 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
   FutureOr<void> fetchBookedRoomsEvent(
       FetchBookedRoomsEvent event, Emitter<RoomsState> emit) async {
     token = event.token;
-
     final either = await RoomRepositories().getBookedRooms(token!);
     either.fold((error) {
       emit(FetchBookedRoomsErrorState(errorMessage: 'error'));
@@ -26,9 +25,8 @@ class RoomsBloc extends Bloc<RoomsEvent, RoomsState> {
 
         roomsObjList =
             bookedRoomsList.map((e) => BookedRoomModel.fromJson(e)).toList();
+        emit(FetchBookedRoomsSuccessState(roomList: roomsObjList));
       }
-
-      emit(FetchBookedRoomsSuccessState(roomList: roomsObjList));
     });
   }
 

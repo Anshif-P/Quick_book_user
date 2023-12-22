@@ -82,14 +82,6 @@ class ScreenProfile extends StatelessWidget {
                       },
                     ),
                   ),
-                  // Positioned(
-                  //     bottom: heightMidia * 0.0,
-                  //     right: 0,
-                  //     left: 0,
-                  //     child: Container(
-                  //       height: heightMidia * 0.02,
-                  //       color: CustomColors.extraLightGrey,
-                  //     )),
                 ],
               ),
             ),

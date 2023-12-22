@@ -3,23 +3,18 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:hotel_booking_user_app/resource/const/custom_colors.dart';
 import 'package:hotel_booking_user_app/model/booked_rooms_model.dart';
 
-class AddStarsWidget extends StatefulWidget {
-  const AddStarsWidget({
+// ignore: must_be_immutable
+class AddStarsWidget extends StatelessWidget {
+  AddStarsWidget({
     required this.data,
-    required this.rating,
+    required this.ratings,
     Key? key,
     this.bottomTextCheck = true,
   }) : super(key: key);
   final bool bottomTextCheck;
   final BookedRoomModel data;
-  final ValueNotifier<double> rating;
+  ValueNotifier<double> ratings;
 
-  @override
-  // ignore: library_private_types_in_public_api
-  _AddStarsWidgetState createState() => _AddStarsWidgetState();
-}
-
-class _AddStarsWidgetState extends State<AddStarsWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -29,7 +24,7 @@ class _AddStarsWidgetState extends State<AddStarsWidget> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           ValueListenableBuilder(
-            valueListenable: widget.rating,
+            valueListenable: ratings,
             builder: (context, value, child) => RatingBar.builder(
               initialRating: value,
               minRating: 1,
@@ -41,8 +36,8 @@ class _AddStarsWidgetState extends State<AddStarsWidget> {
                 Icons.star_rate_rounded,
                 color: CustomColors.mainColor,
               ),
-              onRatingUpdate: (rating) {
-                _handleRatingUpdate(rating);
+              onRatingUpdate: (ratings) {
+                _handleRatingUpdate(ratings);
               },
             ),
           ),
@@ -53,8 +48,8 @@ class _AddStarsWidgetState extends State<AddStarsWidget> {
 
   void _handleRatingUpdate(double rating) {
     // print(widget.rating.value.toString());
-    widget.rating.value = rating;
+    ratings.value = rating;
     // ignore: invalid_use_of_protected_member, invalid_use_of_visible_for_testing_member
-    widget.rating.notifyListeners();
+    ratings.notifyListeners();
   }
 }

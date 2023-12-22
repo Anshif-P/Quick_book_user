@@ -60,10 +60,17 @@ class BookingCardWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               GestureDetector(
-                onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => ScreenBookingDetails(
-                          data: data,
-                        ))),
+                onTap: () {
+                  final token = SharedPrefModel.instance.getData('token');
+                  context.read<ReviewBloc>().add(GetRoomReviews(
+                        roomId: data.roomId.id,
+                        token: token,
+                      ));
+                  Navigator.of(context).push(MaterialPageRoute(
+                      builder: (context) => ScreenBookingDetails(
+                            data: data,
+                          )));
+                },
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.start,

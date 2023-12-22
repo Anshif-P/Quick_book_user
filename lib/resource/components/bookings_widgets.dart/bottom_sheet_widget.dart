@@ -19,7 +19,8 @@ class BottomSheetWidget extends StatelessWidget {
       : super(key: key);
   final TextEditingController? reviewController;
   final BookedRoomModel data;
-  final ValueNotifier<double> rating = ValueNotifier<double>(0);
+  static final ValueNotifier<double> rating = ValueNotifier<double>(0);
+
   final GlobalKey<FormState> ratingFormKey = GlobalKey<FormState>();
   bool loadingCheck = false;
   final BuildContext homeContext;
@@ -34,7 +35,7 @@ class BottomSheetWidget extends StatelessWidget {
           children: [
             AddStarsWidget(
               data: data,
-              rating: rating,
+              ratings: rating,
             ),
             TextFieldWidget(
               text: 'Write a Review',

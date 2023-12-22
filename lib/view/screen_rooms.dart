@@ -8,7 +8,9 @@ import 'package:hotel_booking_user_app/resource/components/comman/comman_text_wi
 import 'package:hotel_booking_user_app/resource/components/comman/search_textfeild_widget.dart';
 import 'package:hotel_booking_user_app/resource/components/rooms_widget/search_filter.dart';
 import 'package:hotel_booking_user_app/view/screen_room_details.dart';
+import 'package:hotel_booking_user_app/view/screen_search_rooms.dart';
 import '../blocs/home_bloc/home_bloc.dart';
+import '../blocs/search_bloc/search_bloc.dart';
 import '../model/room_model.dart';
 import '../resource/components/rooms_widget/rooms_card_widget.dart';
 
@@ -26,7 +28,6 @@ class ScreenRooms extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // double screenWidth = MediaQuery.sizeOf(context).width;
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -64,6 +65,16 @@ class ScreenRooms extends StatelessWidget {
                     builder: (context, state) {
                       if (state is HomeFetchRoomsSuccessState) {
                         return InkWell(
+                          onTap: () {
+                            context.read<SearchBloc>().add(SearchHotelEvent(
+                                priceRange: null,
+                                query: null,
+                                amentiesList: []));
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => ScreenSearchRooms(
+                                      totalRooms: state.totalRoomList,
+                                    )));
+                          },
                           child: Row(
                             children: [
                               Expanded(
@@ -97,32 +108,38 @@ class ScreenRooms extends StatelessWidget {
                     itemCount: categorizedRooms!.length,
                     itemBuilder: (context, index) {
                       final data = categorizedRooms![index];
-
-                      return InkWell(
-                        onTap: () {
-                          final token =
-                              SharedPrefModel.instance.getData('token');
-                          context.read<CouponBloc>().add(GetRoomCouponsEvent(
-                              vendorId: data.vendorId.id, token: token));
-                          context.read<ReviewBloc>().add(GetRoomReviews(
-                                roomId: data.id,
-                                token: token,
-                              ));
-                          Navigator.of(context).push(MaterialPageRoute(
-                              builder: (context) =>
-                                  ScreenRoomDetails(data: data)));
-                        },
-                        child: Column(
-                          children: [
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            RoomsCardWidget(
-                              data: data,
-                            )
-                          ],
-                        ),
-                      );
+                      if (categorizedRooms!.isNotEmpty) {
+                        return InkWell(
+                          onTap: () {
+                            final token =
+                                SharedPrefModel.instance.getData('token');
+                            context.read<CouponBloc>().add(GetRoomCouponsEvent(
+                                vendorId: data.vendorId.id, token: token));
+                            context.read<ReviewBloc>().add(GetRoomReviews(
+                                  roomId: data.id,
+                                  token: token,
+                                ));
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) =>
+                                    ScreenRoomDetails(data: data)));
+                          },
+                          child: Column(
+                            children: [
+                              const SizedBox(
+                                height: 20,
+                              ),
+                              RoomsCardWidget(
+                                data: data,
+                              )
+                            ],
+                          ),
+                        );
+                      } else {
+                        return const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [Text('No Rooms Found')],
+                        );
+                      }
                     },
                   )
                 : BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {

@@ -174,11 +174,7 @@ class ScreenRoomDetails extends StatelessWidget {
                                 couponList: state.couponObjList,
                               );
                             }
-                            // if (couponList.isEmpty) {
-                            //   return const Center(
-                            //     child: Text('No Coupons Available'),
-                            //   );
-                            // }
+
                             return const SizedBox();
                           },
                         ),
@@ -282,38 +278,31 @@ class ScreenRoomDetails extends StatelessWidget {
                                     fontSize: 24,
                                   )),
                                 ),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.star_rate_rounded,
-                                      color: CustomColors.mainColor,
-                                      size: 20,
-                                    ),
-                                    BlocBuilder<ReviewBloc, ReviewState>(
-                                      builder: (context, state) {
-                                        if (state is ReviewFetchSuccessState &&
-                                            state.reviewObjList.isNotEmpty) {
-                                          return Text(
+                                BlocBuilder<ReviewBloc, ReviewState>(
+                                  builder: (context, state) {
+                                    if (state is ReviewFetchSuccessState &&
+                                        state.reviewObjList.isNotEmpty) {
+                                      return Row(
+                                        children: [
+                                          const Icon(
+                                            Icons.star_rate_rounded,
+                                            color: CustomColors.mainColor,
+                                            size: 20,
+                                          ),
+                                          Text(
                                             '(${state.reviewObjList[0].stars})',
                                             style: GoogleFonts.inter(
                                                 textStyle: const TextStyle(
                                               color: Colors.black,
                                               fontSize: 20,
                                             )),
-                                          );
-                                        } else {
-                                          return Text(
-                                            '(0)',
-                                            style: GoogleFonts.inter(
-                                                textStyle: const TextStyle(
-                                              color: Colors.black,
-                                              fontSize: 20,
-                                            )),
-                                          );
-                                        }
-                                      },
-                                    )
-                                  ],
+                                          ),
+                                        ],
+                                      );
+                                    } else {
+                                      return const SizedBox();
+                                    }
+                                  },
                                 ),
                               ],
                             ),

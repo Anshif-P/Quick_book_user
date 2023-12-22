@@ -117,56 +117,7 @@ class HomeCardWidget extends StatelessWidget {
             },
           );
         }
-        return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Expanded(
-            flex: 5,
-            child: Container(
-              decoration: const BoxDecoration(
-                  color: CustomColors.textFeildIconColor,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(8),
-                      topRight: Radius.circular(8))),
-              // height: 150,
-              width: 300,
-            ),
-          ),
-          Expanded(
-            flex: 2,
-            child: Container(
-              width: 300,
-              decoration: const BoxDecoration(
-                color: CustomColors.grey,
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(5),
-                    bottomRight: Radius.circular(5)),
-              ),
-              child: const Padding(
-                padding: EdgeInsets.all(10),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    CustomTextWidget(
-                        text: 'No Rooms Found',
-                        color: CustomColors.blackColor,
-                        fontSize: 13,
-                        fontWeight: FontWeight.w600),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        LocationHomeWidget(text1: ',', text2: ''),
-                        CustomTextWidget(
-                            text: '',
-                            color: CustomColors.blackColor,
-                            fontSize: 14,
-                            fontWeight: FontWeight.w600)
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          )
-        ]);
+        return const SizedBox();
       },
     );
   }

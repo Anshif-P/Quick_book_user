@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:hotel_booking_user_app/blocs/review_bloc/review_bloc.dart';
 import 'package:hotel_booking_user_app/model/booked_rooms_model.dart';
 import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
@@ -69,13 +71,21 @@ class ScreenBookingDetails extends StatelessWidget {
                 Text(data.vendorId.propertyName,
                     style: GoogleFonts.inter(
                         fontSize: 19, fontWeight: FontWeight.w600)),
-                const Row(children: [
-                  Icon(Icons.star_rate_rounded,
-                      color: CustomColors.mainColor, size: 18),
-                  BookingDetailsTextWidget(
-                    text: '(4.0)',
-                  ),
-                ])
+                BlocBuilder<ReviewBloc, ReviewState>(
+                  builder: (context, state) {
+                    if (state is ReviewFetchSuccessState &&
+                        state.reviewObjList.isNotEmpty) {
+                      return Row(children: [
+                        const Icon(Icons.star_rate_rounded,
+                            color: CustomColors.mainColor, size: 18),
+                        BookingDetailsTextWidget(
+                          text: '(${state.reviewObjList[0].stars})',
+                        ),
+                      ]);
+                    }
+                    return const SizedBox();
+                  },
+                )
               ]),
               SizedBox(height: heightMedia * 0.005),
               LocationTextWidget(
@@ -113,7 +123,7 @@ class ScreenBookingDetails extends StatelessWidget {
                 adult: data.adult.toString(),
                 days: data.days.toString(),
                 roomType: data.roomId.category,
-                totalRoom: '3',
+                totalRoom: data.rooms.toString(),
               ),
               BookingDetailsTextWidget(
                 text: '${data.roomId.propertyType} infomation',

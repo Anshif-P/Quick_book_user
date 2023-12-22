@@ -34,50 +34,53 @@ class SearchFilterWidget extends StatelessWidget {
             color: CustomColors.extraLightGrey,
             borderRadius: BorderRadius.circular(7)),
         duration: const Duration(seconds: 0),
-        height: containerVisiblity.value ? 270 : 0,
+        height: containerVisiblity.value ? 280 : 0,
         width: double.maxFinite,
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 15),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const CustomTextWidget(
-                    text: 'Amenties',
-                    color: CustomColors.blackColor,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w600),
-                CheckBoxWidget(filterList: ametiesList),
-                const SizedBox(
-                  height: 8,
-                ),
-                PriceFilterWidget(
-                  maxPrice: 15000,
-                  minPrice: 500,
-                  selectedPrice: selectedPrice,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    ValueListenableBuilder(
-                      valueListenable: queryNotifier,
-                      builder: (context, value, child) =>
-                          CustomButtonForCouponApplyType(
-                              text: 'Apply',
-                              color: CustomColors.mainColor,
-                              onPressedFunction: () {
-                                containerVisiblity.value =
-                                    !containerVisiblity.value;
-                                context.read<SearchBloc>().add(SearchHotelEvent(
-                                    query: value,
-                                    amentiesList: ametiesList.value,
-                                    priceRange: selectedPrice.value));
-                              }),
-                    ),
-                  ],
-                ),
-              ],
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const CustomTextWidget(
+                      text: 'Amenties',
+                      color: CustomColors.blackColor,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w600),
+                  CheckBoxWidget(filterList: ametiesList),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  PriceFilterWidget(
+                    maxPrice: 15000,
+                    minPrice: 500,
+                    selectedPrice: selectedPrice,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      ValueListenableBuilder(
+                        valueListenable: queryNotifier,
+                        builder: (context, value, child) =>
+                            CustomButtonForCouponApplyType(
+                                text: 'Apply',
+                                color: CustomColors.mainColor,
+                                onPressedFunction: () {
+                                  containerVisiblity.value =
+                                      !containerVisiblity.value;
+                                  context.read<SearchBloc>().add(
+                                      SearchHotelEvent(
+                                          query: value,
+                                          amentiesList: ametiesList.value,
+                                          priceRange: selectedPrice.value));
+                                }),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

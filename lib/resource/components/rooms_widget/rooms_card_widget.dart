@@ -53,39 +53,51 @@ class RoomsCardWidget extends StatelessWidget {
                     padding: const EdgeInsets.only(left: 14),
                     child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          CardsHeadingTextWidget(
-                              text:
-                                  '${data.vendorId.propertyName} ${data.propertyType}'),
-                          const SizedBox(
-                            height: 4,
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              CardsHeadingTextWidget(
+                                  text:
+                                      '${data.vendorId.propertyName} ${data.propertyType}'),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              LocationTextWidget(
+                                  text1: data.state, text2: data.city),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              RoomCardTextWidget(
+                                text: 'Capacity : ${data.capacity}',
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              RoomCardTextWidget(
+                                text: data.description,
+                                colorSizeCheck: true,
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                            ],
                           ),
-                          LocationTextWidget(
-                              text1: data.state, text2: data.city),
-                          const SizedBox(
-                            height: 4,
+                          const Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              RoomCardTextWidget(text: 'Room Price :'),
+                            ],
                           ),
-                          RoomCardTextWidget(
-                            text: 'Capacity : ${data.capacity}',
-                          ),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          RoomCardTextWidget(
-                            text: data.description,
-                            colorSizeCheck: true,
-                          ),
-                          const SizedBox(
-                            height: 4,
-                          ),
-                          const RoomCardTextWidget(text: 'Room Price :'),
                         ]),
                   )),
               Expanded(
                 flex: 2,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     RoomCardPriceWidget(
                       text: data.price,

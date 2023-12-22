@@ -235,10 +235,17 @@ class _ScreenPaymentState extends State<ScreenPayment> {
                         bookingsData: dateRangeNotifier.value,
                         startDate: dateRangeNotifier.value.start.toString(),
                         endDate: dateRangeNotifier.value.end.toString()));
+                    final token = SharedPrefModel.instance.getData('token');
+                    context
+                        .read<RoomsBloc>()
+                        .add(FetchBookedRoomsEvent(token: token));
                     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                       content: Text('Room Booked Successfully'),
                       backgroundColor: CustomColors.greenColor,
                     ));
+
+                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Payment Successfully Completed')));
                     Navigator.of(context).pushReplacement(MaterialPageRoute(
                         builder: (context) => ScreenParentNavigation()));
                   } else if (state is PayementFailedState) {
@@ -256,7 +263,6 @@ class _ScreenPaymentState extends State<ScreenPayment> {
                             SnackBar(content: Text(state.errorMessage)));
                         bookingLoadingCheck = false;
                       }
-
                       if (state is BookingSuccessState) {
                         final token = SharedPrefModel.instance.getData('token');
                         context
@@ -267,8 +273,8 @@ class _ScreenPaymentState extends State<ScreenPayment> {
                                 content:
                                     Text('Payment Successfully Completed')));
                         bookingLoadingCheck = false;
-                        Navigator.of(context).pushReplacement(MaterialPageRoute(
-                            builder: (context) => ScreenParentNavigation()));
+                        // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        //     builder: (context) => ScreenParentNavigation()));
                       }
                     },
                     builder: (context, state) =>

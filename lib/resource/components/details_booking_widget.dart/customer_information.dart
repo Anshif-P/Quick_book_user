@@ -1,5 +1,7 @@
-import 'package:flutter/material.dart';
+// ignore_for_file: deprecated_member_use
 
+import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import '../../const/custom_colors.dart';
 import 'text_cusomerinfo.dart';
 
@@ -42,10 +44,15 @@ class CustomerInformationWidget extends StatelessWidget {
                 SizedBox(
                   height: heightMedia * 0.015,
                 ),
-                CusomerInfoTextWidget(
-                  text1: 'Mobile No :',
-                  text2: '  $mobNo',
-                  colorCheck: true,
+                InkWell(
+                  onTap: () {
+                    _launchCall(mobNo);
+                  },
+                  child: CusomerInfoTextWidget(
+                    text1: 'Mobile No :',
+                    text2: '  $mobNo',
+                    colorCheck: true,
+                  ),
                 ),
                 SizedBox(
                   height: heightMedia * 0.015,
@@ -58,5 +65,14 @@ class CustomerInformationWidget extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  _launchCall(String phoneNumber) async {
+    final url = 'tel:$phoneNumber';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
