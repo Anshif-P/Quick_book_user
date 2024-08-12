@@ -85,8 +85,9 @@ class HomeCardWidget extends StatelessWidget {
                                 bottomRight: Radius.circular(5)),
                           ),
                           child: Padding(
-                            padding: const EdgeInsets.all(10),
+                            padding: const EdgeInsets.symmetric(horizontal: 10),
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 CustomTextWidget(

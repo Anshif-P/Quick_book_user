@@ -48,9 +48,9 @@ class CheckBoxWidget extends StatelessWidget {
                 valueListenable: filterList,
                 builder: (context, value, child) => Checkbox(
                   overlayColor:
-                      MaterialStateColor.resolveWith((states) => Colors.white),
+                      WidgetStateColor.resolveWith((states) => Colors.white),
                   fillColor:
-                      MaterialStateColor.resolveWith((states) => Colors.grey),
+                      WidgetStateColor.resolveWith((states) => Colors.grey),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(3),
                   ),

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/booking_bloc/booking_bloc.dart';
-
 import 'package:hotel_booking_user_app/blocs/coupon_bloc/coupon_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/date_checking_bloc/date_checking_bloc.dart';
 import 'package:hotel_booking_user_app/blocs/home_bloc/home_bloc.dart';
